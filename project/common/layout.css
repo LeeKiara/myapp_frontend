@@ -1,0 +1,98 @@
+header,
+div,
+main,
+aside,
+container,
+section,
+footer {
+  /* border: 1px dashed black; */
+  margin: 10px 10px;
+}
+
+/* body 영역을 flexbox로 지정 */
+body {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid blue; */
+  color: grey;
+}
+
+header,
+footer {
+  flex: 1;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  /* line-height: 80px; */
+  margin-top: 0px;
+  /* height: 50px; */
+  display: flex;  
+  justify-content: space-between;  
+  /* line-height: 70px; */
+  color: gray;
+  font-weight: 800; 
+  font-style:italic;
+  border-bottom: 1px solid #ddd;
+  background-color: #eee;
+margin-bottom: 0px;
+padding-bottom: 0px;
+width: 80%;
+}
+
+
+header > div:nth-of-type(2) {
+  flex: 8;
+}
+/* <!-- 메인 컨텐츠(탑 메뉴) --> */
+header > div:nth-of-type(2) >  nav > ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  list-style: none;
+  /* 최상위 html font-size(16px)의 1.8배 */
+  font-size: 1.8rem;
+  font-weight: 700;  
+}
+
+/* main 영역을 flexbox로 지정 */
+main {
+  display: flex;
+  flex-direction: row;
+  flex: 8;
+  /* border: 1px solid red; */
+}
+
+aside {
+  flex: 1;
+  justify-content: top;
+}
+
+container {
+  flex: 5;
+}
+
+/* <!-- 좌측 공통 메뉴 --> */
+aside > div {
+  text-align: center;
+}
+aside > div > button {
+  width: 176px;
+  height: 40px;
+  line-height: 40px;
+  background: #6449fc;    
+  border-radius: 4px;
+  margin: 0 auto;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+  
+}
+
+aside > div:nth-of-type(2) > ul {
+  line-height: 30px;
+  text-align: left;
+  padding-left: 60px;
+}
+
