@@ -5,8 +5,7 @@ let currentQuery = ""; // 현재 검색 키워드
 
 function cardTemplate(item) {
   const template = /*html*/ `
-  <div class="item">
-    <a href="">
+  <div class="item">    
       <ul data-no='${item.projectId}'>
         <li>      
         ${item.image ? `<img src="${item.image}" alt="${item.title}">` : ""}
@@ -14,7 +13,6 @@ function cardTemplate(item) {
         <li>'${item.title}'</li>
         <li>'${item.description}'</li>
       </ul>
-    </a>
   </div>
   `;
   

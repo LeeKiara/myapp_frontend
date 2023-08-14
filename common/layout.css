@@ -12,9 +12,12 @@ footer {
 /* body 영역을 flexbox로 지정 */
 body {
   display: flex;
-  flex-direction: column;
-  /* border: 1px solid blue; */
+  flex-direction: column;  
   color: grey;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
 }
 
 header,
@@ -36,9 +39,9 @@ header {
   font-style:italic;
   border-bottom: 1px solid #ddd;
   background-color: #eee;
-margin-bottom: 0px;
-padding-bottom: 0px;
-width: 80%;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  width: 80%;
 }
 
 
@@ -61,7 +64,11 @@ main {
   display: flex;
   flex-direction: row;
   flex: 8;
-  /* border: 1px solid red; */
+  /* width: 90%; */
+  max-width: 900px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 aside {
