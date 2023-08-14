@@ -1,0 +1,39 @@
+.card-layout {
+  display: flex;
+  width: 600px;
+  /* border: 1px solid red; */
+  padding: 10px;
+  margin: 20px;
+}
+
+.item {
+  border: 1px solid black;
+  width: 150px;
+  height: 200px;
+  text-align: center;
+  margin: 0px 0px 30px 0px;
+}
+
+.item img {
+  height: 110px;
+}
+
+.between {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+li {
+  list-style: none;
+  line-height: 20px;
+}
+
+li:nth-of-type(2) {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+li:nth-of-type(3) {
+  font-size: 0.9rem;
+  text-align: left;
+}

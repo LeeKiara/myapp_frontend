@@ -9,6 +9,9 @@
       const form = document.forms[0];
       form.reset();
 
+      const divProjectImage = document.getElementById("project-image");
+      divProjectImage.remove();
+
   });
 })();
 
@@ -55,8 +58,7 @@
       return;
     }
 
-    if (file.files[0]) {
-      // 파일이 있을 때
+    if (file.files[0]) {  // 파일이 있을 때      
       const reader = new FileReader();
       // reader로 파일을 읽기가 완료되면 실행되면 이벤트 핸들러 함수
       reader.addEventListener(
@@ -65,44 +67,53 @@
           console.log(e);
           // file -> base64 data-url
           const image = e.target.result;
-
-          // 이미지가 삽입된 div 요소 생성
-          const div = createImage(image);
-
+          createProject(image);
         }
       );
       // 파일을 dataURL(base64)로 읽음
       reader.readAsDataURL(file.files[0]);
+    } else {
+      // 파일이 없을 때
+      createProject();
     }
 
-    const imageElement = document.querySelector("img");
+    // 데이터를 서버에 전송, 결과값으로 UI요소 생성
+    async function createProject(image) {
 
-    // 서버에 Http 요청 (프로젝트 생성)
-    const response = await fetch("http://localhost:8080/project", {
-          // HTTP Method  
-          method: "POST",
-          // 보낼 데이터 형식은 json
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-              title,          
-              description,          
-              startDate,          
-              endDate,
-              image: imageElement ? imageElement.src : null,
-          }),
-        });
+      // 서버에 Http 요청 (프로젝트 생성)
+      // fetch : url, option
+      const response = await fetch("http://localhost:8080/project", 
+      {
+        // HTTP Method  
+        method: "POST",
+        // 보낼 데이터 형식은 json
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,          
+          description,          
+          startDate,          
+          endDate,
+          image: image ? image : null,
+        }),
+      });
 
-    const result = await response.json();
+      // 서버에서 response 받기
+      const result = await response.json();
 
-    console.log("----debug---")
-    console.log("result"+result);
-    console.log("response.status:"+response.status);
+      // const { data } = result;
 
-    if ([201].includes(response.status)) {
-      alert("프로젝트가 생성되었습니다.");
-    }
+      console.log("----debug---")
+      console.log("result"+result);
+      console.log("response.status:"+response.status);
+
+      if ([201].includes(response.status)) {
+        alert("프로젝트가 생성되었습니다.");
+      }
+
+    }    
+    
   });
 
 })();
@@ -116,7 +127,7 @@ function createImage(image) {
     : ""
   }`;
 
-  const divProjectImage = document.getElementById("projectImage");
+  const divProjectImage = document.getElementById("project-image");
 
   divProjectImage.insertAdjacentHTML(
       "afterbegin",

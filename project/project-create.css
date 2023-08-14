@@ -1,4 +1,4 @@
-body {
+/* body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,11 +8,11 @@ body {
 
 main {
   width: 90%;
-  max-width: 800px;
+  max-width: 900px;
   padding: 20px;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+} */
 
 form {
   margin: 0;
