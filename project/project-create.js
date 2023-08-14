@@ -1,6 +1,21 @@
-(()=>{
+// New Project button
+(() => {
 
-  const btnSave = document.querySelector("button");
+  const btnAddProject = document.querySelector("aside").querySelector("button");
+
+  btnAddProject.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const form = document.forms[0];
+      form.reset();
+
+  });
+})();
+
+// Add Project button event & Sever module fetch
+(()=>{
+  
+  const btnSave = document.querySelector("article").querySelector("button");
 
   btnSave.addEventListener("click", async(e) => {
 
@@ -50,11 +65,9 @@
           console.log(e);
           // file -> base64 data-url
           const image = e.target.result;
-          alert(image);
 
           // 이미지가 삽입된 div 요소 생성
           const div = createImage(image);
-          alert(div.outerHTML);
 
         }
       );
@@ -112,3 +125,4 @@ function createImage(image) {
 
   return divProjectImage;
 }
+
