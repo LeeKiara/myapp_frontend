@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<input type="date" id="startDateInput" placeholder="시작일" />
+
+		<script>
+			// 시작일 input 요소 가져오기
+			var startDateInput = document.getElementById("startDateInput");
+
+			// 오늘 날짜를 기본값으로 설정
+			var today = new Date();
+			var formattedDate = today.toISOString().substr(0, 10); // YYYY-MM-DD 형식으로 변환
+
+			startDateInput.value = formattedDate;
+		</script>
+	</body>
+</html>

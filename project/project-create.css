@@ -87,6 +87,21 @@ button {
   background: #ccc;
 }
 
+.image-layer {
+  display: flex;
+  flex-direction: row;
+}
+
+.image-layer div {
+  margin-left: 0px;
+  border: 1px solid black;  
+  width: 200px;
+  box-shadow: 0 0 8px 0 #aaa;
+}
+
+.image-layer img {
+  width: 100%;
+}
 
 #modify-layer {
   position: fixed;
