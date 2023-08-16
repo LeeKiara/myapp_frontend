@@ -85,7 +85,7 @@ aside > div {
   text-align: center;
 }
 /* 버튼 : 새 프로젝트 */
-aside > div > button {
+aside button {
   width: 176px;
   height: 40px;
   line-height: 20px;
@@ -95,7 +95,7 @@ aside > div > button {
   color: #fff;
   font-weight: 500;
   text-align: center;
-  
+  cursor: pointer;
 }
 
 aside > div:nth-of-type(2) > ul {

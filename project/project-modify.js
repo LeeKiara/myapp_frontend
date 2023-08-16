@@ -40,15 +40,14 @@ async function getProject(projectid) {
 	form.querySelector("input").value = result.data.title; // 제목
 	form.querySelector("textarea").value = result.data.description; // 설명
 
-	// 시작일
+
+	// 시작일	
 	const startDateInput = document.getElementById("startDateInput");
-	startDateInput.value = new Date(result.data.startDate)
-		.toISOString()
-		.slice(0, 10); // YYYY-MM-DD 형식으로 변환
+	startDateInput.value = dateFormat(new Date(result.data.startDate)); // YYYY-MM-DD 형식으로 변환
 
 	// 종료일
 	const endDateInput = document.getElementById("endDateInput");
-	endDateInput.value = new Date(result.data.endDate).toISOString().slice(0, 10); // YYYY-MM-DD 형식으로 변환
+	endDateInput.value = dateFormat(new Date(result.data.endDate)); // YYYY-MM-DD 형식으로 변환
 
 	// 이미지 표시
 	createImage(result.data.image);
@@ -68,6 +67,14 @@ function createImage(image) {
 	divProjectImage.insertAdjacentHTML("afterbegin", template);
 
 	return divProjectImage;
+}
+
+// 날짜 포맷 (yyyy-MM-dd)
+function dateFormat(date) {
+	let resultDateFormat = date.getFullYear() +
+		'-' + ((date.getMonth() + 1) < 9 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)) +
+		'-' + ((date.getDate()) < 9 ? "0" + (date.getDate()) : (date.getDate()));
+	return resultDateFormat;
 }
 
 // 이미지 파일 선택 후 div에 선택된 이미지 보여주기
