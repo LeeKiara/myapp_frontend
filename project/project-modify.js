@@ -12,8 +12,8 @@
 		}
 
 		// 폼 데이터를 사용하여 프로젝트 정보 조회
-		// alert(formData.projectid);
-		getProject(formData.projectid);
+		// alert(formData.projectno);
+		getProject(formData.projectno);
 
 		// 이미지 파일 선택 후 div에 선택된 이미지 보여주기
 		loadImage();
@@ -21,10 +21,10 @@
 })();
 
 // 데이터 조회(프로젝트 정보)
-async function getProject(projectid) {
-	// alert(projectid);
+async function getProject(projectno) {
+	// alert(projectno);
 
-	let url = `http://localhost:8080/project/${projectid}`;
+	let url = `http://localhost:8080/project/${projectno}`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -52,7 +52,7 @@ async function getProject(projectid) {
 	// 이미지 표시
 	createImage(result.data.image);
 
-	form.querySelector("input[name='projectid']").value = result.data.projectid; // projectid
+	form.querySelector("input[name='projectno']").value = result.data.projectNo; // projectno
 	form.querySelector("input[name='status']").value = result.data.status; // project 상태
 }
 
@@ -109,30 +109,30 @@ function loadImage() {
 
 // 프로젝트 정보 수정(서버로 요청)
 (() => {
-	const btnSave = document.querySelector("article button");
+	const btnSave = document.querySelector("article button:nth-of-type(1)");
 
 	btnSave.addEventListener("click", async (e) => {
 		e.preventDefault();
 
 		const form = document.forms[0];
 
+		const projectno = form.querySelector("input[name='projectno']").value;
 		const title = form.querySelector("input[name='title']").value;
 		const description = form.querySelector(
 			"textarea[name='description']"
 		).value;
 		const startDate = form.querySelector("input[name='start-date']").value;
 		const endDate = form.querySelector("input[name='end-date']").value;
-		const projectid = form.querySelector("input[name='projectid']").value;
 		const status = form.querySelector("input[name='status']").value;
 
 		const file = form.querySelector("input[name='image-file']");
 
 		console.log("----debug---");
+		console.log("projectno:" + projectno);
 		console.log("title:" + title);
 		console.log("description:" + description);
 		console.log("startDate:" + startDate);
 		console.log("endDate:" + endDate);
-		console.log("projectid:" + projectid);
 		console.log("status:" + status);
 
 		if (title === "") {
@@ -163,23 +163,23 @@ function loadImage() {
 				console.log(e);
 				// file -> base64 data-url
 				const image = e.target.result;
-				modifyProject(projectid, image);
+				modifyProject(projectno, image);
 			});
 			// 파일을 dataURL(base64)로 읽음
 			reader.readAsDataURL(file.files[0]);
 		} else {
 			// 파일이 없을 때
-			modifyProject(projectid);
+			modifyProject(projectno);
 		}
 
 		// 데이터를 서버에 전송, 결과값으로 UI요소 생성
-		async function modifyProject(projectid, image) {
+		async function modifyProject(projectno, image) {
 			console.log(image);
 
 			// 서버에 Http 요청 (프로젝트 수정)
 			// fetch : url, option
 			const response = await fetch(
-				`http://localhost:8080/project/${projectid}`,
+				`http://localhost:8080/project/${projectno}`,
 				{
 					// HTTP Method
 					method: "PUT",
@@ -206,3 +206,50 @@ function loadImage() {
 		}
 	});
 })();
+
+// 프로젝트 정보 삭제(서버로 요청)
+(() => {
+	const btnRemove = document.querySelector("article button:nth-of-type(2)");
+
+	btnRemove.addEventListener("click", async (e) => {
+		e.preventDefault();
+
+		if(!confirm("삭제 하시겠습니까?")) {
+			return;
+		}
+
+		const form = document.forms[0];
+
+		const projectno = form.querySelector("input[name='projectno']").value;
+		console.log("----debug---");
+		console.log("projectno:" + projectno);
+
+		if (projectno === null) {
+			alert("삭제 대상이 선택되지 않았습니다.");
+			return;
+		}
+
+		// 서버에 Http 요청 (프로젝트 수정)
+		// fetch : url, option
+		const response = await fetch(
+			`http://localhost:8080/project/${projectno}`,
+			{
+				// HTTP Method
+				method: "DELETE",
+			}
+		);
+
+		console.log(response.status);
+
+		if ([200].includes(response.status)) {
+			alert("프로젝트가 삭제 되었습니다.");
+
+			window.location.href = "/project/project-list.html";
+		} else {
+			window.location.href = "/common/system-notice.html";
+		}
+
+	});
+			
+})();
+

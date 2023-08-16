@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+
+      /* 
+      flexbox로 선정
+      display: flex로 되어있는 요소; 
+      기본적으로 요소를 행으로 배치하며, 왼쪽에서 오른쪽으로 배치
+      */
+      display: flex;
+      border: 1px solid red;
+      padding: 10px;
+      margin: 20px;
+      /* 기본적으로 아이템을 행으로(옆으로) 배치 */
+      /* flex-direction: row; */
+    }
+
+    .item {
+      border: 1px solid black;
+      width: 100px;
+      height: 100px;
+      text-align: center;
+    }
+
+    .item-wo-height {
+      border: 1px solid black;
+      width: 100px;
+    }
+
+    .item-wo-size {
+      border: 1px solid black;
+    }
+
+    .col {
+      flex-direction: column;
+    }
+
+    .wrap {
+      /* flex 컨테이너 밖으로 item이 나간다. */
+      /* 교차축으로 내려준다 */
+      flex-wrap: wrap;
+    }
+
+    .grow {
+      /* flex 아이템의 늘리는 비율 =>여분공간만큼 늘림 */
+      flex-grow: 1;
+    }
+
+    .grow-2 {
+      /* flex 아이템의 늘리는 비율 =>여분공간만큼 늘림 */
+      flex-grow: 2;
+    }
+
+    .shrink-2 {
+      /* shrink 속성값 비율만큼 줄인다. */
+      flex-shrink: 2;
+    }
+
+    .flex-short {
+      /* flex-basis: 크기값 */
+      /* flex item의 주축의 기본크기 */
+      /* flex 요소는 flex-basis 주축크기 지정 */
+      flex: 1 1 auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 기본적으로 item이 컨테이너 주축보다 넘쳐도 밑으로 떨어지지 않는다. -->
+  <div class="container wrap" style="width: 500px;">
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+    <div class="item-wo-size">1</div>
+    <div class="item-wo-size">2</div>
+    <div class="item-wo-size">3</div>
+  </div>
+
+  <div class="container">
+    <!-- 1 item과 2item이 여분공간을 1:1로 먹는다. -->
+    <div class="item-wo-size grow">1</div>
+    <div class="item-wo-size grow">2</div>
+    <div class="item-wo-size ">3</div>
+  </div>
+
+  <div class="container">
+    <!-- 1 item과 2item이 1:2 배율 -->
+    <div class="item-wo-size grow">1</div>
+    <div class="item-wo-size grow-2">2</div>
+    <div class="item-wo-size ">3</div>
+  </div>
+
+  <div class="container">
+    <div class="item">3</div>
+    <div class="item">1</div>
+    <div class="item shrink-2">1</div>
+    <div class="item shrink-2">2</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+
+  <div class="container">
+    <div class="item flex-short">3</div>
+    <div class="item flex-short">3</div>
+    <div class="item flex-short">3</div>
+    <div class="item flex-short">3</div>
+  </div>
+
+</html>

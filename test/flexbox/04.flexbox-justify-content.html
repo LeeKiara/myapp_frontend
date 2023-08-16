@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .card-layout {
+      display: flex;
+      width: 650px;
+      border: 1px solid red;
+      padding: 10px;
+      margin: 20px;
+    }
+
+    .item {
+      border: 1px solid black;
+      width: 150px;
+      height: 150px;
+      text-align: center;
+      margin: 0px 30px 30px 30px;
+    }
+
+    .even {
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+    }
+
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- wrap : 주축방향의 내려주기 -->
+  <!-- grow/shrink: 비율에 따라서 늘기기/줄이기 -->
+  <!-- align : 주축/교차축 정렬배분 -->
+
+  <!-- space-evenly 주축 시작/끝 지점과 item간의 공간을 균등 배분-->
+  <div class="card-layout even">
+    <div class="item">
+      <ul>
+        <li><img src="" alt="">이미지</li>
+        <li>프로젝트명</li>
+        <li>소개</li>
+      </ul>
+    </div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">11</div>
+    <div class="item">22</div>
+    <div class="item">33</div>
+  </div>
+
+
+
+
+</body>
+
+
+
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+
+      /* 
+      flexbox로 선성
+      display: flex로 되어있는 요소; 
+      기본적으로 요소를 행으로 배치하며, 왼쪽에서 오른쪽으로 배치
+      */
+      display: flex;
+      border: 1px solid red;
+      padding: 10px;
+      margin: 20px;
+      /* 기본적으로 아이템을 행으로(옆으로) 배치 */
+      /* flex-direction: row; */
+    }
+
+    .item {
+      border: 1px solid black;
+      width: 100px;
+      height: 100px;
+    }
+
+    .row-reverse {
+      flex-direction: row-reverse;
+    }
+
+    /* flex-direction 속성으로 지정하는 방향 
+      - 주측(main axis) 
+      - 반대방향이 cross axis(교차측) */
+    .col {
+      flex-direction: column;
+    }
+
+    .col-reverse {
+      flex-direction: row;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- flex 박스는 아이템간 공간 배분 및 정렬 등의 기능을 제공 -->
+  <!-- 1차원 레이아웃 모델 : 행 또는 열만 처리함 -->
+  <div class="container">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <span class="item">이름</span>
+  </div>
+  <div class="container row-reverse">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+
+  <div class="container col">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+
+  <div class="container col-reverse">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+</body>
+
+</html>

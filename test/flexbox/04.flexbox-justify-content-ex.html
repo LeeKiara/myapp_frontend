@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      width: 900px;
+    }
+
+    .container {
+      display: flex;
+      border: 1px solid red;
+      padding: 10px;
+      margin: 20px;
+      flex-wrap: wrap;
+    }
+
+    .item {
+      border: 1px solid black;
+      width: 100px;
+      height: 100px;
+      text-align: center;
+    }
+
+    /* justify-content : 주축정렬 */
+    .end {
+      justify-content: end;
+    }
+
+    .center {
+      justify-content: center;
+    }
+
+    .between {
+      justify-content: space-between;
+    }
+
+    .around {
+      justify-content: space-around;
+    }
+
+    .even {
+      justify-content: space-evenly;
+    }
+
+    nav ul {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .gap-10 {
+      /* flex item간 간격을 주는 방법 */
+      /* 
+        flex를 쓰게되면 margin으로 처리하는 방법이
+        어려울 때가 있음 
+        */
+      gap: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="container gap-10">
+    <ul>
+      <li><a href="#recipe01">햄치즈 샌드위치</a></li>
+      <li><a href="#recipe02">토마토 스파게티</a></li>
+      <li><a href="#recipe03">두부 스테이크</a></li>
+    </ul>
+  </nav>
+
+  <!-- wrap : 주축방향의 내려주기 -->
+  <!-- grow/shrink: 비율에 따라서 늘기기/줄이기 -->
+  <!-- align : 주축/교차축 정렬배분 -->
+
+  <!-- 주축 start 부터 정렬을 합니다. -->
+  <div class="container" style="width: 500px;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+
+  <!-- 주축 end로 정렬 -->
+  <div class="container end" style="width: 500px;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+
+  <!-- 주축 center로 정렬 -->
+  <div class="container center" style="width: 500px;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+
+  <!-- space-between 주축 item간의 공간을 균등 배분-->
+  <div class="container between" style="width: 500px;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+
+  <!-- space-around 주축 item 주위에 여유공간을 균등 배분-->
+  <div class="container around" style="width: 500px;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+
+  <!-- space-evenly 주축 시작/끝 지점과 item간의 공간을 균등 배분-->
+  <div class="container even" style="width: 500px;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+
+
+
+</body>
+
+
+
+
+</html>

@@ -50,15 +50,22 @@ textarea:focus {
   box-shadow: 0 0 8px 0 dodgerBlue;
 }
 
-button {
-  display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px; /* Add this line to round the corners */
-    cursor: pointer;
-    width: 200px;
+.button-layer {
+  text-align: center;
+  display: flex;
+  width: 480px;
+  justify-content: space-evenly;
+  margin-top: 50px;
+  /* border: 1px solid black; */
+}
+.button-layer button {
+  width: 200px;
+  height: 40px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .container {
