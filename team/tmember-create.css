@@ -1,0 +1,38 @@
+
+input[name="title"],
+input[name="mname"] {
+  background-color: #ddd;
+  border: 0px solid #ddd;
+}
+
+input[name="title"]:focus,
+input[name="mname"]:focus {
+  border-color: #ddd;
+  box-shadow: 0 0 8px 0 #ddd;
+  
+}
+
+input[type="email"] {
+  width: 400px;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+input[type="email"]:focus {
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+div > h1 {
+  font-style: italic;
+  font-size: 2.2rem;
+  font-family: math;
+  margin-bottom: 30px;
+}
+
