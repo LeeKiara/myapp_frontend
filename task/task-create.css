@@ -1,0 +1,10 @@
+input[name="project-title"] {
+  background-color: #ddd;
+  border: 0px solid #ddd;
+}
+
+input[name="project-title"]:focus {
+  border-color: #ddd;
+  box-shadow: 0 0 8px 0 #ddd;
+  
+}

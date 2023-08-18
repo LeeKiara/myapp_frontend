@@ -29,11 +29,5 @@ input[type="email"]:focus {
   box-shadow: 0 0 8px 0 dodgerBlue;
 }
 
-div > h1 {
-  font-style: italic;
-  font-size: 2.2rem;
-  font-family: math;
-  margin-bottom: 30px;
-}
 
 
