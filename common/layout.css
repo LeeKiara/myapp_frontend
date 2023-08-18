@@ -83,6 +83,7 @@ article {
 /* <!-- 좌측 공통 메뉴 --> */
 aside > div {
   text-align: center;
+  /* border: 1px solid black; */
 }
 /* 버튼 : 새 프로젝트 */
 aside button {
@@ -98,9 +99,20 @@ aside button {
   cursor: pointer;
 }
 
-aside > div:nth-of-type(2) > ul {
+aside ul {
   line-height: 30px;
-  text-align: left;
-  padding-left: 60px;
+  text-align: right;
+  padding-left: 28px;
+  width: 150px;  
 }
 
+aside li {
+  cursor: pointer;
+}
+
+div > h1 {
+  font-style: italic;
+  font-size: 2.2rem;
+  font-family: math;
+  margin-bottom: 30px;
+}

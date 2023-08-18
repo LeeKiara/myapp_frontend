@@ -6,10 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>i-PMS</title>
 
-	<link rel="stylesheet" href="/project/project-create.css" />
-	<link rel="stylesheet" href="/team/tmember-list.css" />
 	<link rel="stylesheet" href="/common/reset.css" />
 	<link rel="stylesheet" href="/common/layout.css" />
+	<!-- <link rel="stylesheet" href="/project/project-create.css" /> -->
+	<link rel="stylesheet" href="/team/tmember-list.css" />
+	<link rel="stylesheet" href="/team/tmember-create.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
@@ -49,16 +50,21 @@
 			<div>
 				<h1>Project Member</h1>
 			</div>
+			<form action="">
+				<table>
+					<thead>
+						<th>성명</th>
+						<th>이메일</th>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<div class="button-layer">
+					<button>등록</button>
+					<!-- <button></button> -->
+				</div>
+				<input name="pid" type="hidden" />
+			</form>
 
-			<table>
-				<tbody></tbody>
-			</table>
-
-
-			<div class="button-layer">
-				<button>등록</button>
-				<!-- <button></button> -->
-			</div>
 		</article>
 	</main>
 

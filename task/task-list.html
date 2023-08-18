@@ -8,7 +8,8 @@
 
 	<link rel="stylesheet" href="/common/reset.css" />
 	<link rel="stylesheet" href="/common/layout.css" />
-	<link rel="stylesheet" href="/project/project-list.css" />
+	<link rel="stylesheet" href="/project/project-create.css" />
+	<link rel="stylesheet" href="/task/task-list.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
@@ -45,34 +46,33 @@
 			</aside> -->
 
 		<article>
-			<form action=""> <!-- forms[0] -->
-				<div style="margin-bottom: 50px;">
-					<h3>
-						Project Panel
-					</h3>
-				</div>
-				<div id="card-layout" class="card-layout between">
-					<!-- <div class="item">
-						<ul>
-							<li><img src="/image/project-main.png" style="height: 120px;"></li>
-							<li>프로젝트example</li>
-							<li>프로젝트 프로젝트example 설명입니다.주저리 주저리....</li>
-						</ul>
-					</div> -->
-				</div>
-			</form>
+			<div>
+				<h1>Project Tasks</h1>
+			</div>
 
-			<form action=""> <!-- forms[1] -->
-				<div>
-					<button id="btnPrev">이전</button>
-					<button id="btnNext">다음</button>
-				</div>
-			</form>
+			<form action="">
+				<table>
+					<thead>
+						<th>Task명</th>
+						<th>설명</th>
+						<th>시작일</th>
+						<th>종료일</th>
+						<th>상태</th>
+					</thead>
+					<tbody></tbody>
+				</table>
 
+				<input name="pid" type="hidden" />
+
+			</form>
+			<div class="button-layer">
+				<button>등록</button>
+				<!-- <button></button> -->
+			</div>
 		</article>
 	</main>
 
-	<script src="./project-list.js"></script>
+	<script src="/task/task-list.js"></script>
 </body>
 
 </html>

@@ -53,11 +53,12 @@ textarea:focus {
 .button-layer {
   text-align: center;
   display: flex;
-  width: 480px;
+  width: 700px;
   justify-content: space-evenly;
   margin-top: 50px;
   /* border: 1px solid black; */
 }
+
 .button-layer button {
   width: 200px;
   height: 40px;

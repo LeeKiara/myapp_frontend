@@ -6,7 +6,7 @@ let currentQuery = ""; // 현재 검색 키워드
 function cardTemplate(item) {
 	const template = /*html*/ `
   <div id="card-layout-item" class="item">    
-      <ul data-no='${item.projectNo}'>
+      <ul data-no='${item.pid}'>
         <li>      
         ${item.image ? `<img src="${item.image}" alt="${item.title}">` : ""}
         </li>
@@ -47,7 +47,7 @@ async function getPagedList(page, query) {
 
 	// 요소 속성 설정하기
 	data
-		.sort((a, b) => a.projectNo - b.projectNo)
+		.sort((a, b) => a.pid - b.pid)
 		.forEach((item) => {
 			// console.log("--- debuging item");
 			// console.log(item);
@@ -86,13 +86,13 @@ function createDivEvent(divContent) {
 
 		// 이전 페이지에서 폼 데이터를 가져오거나 생성합니다.
 		const formData = {
-			projectno: divItemDataNo,
+			pid: divItemDataNo,
 		};
 
 		// 폼 데이터를 쿼리 문자열로 변환합니다.
 		const queryStr = new URLSearchParams(formData).toString();
 
-		// 새 창을 엽니다.
+		// 프로젝트 수정 페이지로 이동
 		const actionUrl = `http://localhost:5500/project/project-modify.html?${queryStr}`;
 		window.location.href = actionUrl;
 		// const newWindow = window.open(actionUrl, "_blank");

@@ -4,6 +4,8 @@
 		// URL의 쿼리 문자열을 가져옵니다.
 		const queryString = window.location.search;
 
+		// console.log(`queryString = ${queryString}`);
+
 		// 쿼리 문자열을 파싱하여 폼 데이터 객체로 변환합니다.
 		const formData = {};
 		const params = new URLSearchParams(queryString);
@@ -12,19 +14,41 @@
 		}
 
 		// 폼 데이터를 사용하여 프로젝트 정보 조회
-		// alert(formData.projectno);
-		getProject(formData.projectno);
+		// alert(formData.pid);
+		getProject(formData.pid);
 
 		// 이미지 파일 선택 후 div에 선택된 이미지 보여주기
 		loadImage();
 	});
 })();
 
-// 데이터 조회(프로젝트 정보)
-async function getProject(projectno) {
-	// alert(projectno);
+// 프로젝트 팀원 등록 페이지 이동
+(()=>{
+  
+  const btnTeamMember = document.querySelector(".button-layer button:nth-of-type(3)");
 
-	let url = `http://localhost:8080/project/${projectno}`;
+  // 버튼 클릭 이벤트 핸들러
+  btnTeamMember.addEventListener("click", async (e) => {
+      
+		e.preventDefault();
+
+    const form = document.forms[0];
+
+    const pid = form.querySelector("input[name='pid']").value;
+
+    // 프로젝트 팀원 등록 페이지로 이동
+		const actionUrl = `http://localhost:5500/team/tmember-create.html?pid=${pid}`;
+		window.location.href = actionUrl;
+
+  });
+
+})();
+
+// 데이터 조회(프로젝트 정보)
+async function getProject(pid) {
+	// alert(pid);
+
+	let url = `http://localhost:8080/project/${pid}`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -52,7 +76,7 @@ async function getProject(projectno) {
 	// 이미지 표시
 	createImage(result.data.image);
 
-	form.querySelector("input[name='projectno']").value = result.data.projectNo; // projectno
+	form.querySelector("input[name='pid']").value = result.data.pid; // pid
 	form.querySelector("input[name='status']").value = result.data.status; // project 상태
 }
 
@@ -116,7 +140,7 @@ function loadImage() {
 
 		const form = document.forms[0];
 
-		const projectno = form.querySelector("input[name='projectno']").value;
+		const pid = form.querySelector("input[name='pid']").value;
 		const title = form.querySelector("input[name='title']").value;
 		const description = form.querySelector(
 			"textarea[name='description']"
@@ -128,7 +152,7 @@ function loadImage() {
 		const file = form.querySelector("input[name='image-file']");
 
 		console.log("----debug---");
-		console.log("projectno:" + projectno);
+		console.log("pid:" + pid);
 		console.log("title:" + title);
 		console.log("description:" + description);
 		console.log("startDate:" + startDate);
@@ -163,23 +187,23 @@ function loadImage() {
 				console.log(e);
 				// file -> base64 data-url
 				const image = e.target.result;
-				modifyProject(projectno, image);
+				modifyProject(pid, image);
 			});
 			// 파일을 dataURL(base64)로 읽음
 			reader.readAsDataURL(file.files[0]);
 		} else {
 			// 파일이 없을 때
-			modifyProject(projectno);
+			modifyProject(pid);
 		}
 
 		// 데이터를 서버에 전송, 결과값으로 UI요소 생성
-		async function modifyProject(projectno, image) {
+		async function modifyProject(pid, image) {
 			console.log(image);
 
 			// 서버에 Http 요청 (프로젝트 수정)
 			// fetch : url, option
 			const response = await fetch(
-				`http://localhost:8080/project/${projectno}`,
+				`http://localhost:8080/project/${pid}`,
 				{
 					// HTTP Method
 					method: "PUT",
@@ -202,6 +226,8 @@ function loadImage() {
 
 			if ([200].includes(response.status)) {
 				alert("프로젝트가 수정되었습니다.");
+			} else {
+				window.location.href = "/common/system-notice.html";
 			}
 		}
 	});
@@ -220,11 +246,11 @@ function loadImage() {
 
 		const form = document.forms[0];
 
-		const projectno = form.querySelector("input[name='projectno']").value;
+		const pid = form.querySelector("input[name='pid']").value;
 		console.log("----debug---");
-		console.log("projectno:" + projectno);
+		console.log("pid:" + pid);
 
-		if (projectno === null) {
+		if (pid === null) {
 			alert("삭제 대상이 선택되지 않았습니다.");
 			return;
 		}
@@ -232,7 +258,7 @@ function loadImage() {
 		// 서버에 Http 요청 (프로젝트 수정)
 		// fetch : url, option
 		const response = await fetch(
-			`http://localhost:8080/project/${projectno}`,
+			`http://localhost:8080/project/${pid}`,
 			{
 				// HTTP Method
 				method: "DELETE",
