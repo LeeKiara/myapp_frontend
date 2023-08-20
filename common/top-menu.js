@@ -16,6 +16,18 @@
 		</nav>	
 	</div>
 	<div>My Profile</div>
+	<div><button  id='logout'>logout</button></div>
 `;
 	document.body.prepend(topbar);
+
+	// 로그아웃
+	const btnLogout = document.getElementById("logout");
+	btnLogout.addEventListener("click", (e) => {
+		e.preventDefault();
+
+		removeCookie("token");
+		alert("로그아웃 완료!");
+
+		window.location.href = "/index.html";
+	});
 })();

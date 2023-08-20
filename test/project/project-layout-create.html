@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>project-layout</title>
+		<link rel="stylesheet" href="/common/reset.css" />
+		<link rel="stylesheet" href="./project-layout.css" />
+		<link rel="stylesheet" href="./project-layout-create.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+
+	<body>
+		<!-- 최상단 탑 메뉴 -->
+		<script src="./project-layout-topmenu.js"></script>
+		<!-- <header>
+			<div class="top-menu">
+				<ul>
+					<li>PROJECT</li>
+					<li>TEAM</li>
+					<li>TASK</li>
+				</ul>
+			</div>
+		</header> -->
+
+		<main>
+			<!-- 좌측 메뉴 -->
+			<script src="./project-layout-leftmenu.js"></script>
+
+			<!-- <nav>
+				<ul>
+					<li>프로젝트 현황</li>
+					<li>참여자 현황</li>
+					<li>TASK 현황</li>
+				</ul>
+			</nav> -->
+
+			<article style="padding: 30px">
+				<form action="">
+					<!-- forms[0] -->
+					<div>
+						<label>프로젝트명</label>
+						<input type="text" placeholder="제목을 입력하세요." />
+					</div>
+					<div>
+						<label>설명</label>
+						<textarea
+							cols="30"
+							rows="10"
+							placeholder="프로젝트에 관한 설명 입력(옵션)"
+						></textarea>
+					</div>
+					<div>
+						<label>시작일</label><input type="date" placeholder="시작일" /> ~
+						<label>종료일</label><input type="date" placeholder="종료일" />
+					</div>
+					<div>
+						<label>대표이미지</label
+						><input type="file" placeholder="대표이미지" accept="image/*" />
+						<div id="project-image"></div>
+					</div>
+					<button>등록</button>
+				</form>
+			</article>
+		</main>
+
+		<footer></footer>
+	</body>
+</html>

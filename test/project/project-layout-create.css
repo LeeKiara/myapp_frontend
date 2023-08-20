@@ -1,0 +1,148 @@
+/* body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  width: 90%;
+  max-width: 900px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+form {
+  margin: 0;
+}
+
+form>div {
+  margin-bottom: 10px;
+}
+
+label {
+  display: inline-block;
+  width: 120px;
+}
+
+input[type="text"],
+textarea {
+  width: 500px;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+input[type="text"]:focus {
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+textarea:focus {
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+button {
+  display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px; /* Add this line to round the corners */
+    cursor: pointer;
+    width: 200px;
+}
+
+.container {
+  background: #ccc;
+  min-height: 100%;
+  padding: 2em;
+  width: 500px;
+}
+
+.container div {
+  background: #fff;
+  border: 1px dashed #666;
+  padding: 2em;
+  width: auto;
+}
+
+.container div>div {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0em;
+  border: 0px;
+  gap: 7px;
+}
+
+.container div:nth-child(2)>div {
+  background: #ccc;
+}
+
+.image-layer {
+  display: flex;
+  flex-direction: row;
+}
+
+.image-layer div {
+  margin-left: 0px;
+  border: 1px solid black;  
+  width: 200px;
+  box-shadow: 0 0 8px 0 #aaa;
+}
+
+.image-layer img {
+  width: 100%;
+}
+
+#modify-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#modify-layer>div {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#modify-box {
+  position: absolute;
+  /* 부모요소의 크기의 절반만큼을 오른쪽/아래쪽으로 이동시킴 */
+  left: 50%;
+  top: 50%;
+  /* 자기 자신 크기의 절반만큼을 왼쪽/위쪽으로 이동시킴 */
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  width: 500px;
+  padding: 2rem;
+}
+
+#modify-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+#modify-box form>div {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+#modify-box form>div button {
+  flex: 1;
+}
+
