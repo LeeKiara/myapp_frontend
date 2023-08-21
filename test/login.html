@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-	</head>
-	<body>
-		<form action="http://localhost:8080/auth/signin" method="post">
-			<input type="text" name="username" value="maria" />
-			<input type="password" name="password" value="test" />
-			<button>로그인</button>
-		</form>
 
-		<script>
-			    // 서버에 Http 요청 (로그인)
-			const response = await fetch("http://localhost:8080/auth/signin", {
-				// HTTP Method
-				method: "POST",
-			});
-		</script>
-	</body>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+</head>
+
+<body>
+	<form action="http://localhost:8080/auth/signin" method="post">
+		<input type="text" name="username" value="kiara" />
+		<input type="password" name="password" value="password1234" />
+		<button>로그인</button>
+	</form>
+
+</body>
+
 </html>

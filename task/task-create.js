@@ -60,7 +60,6 @@
 			return;
 		}
 
-
     // Task 생성을 위해 서버로 Http 요청 - fetch : url, option
     saveTask(pid);
 

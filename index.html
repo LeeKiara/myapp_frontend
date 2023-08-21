@@ -1,38 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>i-PMS</title>
-		<link rel="stylesheet" href="./index.css" />
-	</head>
 
-	<body>
-		<script src="/member/auth.js"></script>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>i-PMS</title>
+	<link rel="stylesheet" href="./index.css" />
+</head>
 
+<body>
+	<!-- <script src="/member/auth.js"></script> -->
+
+	<nav>
+		<h1>i-Project Management System Login</h1>
+		<!-- forms[0] -->
+		<form action="/member/login.html">
+			<button>로그인</button>
+		</form>
+	</nav>
+
+	<main>
 		<div>
-			<h1>i-Project Management System Login</h1>
+			<img src="./image/index-logo.png" alt="" />
 		</div>
-		<div>
-			<main>
-				<aside>
-					<div>
-						<img src="./image/index-logo.png" alt="" />
-					</div>
-				</aside>
-				<article>
-					<form action="/member/login.html">
-						<!-- forms[0] -->
-						<!-- <div>
-							<input type="text" placeholder="id" name="username" />
-						</div>
-						<div>
-							<input type="password" placeholder="password" name="password" />
-						</div> -->
-						<button>로그인</button>
-					</form>
-				</article>
-			</main>
-		</div>
-	</body>
+	</main>
+
+	<script>
+		// token 정보 읽어오기
+		let myToken = getCookie("token");
+
+		// 토큰이 있으면 메인페이지로 이동
+		if (typeof myToken !== "undefined") {
+			window.location.href = "/project/project-main.html";
+		}
+
+		// 쿠키값 조회
+		function getCookie(name) {
+			let matches = document.cookie.match(
+				new RegExp(
+					"(?:^|; )" +
+					name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+					"=([^;]*)"
+				)
+			);
+			return matches ? decodeURIComponent(matches[1]) : undefined;
+		}
+	</script>
+</body>
+
 </html>

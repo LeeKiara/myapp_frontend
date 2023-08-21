@@ -6,25 +6,16 @@ body div {
   text-align: center;
 }
 
-main {
+nav {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  height: 80px;
+  line-height: 50px;
 }
 
-main img {
-  width: 600px;
-}
-
-h1 {
-  font-style: italic;
-}
-
-aside {
-  line-height: 30px;
-}
-
-aside button {
-  width: 250px;
+nav button {
+  width: 100px;
   height: 40px;
   line-height: 20px;
   background: #6449fc;
@@ -35,19 +26,14 @@ aside button {
   cursor: pointer;
 }
 
-input {
-  width: 250px;
-  border: 2px solid #aaa;
-  border-radius: 4px;
-  margin: 8px 0;
-  outline: none;
-  padding: 8px;
-  box-sizing: border-box;
-  transition: 0.3s;
-  display: inline-block;
+h1 {
+  font-style: italic;
 }
 
-input:focus {
-  border-color: dodgerBlue;
-  box-shadow: 0 0 8px 0 dodgerBlue;
+main img {
+  width: 1000px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px #6449fc;
 }
+
