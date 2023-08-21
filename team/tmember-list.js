@@ -16,7 +16,34 @@
 		}
 
 		getList(formData.pid);
+
+    // project id form 값에 넣어주기
+    const form = document.querySelector("form");
+    form.querySelector("input[name='pid']").value = formData["pid"]; 
+
 	});
+})();
+
+// 팀원등록 버튼 클릭 : 프로젝트 팀원 등록 페이지 이동
+(()=>{
+  
+  const btnTeamMember = document.querySelector(".button-layer button");
+
+  // 버튼 클릭 이벤트 핸들러
+  btnTeamMember.addEventListener("click", async (e) => {
+      
+		e.preventDefault();
+
+    const form = document.forms[0];
+
+    const pid = form.querySelector("input[name='pid']").value;
+
+    // 프로젝트 팀원 등록 페이지로 이동
+		const actionUrl = `http://localhost:5500/team/tmember-create.html?pid=${pid}`;
+		window.location.href = actionUrl;
+
+  });
+
 })();
 
 // 프로젝트에 해당하는 팀원정보 조회(paging)

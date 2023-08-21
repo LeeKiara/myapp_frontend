@@ -29,7 +29,7 @@
 		e.preventDefault();
 
 		const pid = document.querySelector("input[name='pid']").value;  // projectid
-		const title = document.querySelector("input[name='task-title']").value;
+		const title = document.querySelector("input[name='title']").value;
 		const description = document.querySelector("textarea").value;
 		const startDate = document.querySelector("input[name='start-date']").value;
 		const endDate = document.querySelector("input[name='end-date']").value;		
@@ -60,11 +60,35 @@
 			return;
 		}
 
-    // Task 생성을 위해 서버로 Http 요청 - fetch : url, option
-    saveTask(pid);
+    // Task 생성을 위해 서버로 Http 요청 - fetch : url, option    
+		const response = await fetch(`http://localhost:8080/project/${pid}/task`, {
+			// HTTP Method
+			method: "POST",
+			// 보낼 데이터 형식은 json
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				title,
+				description,
+				startDate,
+				endDate,
+			}),
+		});
 
-  });
-  
+		// 서버에서 response 받기
+		const result = await response.json();
+
+		console.log("----debug---");
+		console.log("result" + result);
+		console.log("response.status:" + response.status);
+
+		if ([201].includes(response.status)) {
+			alert("Task가 등록되었습니다.");
+		}
+
+	});
+		
 })();
 
 // 데이터 조회(프로젝트 정보)
@@ -88,33 +112,3 @@ async function getProject(pid) {
   document.querySelector("input[name='project-title']").readOnly = true;
 }
 
-// Task 생성을 위해 서버로 Http 요청 - fetch : url, option
-async function saveTask(pid) {
-
-  // Task 생성을 위해 서버로 Http 요청 - fetch : url, option
-  const response = await fetch(`http://localhost:8080/project/${pid}/task`, {
-    // HTTP Method
-    method: "POST",
-    // 보낼 데이터 형식은 json
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      title,
-      description,
-      startDate,
-      endDate,
-    }),
-  });
-
-  // 서버에서 response 받기
-  const result = await response.json();
-
-  console.log("----debug---");
-  console.log("result" + result);
-  console.log("response.status:" + response.status);
-
-  if ([201].includes(response.status)) {
-    alert("Task가 등록되었습니다.");
-  }
-}

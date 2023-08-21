@@ -91,6 +91,7 @@
 
 			if ([201].includes(response.status)) {
 				alert("프로젝트 팀 멤버로 등록하였습니다.");
+				window.location.href = "/team/tmember-list.html?pid="+pid;
 			}      
 	});
 
@@ -148,6 +149,6 @@ async function getMember(email) {
 	const form = document.forms[0];
 
   // 사용자 정보 화면에 보여주기
-	form.querySelector("input[name='mname']").value = result.data.name; // member name
-	form.querySelector("input[name='mid']").value = result.data.mid; // mid
+	form.querySelector("input[name='username']").value = result.data.username; // member name
+	form.querySelector("input[name='mid']").value = result.data.mid; // mid	
 }

@@ -62,16 +62,11 @@ function displayBtnLogout(btnLogin, btnLogout) {
 	// token 정보 읽어오기
 	let myToken = getCookie("token");
 
-	// alert("myToken: "+myToken);
-
 	if (typeof myToken === "undefined") { 	// 토큰이 없으면 로그인 버튼만 보이기
-		// alert("// 토큰이 없으면 로그인 버튼만 보이기");
 		btnLogin.style.display = "";
 		btnLogout.style.display = 'none';		
 
 	} else {	// 토큰이 있으면 로그아웃 버튼만 보이기
-		// alert("// 토큰이 있으면 로그아웃 버튼만 보이기");
-
 		btnLogin.style.display = 'none';
 		btnLogout.style.display = "";	
 	}

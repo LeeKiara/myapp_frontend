@@ -16,15 +16,42 @@
 		}
 
 		getList(formData.pid);
+
+    // project id form 값에 넣어주기
+    const form = document.querySelector("form");
+    form.querySelector("input[name='pid']").value = formData["pid"]; 
+    
 	});
 })();
 
-// 프로젝트에 해당하는 Task 정보 조회(list)
+// Task 등록 버튼 클릭 : Task 등록 페이지 이동
+(()=>{
+  
+  const btnTeamMember = document.querySelector(".button-layer button");
+
+  // 버튼 클릭 이벤트 핸들러
+  btnTeamMember.addEventListener("click", async (e) => {
+      
+		e.preventDefault();
+
+    const form = document.forms[0];
+
+    const pid = form.querySelector("input[name='pid']").value;
+
+    // 프로젝트 팀원 등록 페이지로 이동
+		const actionUrl = `http://localhost:5500/task/task-create.html?pid=${pid}`;
+		window.location.href = actionUrl;
+
+  });
+
+})();
+
+// 프로젝트에 해당하는 Task 정보 조회(list) : GET /project/tasks?pid=1
 async function getList(pid) {
 
   console.log("pid : "+pid);
 
-  let url = `http://localhost:8080/project/tasks/${pid}`;
+  let url = `http://localhost:8080/project/tasks?pid=${pid}`;
 
   const response = await fetch(url);
 
@@ -57,6 +84,9 @@ function createRow(item) {
   // 1. 요소 생성
   const tr = document.createElement("tr");
 
+
+console.log(`${new Date(item.startDate).toLocaleString()}`);
+
   // 2. 요소의 속성 설정
   tr.dataset.mid = item.tid;
   tr.innerHTML = /*html*/ `
@@ -68,4 +98,13 @@ function createRow(item) {
   `;
   return tr;
 }
+
+// 날짜 포맷 (yyyy-MM-dd)
+function dateFormat(date) {
+	let resultDateFormat = date.getFullYear() +
+		'-' + ((date.getMonth() + 1) < 9 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)) +
+		'-' + ((date.getDate()) < 9 ? "0" + (date.getDate()) : (date.getDate()));
+	return resultDateFormat;
+}
+
 

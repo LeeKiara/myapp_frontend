@@ -1,4 +1,4 @@
-// New Project button
+// 새 프로젝트 생성 button 클릭 시 폼데이터 reset
 (() => {
 	const btnAddProject = document.querySelector("aside").querySelector("button");
 
@@ -102,6 +102,7 @@
 
 			if ([201].includes(response.status)) {
 				alert("프로젝트가 생성되었습니다.");
+				window.location.href = "/project/project-main.html";
 			}
 		}
 	});
