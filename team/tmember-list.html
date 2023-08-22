@@ -8,9 +8,7 @@
 
 	<link rel="stylesheet" href="/common/reset.css" />
 	<link rel="stylesheet" href="/common/layout.css" />
-	<!-- <link rel="stylesheet" href="/project/project-create.css" /> -->
 	<link rel="stylesheet" href="/team/tmember-list.css" />
-	<link rel="stylesheet" href="/team/tmember-create.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
@@ -50,7 +48,13 @@
 			<div>
 				<h1>Project Team Member</h1>
 			</div>
+			<div>
+				<label>* 프로젝트명 : </label>
+				<input name="title" type="text" class="font-color-emphasis" readonly />
+			</div>
+
 			<form action="">
+				<!-- Project Team Member List -->
 				<table>
 					<thead>
 						<th>성명</th>
@@ -69,6 +73,9 @@
 	</main>
 
 	<script src="/team/tmember-list.js"></script>
+	<script>
+
+	</script>
 </body>
 
 </html>

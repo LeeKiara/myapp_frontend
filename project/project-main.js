@@ -6,7 +6,15 @@ let currentQuery = ""; // 현재 검색 키워드
 // 웹 페이지 로딩이 완료되면, 페이징으로 데이터 조회 및 화면 display
 (() => {
 	window.addEventListener("DOMContentLoaded", () => {
-		getPagedList(0);
+		
+		// request parameter 정보를 가져온다. (URL QueryString)
+		const params = new URLSearchParams(window.location.search);
+		if (params.get("search")) {
+			getPagedList(0,"myproject");
+		} else {
+			getPagedList(0);
+		}
+		
 	});
 })();
 
@@ -46,21 +54,31 @@ async function getPagedList(page, query) {
 
 	// 검색 조건이 있으면...
 	if (query) {
+		url = `http://localhost:8080/project/paging/myproject?page=${page}&size=${PAGE_SIZE}`;
 	}
 
-	// http 통신을 통해서 데이터 조회 후 응답값 받음
-	//  - await 키워드는 async 함수에서만 사용 가능
-	const response = await fetch(url);
-	const result = await response.json();
+	// 서버에 데이터를 전송 : fetch(url, options) 
+	const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${getCookie("token")}`,
+    },
+  });
 
-	console.log("--- debuging result");
-	console.log(result);
+	 // 401: 미인증, 403: 미인가(허가없는)
+	 if ([401, 403].includes(response.status)) {
+    // 로그인 페이지로 튕김
+    alert("인증처리가 되지 않았습니다.");
+    window.location.href = "/login.html";
+  }
+
+	const result = await response.json();
+	// console.log(result);
 
 	// 응답값 객체를 배열로 전환
 	const data = Array.from(result.content);
 
-	console.log("--- debuging data");
-	console.log(data);
+	// console.log("--- debuging data");
+	// console.log(data);
 
 	// 화면 dispaly
 	const divContent = document.getElementById("card-layout");
@@ -74,8 +92,8 @@ async function getPagedList(page, query) {
 			// console.log(item);
 
 			const template = cardTemplate(item);
-			console.log("--- debuging template");
-			console.log(template);
+			// console.log("--- debuging template");
+			// console.log(template);
 
 			divContent.insertAdjacentHTML("afterbegin", template);
 
@@ -86,11 +104,16 @@ async function getPagedList(page, query) {
 	currentPage = result.number; // 현재 페이지 설정
 	isLastPage = result.last; // 마지막 페이지 여부
 
-	console.log("--- debuging currentPage, isLastPage");
-	console.log(currentPage + "," + isLastPage);
+	// console.log("--- debuging currentPage, isLastPage");
+	// console.log(currentPage + "," + isLastPage);
 
 	// 이전/다음 버튼 활성화 여부 처리
 	setBtnActive();
+
+		// 검색 조건이 있으면...
+		if (query) {
+			document.querySelector("form h1").innerHTML = "내 프로젝트";
+		}
 }
 
 function cardTemplate(item) {
@@ -135,8 +158,6 @@ function createDivEvent(divContent) {
 		// const newWindow = window.open(actionUrl, "_blank");
 	});
 }
-
-
 
 // 이전/다음 버튼 활성화 여부 처리
 function setBtnActive() {

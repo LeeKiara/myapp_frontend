@@ -5,7 +5,8 @@
 				<div><button>+새 프로젝트</button></div>
 				<div>
 					<ul>
-						<li> <a href="/project/project-main.html">프로젝트 현황</a></li>
+						<li> <a href="/project/project-main.html">공개 프로젝트</a></li>
+						<li> <a href="/project/project-main.html?search=myproject">내 프로젝트</a></li>
 						<li>Team Member 현황</li>
 						<li>TASK 현황</li>
 					</ul>

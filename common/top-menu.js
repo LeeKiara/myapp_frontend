@@ -26,6 +26,8 @@
 
 		window.location.href = "/index.html";
 	});
+
+	getUserInfo();
 	
 })();
 
@@ -49,15 +51,17 @@ function createTopMenu() {
 			</ul>
 		</nav>	
 	</div>
-	<div>My Profile</div>
-	<div><button id='login'>로그인</button></div>
-	<div><button id='logout'>logout</button></div>
+	<div class="login-logout">
+		<div id='username' class="font-color-emphasis"></div>
+		<div><button id='login'>로그인</button></div>
+		<div><button id='logout'>logout</button></div>
+	</div>
 `;
 	document.body.prepend(topbar);
 }
 
 // client에 저장된 token값 유무에 따라 로그인, 로그아웃 버튼 처리
-function displayBtnLogout(btnLogin, btnLogout) {
+function displayBtnLogout(btnLogin, btnLogout, username) {
 	
 	// token 정보 읽어오기
 	let myToken = getCookie("token");
@@ -69,6 +73,12 @@ function displayBtnLogout(btnLogin, btnLogout) {
 	} else {	// 토큰이 있으면 로그아웃 버튼만 보이기
 		btnLogin.style.display = 'none';
 		btnLogout.style.display = "";	
+
+		// const userinfo = getUserInfo(); 
+
+		// console.log("userinfo:"+userinfo);
+
+		// document.getElementById("username").innerHTML = userinfo.username;
 	}
 
 }
@@ -90,4 +100,28 @@ function removeCookie(name) {
 	document.cookie =
 		name +
 		"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
+}
+
+
+// 로그인 사용자 정보
+async function getUserInfo() {
+	let url = `http://localhost:8080/member/getUserInfo`;
+
+	// 서버에 데이터를 전송 : fetch(url, options) 
+	const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${getCookie(
+        "token"
+      )}`,
+    },
+  });
+
+	const result = await response.json();
+
+	console.log("getUserInfo");
+	console.log(result);
+	console.log(result.username);
+
+ 	document.getElementById("username").innerHTML = result.username;
+
 }

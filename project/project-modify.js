@@ -210,6 +210,7 @@ function loadImage() {
 					// 보낼 데이터 형식은 json
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${getCookie("token")}`,
 					},
 					body: JSON.stringify({
 						title,

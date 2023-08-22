@@ -1,5 +1,5 @@
 header,
-div,
+/* div, */
 main,
 aside,
 article,
@@ -28,20 +28,16 @@ footer {
 header {
   display: flex;
   flex-direction: row;
-  /* line-height: 80px; */
-  margin-top: 0px;
-  /* height: 50px; */
-  display: flex;  
   justify-content: space-between;  
-  /* line-height: 70px; */
   color: gray;
   font-weight: 800; 
   font-style:italic;
   border-bottom: 1px solid #ddd;
   background-color: #eee;
-  margin-bottom: 0px;
-  padding-bottom: 0px;
   width: 80%;
+  height: 50px;
+  align-items: center;
+  gap: 50px;
 }
 
 
@@ -157,4 +153,28 @@ textarea {
 input[type="text"]:focus {
   border-color: dodgerBlue;
   box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+.font-color-emphasis {
+  color: #6449fc;    
+  font-weight: 700;
+}
+
+.login-logout {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.logout {
+  width: 176px;
+  height: 40px;
+  line-height: 20px;
+  background: #6449fc;    
+  border-radius: 4px;
+  /* margin: 0 auto; */
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
 }

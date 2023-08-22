@@ -1,4 +1,4 @@
-// 웹 페이지 로딩이 완료되면, 팀원정보 데이터 조회 및 화면 display
+// 웹 페이지 로딩이 완료되면, 팀 멤버 리스트 조회 및 화면 display
 (() => {
 	window.addEventListener("DOMContentLoaded", () => {
 
@@ -15,6 +15,10 @@
 			formData[key] = value;
 		}
 
+    // 프로젝트 정보 조회
+		getProject(formData.pid);
+
+    // 팀 멤버 리스트 조회
 		getList(formData.pid);
 
     // project id form 값에 넣어주기
@@ -46,7 +50,26 @@
 
 })();
 
-// 프로젝트에 해당하는 팀원정보 조회(paging)
+// 데이터 조회(프로젝트 정보)
+async function getProject(pid) {
+	// alert(pid);
+
+	let url = `http://localhost:8080/project/${pid}`;
+
+	// http 통신을 통해서 데이터 조회 후 응답값 받음
+	//  - await 키워드는 async 함수에서만 사용 가능
+	const response = await fetch(url);
+	const result = await response.json();
+
+	console.log("--- debuging getProject result");
+	console.log(result);
+
+  // 프로젝트 제목 넣어주기
+  document.querySelector("input[name='title']").value = result.data.title;
+  
+}
+
+// 데이터 조회(팀 멤버 리스트)
 async function getList(pid) {
 
   console.log("pid : "+pid);
@@ -121,3 +144,4 @@ function createTrEvent(createdTr) {
 
 	});
 }
+
