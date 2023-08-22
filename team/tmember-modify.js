@@ -102,7 +102,11 @@ async function getProject(pid) {
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
-	const response = await fetch(url);
+	const response = await fetch(url, { 
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
 	const result = await response.json();
 
 	console.log("--- debuging result");

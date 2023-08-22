@@ -51,8 +51,13 @@ async function getProject(pid) {
 	let url = `http://localhost:8080/project/${pid}`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
-	//  - await 키워드는 async 함수에서만 사용 가능
-	const response = await fetch(url);
+	//  - await 키워드는 async 함수에서만 사용 가능	
+	const response = await fetch(url, { 
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
+
 	const result = await response.json();
 
 	console.log("--- debuging result");
@@ -258,20 +263,21 @@ function loadImage() {
 
 		// 서버에 Http 요청 (프로젝트 수정)
 		// fetch : url, option
-		const response = await fetch(
-			`http://localhost:8080/project/${pid}`,
-			{
-				// HTTP Method
-				method: "DELETE",
-			}
-		);
-
+		const response = await fetch(`http://localhost:8080/project/${pid}`, 
+		{ 
+			// HTTP Method
+			method: "DELETE",
+			headers: {
+				Authorization: `Bearer ${getCookie("token")}`,
+			},
+		});
+	
 		console.log(response.status);
 
 		if ([200].includes(response.status)) {
 			alert("프로젝트가 삭제 되었습니다.");
 
-			window.location.href = "/project/project-list.html";
+			window.location.href = "/project/project-main.html";
 		} else {
 			window.location.href = "/common/system-notice.html";
 		}
