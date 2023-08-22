@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>i-PMS</title>
+		<link rel="stylesheet" href="/common/reset.css" />
+		<link rel="stylesheet" href="/common/layout.css" />
+		<link rel="stylesheet" href="/member/login.css" />
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>i-PMS</title>
-	<link rel="stylesheet" href="/common/reset.css" />
-	<link rel="stylesheet" href="/common/layout.css" />
-	<link rel="stylesheet" href="/member/login.css" />
-</head>
+	<body>
+		<script src="/member/login.js"></script>
 
-<body>
-	<script src="/member/login.js"></script>
-
-	<div class="container">
-		<div class="image-layer">
-			<img src="/image/login.png" alt="" />
+		<div class="container">
+			<div class="image-layer">
+				<img src="/image/login.png" alt="" />
+			</div>
+			<div class="input-layer">
+				<form
+					id="loginForm"
+					action="http://localhost:8080/auth/signin"
+					method="post"
+				>
+					<input
+						type="text"
+						name="username"
+						class="input-short"
+						placeholder="아이디"
+						value="user1"
+					/>
+					<input
+						type="password"
+						name="password"
+						class="input-short"
+						placeholder="비밀번호"
+						value="password1234"
+					/>
+					<button class="common-button common-button-size" type="submit">
+						로그인
+					</button>
+				</form>
+			</div>
 		</div>
-		<div class="input-layer">
-
-			<form id="loginForm" action="http://localhost:8080/auth/signin" method="post">
-				<input type="text" name="username" class="input-short" placeholder="아이디" value="kiara" />
-				<input type="password" name="password" class="input-short" placeholder="비밀번호" value="password1234" />
-				<button class="common-button common-button-size" type="submit">로그인</button>
-			</form>
-
-		</div>
-
-	</div>
-
-</body>
-
+	</body>
 </html>

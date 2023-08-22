@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>i-PMS</title>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>i-PMS</title>
+		<link rel="stylesheet" href="./project-create.css" />
+		<link rel="stylesheet" href="/common/reset.css" />
+		<link rel="stylesheet" href="/common/layout.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
 
-	<link rel="stylesheet" href="./project-create.css" />
-	<link rel="stylesheet" href="/common/reset.css" />
-	<link rel="stylesheet" href="/common/layout.css" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
-</head>
-
-<body>
-	<!-- 최상단 탑 메뉴 -->
-	<script src="/common/top-menu.js"></script>
-	<!-- <header>
+	<body>
+		<!-- 최상단 탑 메뉴 -->
+		<script src="/common/top-menu.js"></script>
+		<!-- <header>
       <div>i-PMS</div>
       <div>
         <nav>
@@ -30,10 +32,10 @@
       </div>
       <div>My Profile</div>
     </header> -->
-	<main>
-		<!-- 좌측 공통 메뉴 -->
-		<script src="/common/left-menu.js"></script>
-		<!-- <aside>aside
+		<main>
+			<!-- 좌측 공통 메뉴 -->
+			<script src="/common/left-menu.js"></script>
+			<!-- <aside>aside
 				<div><button>+새 프로젝트</button></div>
 				<div>
 					<ul>
@@ -44,40 +46,64 @@
 				</div>
 			</aside> -->
 
-		<article>
-			<form action="">
-				<!-- forms[0] -->
-				<div>
-					<label>프로젝트명</label>
-					<input name="title" type="text" placeholder="제목을 입력하세요." />
+			<article>
+				<form action="">
+					<!-- forms[0] -->
+					<div>
+						<label>프로젝트명</label>
+						<input name="title" type="text" placeholder="제목을 입력하세요." />
+					</div>
+					<div>
+						<label>설명</label>
+						<textarea
+							name="description"
+							cols="30"
+							rows="10"
+							placeholder="프로젝트에 관한 설명 입력(옵션)"
+						></textarea>
+					</div>
+					<div>
+						<label>시작일</label
+						><input
+							name="start-date"
+							type="date"
+							id="startDateInput"
+							placeholder="시작일"
+						/>
+						~ <label>종료일</label
+						><input
+							name="end-date"
+							type="date"
+							id="endDateInput"
+							placeholder="종료일"
+						/>
+					</div>
+					<div class="image-layer">
+						<label>대표이미지</label>
+						<input
+							name="image-file"
+							type="file"
+							placeholder="대표이미지"
+							accept="image/*"
+						/>
+						<div id="project-image"></div>
+					</div>
+					<div>
+						<label>Project Manager</label>
+						<span id="pm-id" class="font-color-emphasis"></span>
+					</div>
+					<input name="pid" type="hidden" />
+					<input name="status" type="hidden" />
+				</form>
+				<div class="button-layer">
+					<button>수정</button>
+					<button>삭제</button>
+					<button>팀원 등록</button>
 				</div>
-				<div>
-					<label>설명</label>
-					<textarea name="description" cols="30" rows="10" placeholder="프로젝트에 관한 설명 입력(옵션)"></textarea>
-				</div>
-				<div>
-					<label>시작일</label><input name="start-date" type="date" id="startDateInput" placeholder="시작일" />
-					~ <label>종료일</label><input name="end-date" type="date" id="endDateInput" placeholder="종료일" />
-				</div>
-				<div class="image-layer">
-					<label>대표이미지</label>
-					<input name="image-file" type="file" placeholder="대표이미지" accept="image/*" />
-					<div id="project-image"></div>
-				</div>
-				<input name="pid" type="hidden" />
-				<input name="status" type="hidden" />
-			</form>
-			<div class="button-layer">
-				<button>수정</button>
-				<button>삭제</button>
-				<button>팀원 등록</button>
-			</div>
-		</article>
-	</main>
+			</article>
+		</main>
 
-	<script src="./project-modify.js"></script>
-	<script src="/common/footer.js"></script>
-
-</body>
-
+		<script src="./project-modify.js"></script>
+		<script src="/common/footer.js"></script>
+	</body>
 </html>

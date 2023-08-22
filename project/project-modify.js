@@ -23,25 +23,23 @@
 })();
 
 // 프로젝트 팀원 등록 페이지 이동
-(()=>{
-  
-  const btnTeamMember = document.querySelector(".button-layer button:nth-of-type(3)");
+(() => {
+	const btnTeamMember = document.querySelector(
+		".button-layer button:nth-of-type(3)"
+	);
 
-  // 버튼 클릭 이벤트 핸들러
-  btnTeamMember.addEventListener("click", async (e) => {
-      
+	// 버튼 클릭 이벤트 핸들러
+	btnTeamMember.addEventListener("click", async (e) => {
 		e.preventDefault();
 
-    const form = document.forms[0];
+		const form = document.forms[0];
 
-    const pid = form.querySelector("input[name='pid']").value;
+		const pid = form.querySelector("input[name='pid']").value;
 
-    // 프로젝트 팀원 등록 페이지로 이동
+		// 프로젝트 팀원 등록 페이지로 이동
 		const actionUrl = `http://localhost:5500/team/tmember-create.html?pid=${pid}`;
 		window.location.href = actionUrl;
-
-  });
-
+	});
 })();
 
 // 데이터 조회(프로젝트 정보)
@@ -51,8 +49,8 @@ async function getProject(pid) {
 	let url = `http://localhost:8080/project/${pid}`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
-	//  - await 키워드는 async 함수에서만 사용 가능	
-	const response = await fetch(url, { 
+	//  - await 키워드는 async 함수에서만 사용 가능
+	const response = await fetch(url, {
 		headers: {
 			Authorization: `Bearer ${getCookie("token")}`,
 		},
@@ -69,8 +67,7 @@ async function getProject(pid) {
 	form.querySelector("input").value = result.data.title; // 제목
 	form.querySelector("textarea").value = result.data.description; // 설명
 
-
-	// 시작일	
+	// 시작일
 	const startDateInput = document.getElementById("startDateInput");
 	startDateInput.value = dateFormat(new Date(result.data.startDate)); // YYYY-MM-DD 형식으로 변환
 
@@ -83,6 +80,17 @@ async function getProject(pid) {
 
 	form.querySelector("input[name='pid']").value = result.data.pid; // pid
 	form.querySelector("input[name='status']").value = result.data.status; // project 상태
+	document.getElementById("pm-id").innerHTML = result.data2.username; // project pm id
+
+	console.log(result.role);
+
+	// 내 프로젝트만 수정/삭제할 수 있도록 버튼처리 함
+	const buttonLayerDiv = document.querySelector(".button-layer");
+	if (result.role === "modify") {
+		buttonLayerDiv.style.display = "";
+	} else {
+		buttonLayerDiv.style.display = "none";
+	}
 }
 
 function createImage(image) {
@@ -100,9 +108,14 @@ function createImage(image) {
 
 // 날짜 포맷 (yyyy-MM-dd)
 function dateFormat(date) {
-	let resultDateFormat = date.getFullYear() +
-		'-' + ((date.getMonth() + 1) < 9 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)) +
-		'-' + ((date.getDate()) < 9 ? "0" + (date.getDate()) : (date.getDate()));
+	let resultDateFormat =
+		date.getFullYear() +
+		"-" +
+		(date.getMonth() + 1 < 9
+			? "0" + (date.getMonth() + 1)
+			: date.getMonth() + 1) +
+		"-" +
+		(date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
 	return resultDateFormat;
 }
 
@@ -207,26 +220,23 @@ function loadImage() {
 
 			// 서버에 Http 요청 (프로젝트 수정)
 			// fetch : url, option
-			const response = await fetch(
-				`http://localhost:8080/project/${pid}`,
-				{
-					// HTTP Method
-					method: "PUT",
-					// 보낼 데이터 형식은 json
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${getCookie("token")}`,
-					},
-					body: JSON.stringify({
-						title,
-						description,
-						startDate,
-						endDate,
-						image: image ? image : null,
-						status,
-					}),
-				}
-			);
+			const response = await fetch(`http://localhost:8080/project/${pid}`, {
+				// HTTP Method
+				method: "PUT",
+				// 보낼 데이터 형식은 json
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${getCookie("token")}`,
+				},
+				body: JSON.stringify({
+					title,
+					description,
+					startDate,
+					endDate,
+					image: image ? image : null,
+					status,
+				}),
+			});
 
 			console.log(response.status);
 
@@ -246,7 +256,7 @@ function loadImage() {
 	btnRemove.addEventListener("click", async (e) => {
 		e.preventDefault();
 
-		if(!confirm("삭제 하시겠습니까?")) {
+		if (!confirm("삭제 하시겠습니까?")) {
 			return;
 		}
 
@@ -263,15 +273,14 @@ function loadImage() {
 
 		// 서버에 Http 요청 (프로젝트 수정)
 		// fetch : url, option
-		const response = await fetch(`http://localhost:8080/project/${pid}`, 
-		{ 
+		const response = await fetch(`http://localhost:8080/project/${pid}`, {
 			// HTTP Method
 			method: "DELETE",
 			headers: {
 				Authorization: `Bearer ${getCookie("token")}`,
 			},
 		});
-	
+
 		console.log(response.status);
 
 		if ([200].includes(response.status)) {
@@ -281,8 +290,5 @@ function loadImage() {
 		} else {
 			window.location.href = "/common/system-notice.html";
 		}
-
 	});
-			
 })();
-

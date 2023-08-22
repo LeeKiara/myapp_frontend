@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>i-PMS</title>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>i-PMS</title>
+		<link rel="stylesheet" href="/common/reset.css" />
+		<link rel="stylesheet" href="/common/layout.css" />
+		<link rel="stylesheet" href="/project/project-create.css" />
+		<link rel="stylesheet" href="/task/task-list.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
 
-	<link rel="stylesheet" href="/common/reset.css" />
-	<link rel="stylesheet" href="/common/layout.css" />
-	<link rel="stylesheet" href="/project/project-create.css" />
-	<link rel="stylesheet" href="/task/task-list.css" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
-</head>
-
-<body>
-	<!-- 최상단 탑 메뉴 -->
-	<script src="/common/top-menu.js"></script>
-	<!-- <header>
+	<body>
+		<!-- 최상단 탑 메뉴 -->
+		<script src="/common/top-menu.js"></script>
+		<!-- <header>
       <div>i-PMS</div>
       <div>
         <nav>
@@ -31,10 +33,10 @@
       </div>
       <div>My Profile</div>
     </header> -->
-	<main>
-		<!-- 좌측 공통 메뉴 -->
-		<script src="/common/left-menu.js"></script>
-		<!-- <aside>aside
+		<main>
+			<!-- 좌측 공통 메뉴 -->
+			<script src="/common/left-menu.js"></script>
+			<!-- <aside>aside
 				<div><button>+새 프로젝트</button></div>
 				<div>
 					<ul>
@@ -45,34 +47,40 @@
 				</div>
 			</aside> -->
 
-		<article>
-			<div>
-				<h1>Project Tasks</h1>
-			</div>
+			<article>
+				<div>
+					<h2>* Project 정보</h2>
+					<div style="border: 1px solid gray; height: 60px"></div>
+				</div>
+				<div style="margin-top: 10px">
+					<h2>* Project Team 정보</h2>
+					<div style="border: 1px solid gray; height: 60px"></div>
+				</div>
+				<div style="margin-top: 10px; margin-bottom: 10px">
+					<h2>* Project Tasks</h2>
+				</div>
 
-			<form action="">
-				<table>
-					<thead>
-						<th>Task명</th>
-						<th>설명</th>
-						<th>시작일</th>
-						<th>종료일</th>
-						<th>상태</th>
-					</thead>
-					<tbody></tbody>
-				</table>
+				<form action="">
+					<table>
+						<thead>
+							<th>Task명</th>
+							<th>설명</th>
+							<th>시작일</th>
+							<th>종료일</th>
+							<th>상태</th>
+						</thead>
+						<tbody></tbody>
+					</table>
 
-				<input name="pid" type="hidden" />
+					<input name="pid" type="hidden" />
+				</form>
+				<div class="button-layer">
+					<button>Task 등록</button>
+					<!-- <button></button> -->
+				</div>
+			</article>
+		</main>
 
-			</form>
-			<div class="button-layer">
-				<button>Task 등록</button>
-				<!-- <button></button> -->
-			</div>
-		</article>
-	</main>
-
-	<script src="/task/task-list.js"></script>
-</body>
-
+		<script src="/task/task-list.js"></script>
+	</body>
 </html>
