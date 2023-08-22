@@ -84,16 +84,17 @@ function createRow(item) {
   // 1. 요소 생성
   const tr = document.createElement("tr");
 
-
-console.log(`${new Date(item.startDate).toLocaleString()}`);
+  // 시작일,종료일 YYYY-MM-DD 형식으로 변환
+  const startDateFormat = dateFormat(new Date(item.startDate)); 
+  const endDateFormat = dateFormat(new Date(item.endDate)); 
 
   // 2. 요소의 속성 설정
   tr.dataset.mid = item.tid;
   tr.innerHTML = /*html*/ `
   <td>${item.title}</td>
   <td>${item.description}</td>  
-  <td>${item.startDate}</td>  
-  <td>${item.endDate}</td>  
+  <td>${startDateFormat}</td>  
+  <td>${endDateFormat}</td>  
   <td>${item.status}</td>  
   `;
   return tr;

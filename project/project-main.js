@@ -3,21 +3,42 @@ let isLastPage = false; // 마지막 페이지 인지 여부
 const PAGE_SIZE = 6; // 고정된 페이지 사이즈
 let currentQuery = ""; // 현재 검색 키워드
 
-function cardTemplate(item) {
-	const template = /*html*/ `
-  <div id="card-layout-item" class="item">    
-      <ul data-no='${item.pid}'>
-        <li>      
-        ${item.image ? `<img src="${item.image}" alt="${item.title}">` : ""}
-        </li>
-        <li>${item.title}</li>
-        <li>${item.description}</li>
-      </ul>
-  </div>
-  `;
+// 웹 페이지 로딩이 완료되면, 페이징으로 데이터 조회 및 화면 display
+(() => {
+	window.addEventListener("DOMContentLoaded", () => {
+		getPagedList(0);
+	});
+})();
 
-	return template;
-}
+// 이전/다음 페이징
+(() => {
+	// const buttons =
+	// document.forms[1].querySelectorAll("button");
+	// const btnPrev = buttons[0];
+	// const btnNext = buttons[1];
+
+	const btnPrev = document.getElementById("btnPrev");
+	const btnNext = document.getElementById("btnNext");
+
+	// 이전 버튼
+	btnPrev.addEventListener("click", (e) => {
+		e.preventDefault();
+
+		// alert("이전 페이지 조회 currentPage>"+currentPage);
+
+		currentPage > 0 && getPagedList(currentPage - 1, "");
+	});
+
+	// 다음 버튼
+	btnNext.addEventListener("click", (e) => {
+		e.preventDefault();
+
+		// alert("다음 페이지 조회 currentPage>"+currentPage);
+
+		// 페이징 처리(현재페이지, 검색어)
+		getPagedList(currentPage + 1, "");
+	});
+})();
 
 // 데이터 조회(페이징 처리)
 async function getPagedList(page, query) {
@@ -72,6 +93,22 @@ async function getPagedList(page, query) {
 	setBtnActive();
 }
 
+function cardTemplate(item) {
+	const template = /*html*/ `
+  <div id="card-layout-item" class="item">    
+      <ul data-no='${item.pid}'>
+        <li>      
+        ${item.image ? `<img src="${item.image}" alt="${item.title}">` : ""}
+        </li>
+        <li>${item.title}</li>
+        <li>${item.description}</li>
+      </ul>
+  </div>
+  `;
+
+	return template;
+}
+
 // div 클릭 이벤트 핸들러 추가하기
 function createDivEvent(divContent) {
 	const divItem = divContent.querySelector("div");
@@ -99,42 +136,7 @@ function createDivEvent(divContent) {
 	});
 }
 
-// 웹 페이지 로딩이 완료되면, 페이징으로 데이터 조회 및 화면 display
-(() => {
-	window.addEventListener("DOMContentLoaded", () => {
-		getPagedList(0);
-	});
-})();
 
-// 이전/다음 페이징
-(() => {
-	// const buttons =
-	// document.forms[1].querySelectorAll("button");
-	// const btnPrev = buttons[0];
-	// const btnNext = buttons[1];
-
-	const btnPrev = document.getElementById("btnPrev");
-	const btnNext = document.getElementById("btnNext");
-
-	// 이전 버튼
-	btnPrev.addEventListener("click", (e) => {
-		e.preventDefault();
-
-		// alert("이전 페이지 조회 currentPage>"+currentPage);
-
-		currentPage > 0 && getPagedList(currentPage - 1, "");
-	});
-
-	// 다음 버튼
-	btnNext.addEventListener("click", (e) => {
-		e.preventDefault();
-
-		// alert("다음 페이지 조회 currentPage>"+currentPage);
-
-		// 페이징 처리(현재페이지, 검색어)
-		getPagedList(currentPage + 1, "");
-	});
-})();
 
 // 이전/다음 버튼 활성화 여부 처리
 function setBtnActive() {

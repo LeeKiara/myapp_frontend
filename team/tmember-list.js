@@ -51,7 +51,7 @@ async function getList(pid) {
 
   console.log("pid : "+pid);
 
-  let url = `http://localhost:8080/project/member?pid=${pid}`;
+  let url = `http://localhost:8080/project/member/list?pid=${pid}`;
 
   const response = await fetch(url);
 
@@ -72,13 +72,18 @@ async function getList(pid) {
   tbody.innerHTML = "";
   // 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
   for (let item of result) {
-    tbody.append(
-      createRow(
-        item.mid,
-        item.username,
-        item.email,
-      )
+    let createdTr = createRow(
+      item.mid,
+      item.username,
+      item.email,
     );
+
+    // tbody에 tr 추가
+    tbody.append(createdTr);
+
+    // Table tr 요소의 클릭 이벤트 핸들러 추가하기
+    createTrEvent(createdTr);
+
   }
 
 }
@@ -97,3 +102,22 @@ function createRow(mid, name, email) {
   return tr;
 }
 
+// Table tr 요소의 클릭 이벤트 핸들러 추가하기
+function createTrEvent(createdTr) {
+
+	createdTr.addEventListener("click", (e) => {
+		// 기본 제출 동작을 막음.
+		e.preventDefault();
+
+		let mid = createdTr.getAttribute("data-mid");
+
+    let pid = document.querySelector("input[name='pid']").value;
+
+    // alert(pid +","+mid);
+
+		// 멤버 수정 페이지로 이동
+		const actionUrl = `http://localhost:5500/team/tmember-modify.html?pid=${pid}&mid=${mid}`;
+		window.location.href = actionUrl;
+
+	});
+}

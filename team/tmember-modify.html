@@ -6,11 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>i-PMS</title>
 
+	<link rel="stylesheet" href="/project/project-create.css" />
+	<link rel="stylesheet" href="/team/tmember-create.css" />
 	<link rel="stylesheet" href="/common/reset.css" />
 	<link rel="stylesheet" href="/common/layout.css" />
-	<!-- <link rel="stylesheet" href="/project/project-create.css" /> -->
-	<link rel="stylesheet" href="/team/tmember-list.css" />
-	<link rel="stylesheet" href="/team/tmember-create.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
@@ -48,27 +47,37 @@
 
 		<article>
 			<div>
-				<h1>Project Team Member</h1>
+				<h1>Project Member</h1>
 			</div>
 			<form action="">
-				<table>
-					<thead>
-						<th>성명</th>
-						<th>이메일</th>
-					</thead>
-					<tbody></tbody>
-				</table>
-				<div class="button-layer">
-					<button>Member 등록</button>
-					<!-- <button></button> -->
+				<!-- forms[0] -->
+				<div>
+					<label>프로젝트명</label>
+					<input name="title" type="text" readonly />
+				</div>
+				<div>
+					<label>이메일</label>
+					<input name="email" type="email" readonly />&nbsp;&nbsp;
+					<!-- <button>사용자 찾기</button> -->
+				</div>
+				<div>
+					<label>ID</label>
+					<input name="username" type="text" readonly />
 				</div>
 				<input name="pid" type="hidden" />
+				<input name="mid" type="hidden" />
+
 			</form>
 
+			<div class="button-layer">
+				<button>삭제</button>
+				<button>목록</button>
+				<!-- <button></button> -->
+			</div>
 		</article>
 	</main>
 
-	<script src="/team/tmember-list.js"></script>
+	<script src="/team/tmember-modify.js"></script>
 </body>
 
 </html>

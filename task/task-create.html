@@ -64,12 +64,14 @@
 					<label>시작일</label><input name="start-date" type="date" placeholder="시작일" /> ~
 					<label>종료일</label><input name="end-date" type="date" placeholder="종료일" />
 				</div>
-				<div>
+				<input type="hidden" name="task-status" value="1" /> <!--상태:진행중-->
+				<!-- <div>
 					<label>상태</label>
 					<input type="radio" name="task-status" value="1">진행중
 					<input type="radio" name="task-status" value="1">완료
 					<input type="radio" name="task-status" value="1">지연
 				</div>
+				 -->
 				<input name="pid" type="hidden" />
 				<input name="project-status" type="hidden" />
 

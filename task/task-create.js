@@ -85,6 +85,8 @@
 
 		if ([201].includes(response.status)) {
 			alert("Task가 등록되었습니다.");
+			// Task 현황 페이지로 이동
+			window.location.href = `/task/task-list.html?pid=${pid}`;
 		}
 
 	});
