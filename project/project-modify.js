@@ -309,7 +309,8 @@ function loadImage() {
 
 			window.location.href = "/project/project-main.html";
 		} else {
-			window.location.href = "/common/system-notice.html";
+			alert("삭제 처리 실패! -> TODO : 프로젝트의 Task가 존재할 경우 삭제할 수 없도록 수정 또는 해당 TASK 모두 삭제 예정")
+			// window.location.href = "/common/system-notice.html";
 		}
 	});
 })();

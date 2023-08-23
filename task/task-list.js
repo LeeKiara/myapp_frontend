@@ -5,15 +5,19 @@
     const params = new URLSearchParams(window.location.search);
     pid = params.get("pid");
 
+    // project id form 값에 넣어주기
+    const form = document.querySelector("form");
+    form.querySelector("input[name='pid']").value = pid; 
+
     // 프로젝트 정보 조회
 		getProject(pid);
 
     // 프로젝트에 해당하는 Task 정보 조회(list)
 		getList(pid);
 
-    // project id form 값에 넣어주기
-    const form = document.querySelector("form");
-    form.querySelector("input[name='pid']").value = pid; 
+    // 데이터 조회(팀 멤버 리스트)
+    getTeamList(pid);
+
     
 	});
 })();
@@ -104,6 +108,48 @@ async function getList(pid) {
     createTrEvent(createdTr);
 
   }
+}
+
+// 데이터 조회(팀 멤버 리스트)
+async function getTeamList(pid) {
+
+  console.log("getTeamList pid : "+pid);
+
+  let url = `http://localhost:8080/project/member/list?pid=${pid}`;
+  const response = await fetch(url, { 
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
+  
+  // 401: 미인증, 403: 미인가(허가없는)
+  // if ([401, 403].includes(response.status)) {
+  //   // 로그인 페이지로 튕김
+  //   alert("인증처리가 되지 않았습니다.");
+  //   window.location.href = "/login.html";
+  // }
+
+  // 결과가 배열
+  const result = await response.json();
+  console.log("getTeamList result:");
+  console.log(result);
+
+  const divTeamInfo = document.querySelector("#divTeamInfo");
+
+  // 목록 초기화
+  divTeamInfo.innerHTML = "";
+  let createdTr = "";
+  // 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
+  for (let item of result) {
+    createdTr = "[NO:"+item.mid+"] "+item.username +" , "+ createdTr;
+    // createdTr = item.username;
+    console.log(createdTr);
+  }
+  if(createdTr.length > 0) {
+    divTeamInfo.innerHTML = createdTr.slice(0, createdTr.length-3);
+    console.log(divTeamInfo.innerHTML);  
+  }
+
 }
 
 // Task 정보 테이블 template
