@@ -2,24 +2,18 @@
 (() => {
 	window.addEventListener("DOMContentLoaded", () => {
 
-    // URL의 쿼리 문자열을 가져옵니다.
-		const queryString = window.location.search;
+    const params = new URLSearchParams(window.location.search);
+    pid = params.get("pid");
 
-    // console.log("queryString");
-    // console.log(queryString);
+    // 프로젝트 정보 조회
+		getProject(pid);
 
-		// 쿼리 문자열을 파싱하여 폼 데이터 객체로 변환합니다.
-		const formData = {};
-		const params = new URLSearchParams(queryString);
-		for (const [key, value] of params) {      
-			formData[key] = value;
-		}
-
-		getList(formData.pid);
+    // 프로젝트에 해당하는 Task 정보 조회(list)
+		getList(pid);
 
     // project id form 값에 넣어주기
     const form = document.querySelector("form");
-    form.querySelector("input[name='pid']").value = formData["pid"]; 
+    form.querySelector("input[name='pid']").value = pid; 
     
 	});
 })();
@@ -46,6 +40,29 @@
 
 })();
 
+// 데이터 조회(프로젝트 정보)
+async function getProject(pid) {
+	// alert(pid);
+
+	let url = `http://localhost:8080/project/${pid}`;
+
+	// http 통신을 통해서 데이터 조회 후 응답값 받음
+	//  - await 키워드는 async 함수에서만 사용 가능
+  const response = await fetch(url, { 
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
+	const result = await response.json();
+
+	console.log("--- debuging getProject result");
+	console.log(result);
+
+  // 프로젝트 제목 넣어주기
+  document.querySelector(".div-desc").innerHTML = "- 프로젝트명 : " + result.data.title;
+  
+}
+
 // 프로젝트에 해당하는 Task 정보 조회(list) : GET /project/tasks?pid=1
 async function getList(pid) {
 
@@ -53,7 +70,11 @@ async function getList(pid) {
 
   let url = `http://localhost:8080/project/tasks?pid=${pid}`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${getCookie("token")}`,
+    },
+  });
 
   // 401: 미인증, 403: 미인가(허가없는)
   // if ([401, 403].includes(response.status)) {
@@ -72,11 +93,17 @@ async function getList(pid) {
   tbody.innerHTML = "";
   // 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
   for (let item of result) {
-    tbody.append(
-      createRow(item)
-    );
-  }
 
+
+    let createdTr = createRow(item);
+
+    // tbody에 tr 추가
+    tbody.append(createdTr);
+
+    // Table tr 요소의 클릭 이벤트 핸들러 추가하기
+    createTrEvent(createdTr);
+
+  }
 }
 
 // Task 정보 테이블 template
@@ -89,13 +116,13 @@ function createRow(item) {
   const endDateFormat = dateFormat(new Date(item.endDate)); 
 
   // 2. 요소의 속성 설정
-  tr.dataset.mid = item.tid;
+  tr.dataset.tid = item.tid;
   tr.innerHTML = /*html*/ `
   <td>${item.title}</td>
   <td>${item.description}</td>  
   <td>${startDateFormat}</td>  
   <td>${endDateFormat}</td>  
-  <td>${item.status}</td>  
+  <td>${item.mid}</td>  
   `;
   return tr;
 }
@@ -108,4 +135,22 @@ function dateFormat(date) {
 	return resultDateFormat;
 }
 
+// Table tr 요소의 클릭 이벤트 핸들러 추가하기
+function createTrEvent(createdTr) {
 
+	createdTr.addEventListener("click", (e) => {
+		// 기본 제출 동작을 막음.
+		e.preventDefault();
+
+		let tid = createdTr.getAttribute("data-tid");
+
+    let pid = document.querySelector("input[name='pid']").value;
+
+		// 멤버 수정 페이지로 이동
+		const actionUrl = `http://localhost:5500/task/task-modify.html?pid=${pid}&tid=${tid}`;
+    // alert(actionUrl);
+
+		window.location.href = actionUrl;
+
+	});
+}

@@ -1,0 +1,9 @@
+.button-layer button {
+  width: 160px;
+  height: 40px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

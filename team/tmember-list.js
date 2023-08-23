@@ -2,28 +2,31 @@
 (() => {
 	window.addEventListener("DOMContentLoaded", () => {
 
-    // URL의 쿼리 문자열을 가져옵니다.
-		const queryString = window.location.search;
+    // // URL의 쿼리 문자열을 가져옵니다.
+		// const queryString = window.location.search;
 
-    // console.log("queryString");
-    // console.log(queryString);
+    // // console.log("queryString");
+    // // console.log(queryString);
 
-		// 쿼리 문자열을 파싱하여 폼 데이터 객체로 변환합니다.
-		const formData = {};
-		const params = new URLSearchParams(queryString);
-		for (const [key, value] of params) {      
-			formData[key] = value;
-		}
+		// // 쿼리 문자열을 파싱하여 폼 데이터 객체로 변환합니다.
+		// const formData = {};
+		// const params = new URLSearchParams(queryString);
+		// for (const [key, value] of params) {      
+		// 	formData[key] = value;
+		// }
+
+    const params = new URLSearchParams(window.location.search);
+    pid = params.get("pid");
 
     // 프로젝트 정보 조회
-		getProject(formData.pid);
+		getProject(pid);
 
     // 팀 멤버 리스트 조회
-		getList(formData.pid);
+		getList(pid);
 
     // project id form 값에 넣어주기
     const form = document.querySelector("form");
-    form.querySelector("input[name='pid']").value = formData["pid"]; 
+    form.querySelector("input[name='pid']").value = pid; 
 
 	});
 })();

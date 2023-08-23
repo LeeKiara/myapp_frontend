@@ -13,7 +13,7 @@
 			formData[key] = value;
 		}
 
-		// 폼 데이터를 사용하여 프로젝트 정보 조회
+		// 프로젝트 정보 조회
 		// alert(formData.pid);
 		getProject(formData.pid);
 
@@ -22,7 +22,7 @@
 	});
 })();
 
-// 프로젝트 팀원 등록 페이지 이동
+// 프로젝트 팀원 등록 버튼 클릭 이벤트
 (() => {
 	const btnTeamMember = document.querySelector(
 		".button-layer button:nth-of-type(3)"
@@ -38,6 +38,26 @@
 
 		// 프로젝트 팀원 등록 페이지로 이동
 		const actionUrl = `http://localhost:5500/team/tmember-create.html?pid=${pid}`;
+		window.location.href = actionUrl;
+	});
+})();
+
+// 프로젝트 팀원 조회 버튼 클릭 이벤트
+(() => {
+	const btnTeamMemberList = document.querySelector(
+		".button-layer button:nth-of-type(4)"
+	);
+
+	// 버튼 클릭 이벤트 핸들러
+	btnTeamMemberList.addEventListener("click", async (e) => {
+		e.preventDefault();
+
+		const form = document.forms[0];
+
+		const pid = form.querySelector("input[name='pid']").value;
+
+		// 프로젝트 팀원 조회 페이지로 이동
+		const actionUrl = `http://localhost:5500/team/tmember-list.html?pid=${pid}`;
 		window.location.href = actionUrl;
 	});
 })();
@@ -242,6 +262,7 @@ function loadImage() {
 
 			if ([200].includes(response.status)) {
 				alert("프로젝트가 수정되었습니다.");
+				window.location.href = "/project/project-main.html?search=myproject";
 			} else {
 				window.location.href = "/common/system-notice.html";
 			}

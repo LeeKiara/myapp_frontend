@@ -6,9 +6,14 @@ body div {
   text-align: center;
 }
 
-main {
+article {
+  width: 500px;
+  /* border: 1px solid black; */
+}
+form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
 }
 
 main img {
@@ -23,7 +28,7 @@ aside {
   line-height: 30px;
 }
 
-aside button {
+form button {
   width: 250px;
   height: 40px;
   line-height: 20px;

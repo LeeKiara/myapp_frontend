@@ -8,8 +8,8 @@
 
 	<link rel="stylesheet" href="/common/reset.css" />
 	<link rel="stylesheet" href="/common/layout.css" />
+	<link rel="stylesheet" href="/task/task-create.css" />
 	<link rel="stylesheet" href="/project/project-create.css" />
-	<link rel="stylesheet" href="/team/tmember-list.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
@@ -46,37 +46,45 @@
 			</aside> -->
 
 		<article>
-			<div>
-				<h1>Project Team Member</h1>
-			</div>
-			<div>
-				<label>* 프로젝트명 : </label>
-				<input name="title" type="text" class="font-color-emphasis" readonly />
-			</div>
-
 			<form action="">
-				<!-- Project Team Member List -->
-				<table>
-					<thead>
-						<th>아이디</th>
-						<th>이메일</th>
-					</thead>
-					<tbody></tbody>
-				</table>
-				<div class="button-layer">
-					<button>팀원 등록</button>
-					<!-- <button></button> -->
+				<!-- forms[0] -->
+				<div>
+					<label>프로젝트명</label>
+					<input name="project-title" type="text" />
 				</div>
+				<div>
+					<label>Task명</label>
+					<input name="title" type="text" placeholder="Task명을 입력하세요" />
+				</div>
+				<div>
+					<label>설명</label>
+					<textarea name="description" cols="30" rows="10" placeholder="Task에 관한 설명 입력(옵션)"></textarea>
+				</div>
+				<div>
+					<label>시작일</label><input name="start-date" type="date" id="startDateInput" placeholder="시작일" /> ~
+					<label>종료일</label><input name="end-date" type="date" id="endDateInput" placeholder="종료일" />
+				</div>
+				<input type="hidden" name="task-status" value="1" /> <!--상태:진행중-->
+				<!-- <div>
+					<label>상태</label>
+					<input type="radio" name="task-status" value="1">진행중
+					<input type="radio" name="task-status" value="1">완료
+					<input type="radio" name="task-status" value="1">지연
+				</div>
+				 -->
 				<input name="pid" type="hidden" />
+				<input name="tid" type="hidden" />
+				<input name="project-status" type="hidden" />
 			</form>
 
+			<div class="button-layer">
+				<button>Task 수정</button>
+				<button>Task 삭제</button>
+			</div>
 		</article>
 	</main>
 
-	<script src="/team/tmember-list.js"></script>
-	<script>
-
-	</script>
+	<script src="/task/task-modify.js"></script>
 </body>
 
 </html>
