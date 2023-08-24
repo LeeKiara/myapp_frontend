@@ -6,15 +6,15 @@ let currentQuery = ""; // 현재 검색 키워드
 // 웹 페이지 로딩이 완료되면, 페이징으로 데이터 조회 및 화면 display
 (() => {
 	window.addEventListener("DOMContentLoaded", () => {
-		
 		// request parameter 정보를 가져온다. (URL QueryString)
 		const params = new URLSearchParams(window.location.search);
 		if (params.get("search")) {
-			getPagedList(0,"myproject");
+			getPagedList(0, "myproject");
 		} else {
 			getPagedList(0);
 		}
-		
+
+		getJoinProjects();
 	});
 })();
 
@@ -57,19 +57,19 @@ async function getPagedList(page, query) {
 		url = `http://localhost:8080/project/paging/myproject?page=${page}&size=${PAGE_SIZE}`;
 	}
 
-	// 서버에 데이터를 전송 : fetch(url, options) 
+	// 서버에 데이터를 전송 : fetch(url, options)
 	const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${getCookie("token")}`,
-    },
-  });
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
 
-	 // 401: 미인증, 403: 미인가(허가없는)
+	// 401: 미인증, 403: 미인가(허가없는)
 	//  if ([401, 403].includes(response.status)) {
-  //   // 로그인 페이지로 튕김
-  //   alert("인증처리가 되지 않았습니다.");
-  //   window.location.href = "/member/login.html";
-  // }
+	//   // 로그인 페이지로 튕김
+	//   alert("인증처리가 되지 않았습니다.");
+	//   window.location.href = "/member/login.html";
+	// }
 
 	const result = await response.json();
 	// console.log(result);
@@ -110,10 +110,39 @@ async function getPagedList(page, query) {
 	// 이전/다음 버튼 활성화 여부 처리
 	setBtnActive();
 
-		// 검색 조건이 있으면...
-		if (query) {
-			document.querySelector("form h1").innerHTML = "내 프로젝트";
-		}
+	// 검색 조건이 있으면...
+	if (query) {
+		document.querySelector("form h1").innerHTML = "내 프로젝트";
+	}
+}
+
+// 데이터 조회(페이징 처리)
+async function getJoinProjects() {
+	let mid = 6;
+	let url = `http://localhost:8080/project/join?mid=${mid}`;
+
+	// 서버에 데이터를 전송 : fetch(url, options)
+	const response = await fetch(url, {
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
+
+	// 401: 미인증, 403: 미인가(허가없는)
+	//  if ([401, 403].includes(response.status)) {
+	//   // 로그인 페이지로 튕김
+	//   alert("인증처리가 되지 않았습니다.");
+	//   window.location.href = "/member/login.html";
+	// }
+
+	const result = await response.json();
+	// console.log(result);
+
+	// 응답값 객체를 배열로 전환
+	const data = Array.from(result.content);
+
+	console.log("*** debuging data");
+	console.log(data);
 }
 
 function cardTemplate(item) {
