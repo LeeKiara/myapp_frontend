@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- 체크박스들 -->
+  <input type="checkbox" value="2"> Value 1<br>
+  <input type="checkbox" value="4"> Value 2<br>
+  <input type="checkbox" value="5"> Value 3<br>
+
+  <!-- 버튼 -->
+  <button id="sendButton">전송</button>
+
+  <table style="border: 1px solid yellowgreen;">
+    <thead>
+      <tr>
+        <th>선택</th>
+        <th>Task명</th>
+        <th>설명</th>
+        <th>시작일</th>
+        <th>종료일</th>
+        <th>작업자</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-tid="4">
+        <td><input type="checkbox" value="4">4</td>
+        <td>K task2</td>
+        <td>K task2</td>
+        <td>2023-08-25</td>
+        <td>2023-9-01</td>
+        <td>kiara</td>
+      </tr>
+      <tr data-tid="6">
+        <td><input type="checkbox" value="6">6</td>
+        <td>task5</td>
+        <td>task5</td>
+        <td>2023-08-25</td>
+        <td>2023-9-01</td>
+        <td>kiara</td>
+      </tr>
+      <tr data-tid="7">
+        <td><input type="checkbox" value="7">7</td>
+        <td>task6</td>
+        <td>task6</td>
+        <td>2023-9-01</td>
+        <td>2023-9-08</td>
+        <td>kiara</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+
+    document.getElementById("sendButton").addEventListener("click", async function () {
+      const checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
+      const valuesToSend = [];
+
+      checkboxes.forEach(checkbox => {
+        valuesToSend.push(checkbox.value);
+        alert(checkbox.value);
+      });
+
+      let url = `http://localhost:8080/project/task/remove`;
+
+      // http 통신을 통해서 데이터 조회 후 응답값 받음
+      //  - await 키워드는 async 함수에서만 사용 가능
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(valuesToSend)
+      });
+      const result = await response.json();
+
+    });
+
+
+    const tableBody = document.querySelector('tbody');
+
+    tableBody.addEventListener('click', (event) => {
+      const clickedElement = event.target;
+      const trElement = clickedElement.closest('tr');
+      const tid = trElement.getAttribute('data-tid');
+
+      if (clickedElement.tagName === 'INPUT' && clickedElement.type === 'checkbox') {
+
+        alert(`Checkbox with value ${tid} clicked.`);
+
+        // 여기에 체크박스 클릭 이벤트에 대한 처리 코드를 추가하면 됩니다.
+      } else {
+        alert(`Non Checkbox with value ${tid} clicked.`);
+      }
+    });
+
+
+  </script>
+
+</body>
+
+</html>

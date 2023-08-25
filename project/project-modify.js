@@ -292,7 +292,27 @@ function loadImage() {
 			return;
 		}
 
-		// 서버에 Http 요청 (프로젝트 수정)
+		// 삭제 처리 전에 프로젝트에 등록된 Task가 있는지 확인한다.
+		const resTask = await fetch(`http://localhost:8080/project/${pid}/task/count`, {
+			headers: {
+				Authorization: `Bearer ${getCookie("token")}`,
+			},
+		});
+
+		const resultTask = await resTask.json();
+		const arrayTask = Array.from(resultTask);
+
+		console.log("-----countTask");
+		console.log(resultTask.data);
+
+		if(resultTask.data > 0) {
+			alert(`해당 프로젝트에 등록된 Task가 ${resultTask.data}건 존재합니다. Task 먼저 삭제 후 프로젝틑를 삭제하시기 바랍니다.`);
+
+			window.location.href = `/task/task-list.html?pid=${pid}`;
+			return;
+		}
+
+		// 서버에 Http 요청 (프로젝트 삭제)
 		// fetch : url, option
 		const response = await fetch(`http://localhost:8080/project/${pid}`, {
 			// HTTP Method

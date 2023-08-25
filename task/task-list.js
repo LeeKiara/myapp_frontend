@@ -37,6 +37,50 @@
 	});
 })();
 
+// Task 삭제 버튼 클릭 : 
+(() => {
+	const btnDeleteTasks = document.querySelector(".button-layer button:nth-of-type(2)");
+
+	// 버튼 클릭 이벤트 핸들러
+	btnDeleteTasks.addEventListener("click", async (e) => {
+
+    if (!confirm("삭제 하시겠습니까?")) {
+			return;
+		}
+
+		e.preventDefault();
+
+		const checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
+    const valuesToSend = [];
+
+    checkboxes.forEach(checkbox => {
+      valuesToSend.push(checkbox.value);
+      alert(checkbox.value);
+    });
+
+    let url = `http://localhost:8080/project/task/remove`;
+
+    // http 통신을 통해서 데이터 조회 후 응답값 받음
+    //  - await 키워드는 async 함수에서만 사용 가능
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(valuesToSend)
+    });
+    // alert(response.status);
+
+    if([200].includes(response.status)) {
+      alert("삭제되었습니다.");
+      window.location.reload();
+    } else {
+      alert("삭제처리가 실패되었습니다. 시스템 담당자에게 문의하세요.");
+    }
+    // const result = await response.json();
+	});
+})();
+
 // 데이터 조회(프로젝트 정보)
 async function getProject(pid) {
 	// alert(pid);
@@ -95,8 +139,11 @@ async function getList(pid) {
 		tbody.append(createdTr);
 
 		// Table tr 요소의 클릭 이벤트 핸들러 추가하기
-		createTrEvent(createdTr);
+		//createTrEvent(createdTr);
 	}
+
+  // Table tr요소, checkbok 요소 이벤트 핸들러 추가하기
+  createTableBody();
 }
 
 // 데이터 조회(팀 멤버 리스트)
@@ -151,6 +198,7 @@ function createRow(item) {
 	// 2. 요소의 속성 설정
 	tr.dataset.tid = item.tid;
 	tr.innerHTML = /*html*/ `
+  <td><input type="checkbox" value="${item.tid}"></td>
   <td>${item.title}</td>
   <td>${item.description}</td>  
   <td>${startDateFormat}</td>  
@@ -158,6 +206,36 @@ function createRow(item) {
   <td>${item.username}</td>  
   `;
 	return tr;
+}
+
+
+// Table tr요소, checkbok 요소 이벤트 핸들러 추가하기
+function createTableBody() {
+
+  const tableBody = document.querySelector('tbody');
+
+    tableBody.addEventListener('click', (event) => {
+      const clickedElement = event.target;
+      const trElement = clickedElement.closest('tr');
+      const tid = trElement.getAttribute('data-tid');
+      const pid = document.querySelector("input[name='pid']").value;
+
+      if (clickedElement.tagName === 'INPUT' && clickedElement.type === 'checkbox') {
+
+        // alert(`Checkbox with value ${tid} clicked.`);
+
+        // 여기에 체크박스 클릭 이벤트에 대한 처리 코드를 추가하면 됩니다.
+      } else {
+        // alert(`Non Checkbox with value ${tid} clicked.`);
+
+        // 멤버 수정 페이지로 이동
+		    const actionUrl = `http://localhost:5500/task/task-modify.html?pid=${pid}&tid=${tid}`;
+		    // alert(actionUrl);
+
+		    window.location.href = actionUrl;
+      }
+    });
+
 }
 
 // 날짜 포맷 (yyyy-MM-dd)
@@ -174,19 +252,20 @@ function dateFormat(date) {
 }
 
 // Table tr 요소의 클릭 이벤트 핸들러 추가하기
-function createTrEvent(createdTr) {
-	createdTr.addEventListener("click", (e) => {
-		// 기본 제출 동작을 막음.
-		e.preventDefault();
+// function createTrEvent(createdTr) {
 
-		let tid = createdTr.getAttribute("data-tid");
+// 	createdTr.addEventListener("click", (e) => {
+// 		// 기본 제출 동작을 막음.
+// 		e.preventDefault();    
 
-		let pid = document.querySelector("input[name='pid']").value;
+// 		let tid = createdTr.getAttribute("data-tid");
 
-		// 멤버 수정 페이지로 이동
-		const actionUrl = `http://localhost:5500/task/task-modify.html?pid=${pid}&tid=${tid}`;
-		// alert(actionUrl);
+// 		let pid = document.querySelector("input[name='pid']").value;
 
-		window.location.href = actionUrl;
-	});
-}
+// 		// 멤버 수정 페이지로 이동
+// 		const actionUrl = `http://localhost:5500/task/task-modify.html?pid=${pid}&tid=${tid}`;
+// 		// alert(actionUrl);
+
+// 		window.location.href = actionUrl;
+// 	});
+// }

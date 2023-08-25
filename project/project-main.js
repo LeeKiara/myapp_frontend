@@ -116,10 +116,10 @@ async function getPagedList(page, query) {
 	}
 }
 
-// 데이터 조회(페이징 처리)
+// 데이터 조회(내가 참여한 프로젝트)
 async function getJoinProjects() {
-	let mid = 6;
-	let url = `http://localhost:8080/project/join?mid=${mid}`;
+	
+	let url = `http://localhost:8080/project/join`;
 
 	// 서버에 데이터를 전송 : fetch(url, options)
 	const response = await fetch(url, {
@@ -136,13 +136,24 @@ async function getJoinProjects() {
 	// }
 
 	const result = await response.json();
-	// console.log(result);
-
-	// 응답값 객체를 배열로 전환
-	const data = Array.from(result.content);
-
 	console.log("*** debuging data");
-	console.log(data);
+	console.log(result);
+
+	const tbody = document.querySelector("tbody");
+
+	// 목록 초기화
+	tbody.innerHTML = "";
+	// 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
+	for (let item of result) {
+		let createdTr = createRow(item);
+
+		// tbody에 tr 추가
+		tbody.append(createdTr);
+
+		// Table tr 요소의 클릭 이벤트 핸들러 추가하기
+		// createTrEvent(createdTr);
+	}
+
 }
 
 function cardTemplate(item) {
@@ -188,6 +199,27 @@ function createDivEvent(divContent) {
 	});
 }
 
+// Task 정보 테이블 template
+function createRow(item) {
+	// 1. 요소 생성
+	const tr = document.createElement("tr");
+
+	// 시작일,종료일 YYYY-MM-DD 형식으로 변환
+	const startDateFormat = dateFormat(new Date(item.startDate));
+	const endDateFormat = dateFormat(new Date(item.endDate));
+
+	// 2. 요소의 속성 설정
+	tr.dataset.tid = item.tid;
+	tr.innerHTML = /*html*/ `
+  <td>${item.title}</td>
+  <td>${item.description}</td>  
+  <td>${startDateFormat}</td>  
+  <td>${endDateFormat}</td>  
+  <td>${item.status}</td>  
+  `;
+	return tr;
+}
+
 // 이전/다음 버튼 활성화 여부 처리
 function setBtnActive() {
 	const btnPrev = document.getElementById("btnPrev");
@@ -206,4 +238,17 @@ function setBtnActive() {
 	} else {
 		btnNext.disbled = false;
 	}
+}
+
+// 날짜 포맷 (yyyy-MM-dd)
+function dateFormat(date) {
+	let resultDateFormat =
+		date.getFullYear() +
+		"-" +
+		(date.getMonth() + 1 < 9
+			? "0" + (date.getMonth() + 1)
+			: date.getMonth() + 1) +
+		"-" +
+		(date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
+	return resultDateFormat;
 }
