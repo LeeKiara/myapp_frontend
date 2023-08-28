@@ -22,30 +22,10 @@
 	});
 })();
 
-// 프로젝트 팀원 등록 버튼 클릭 이벤트
-(() => {
-	const btnTeamMember = document.querySelector(
-		".button-layer button:nth-of-type(3)"
-	);
-
-	// 버튼 클릭 이벤트 핸들러
-	btnTeamMember.addEventListener("click", async (e) => {
-		e.preventDefault();
-
-		const form = document.forms[0];
-
-		const pid = form.querySelector("input[name='pid']").value;
-
-		// 프로젝트 팀원 등록 페이지로 이동
-		const actionUrl = `http://localhost:5500/team/tmember-create.html?pid=${pid}`;
-		window.location.href = actionUrl;
-	});
-})();
-
 // 프로젝트 팀원 조회 버튼 클릭 이벤트
 (() => {
 	const btnTeamMemberList = document.querySelector(
-		".button-layer button:nth-of-type(4)"
+		".button-layer button:nth-of-type(3)"
 	);
 
 	// 버튼 클릭 이벤트 핸들러
@@ -58,6 +38,24 @@
 
 		// 프로젝트 팀원 조회 페이지로 이동
 		const actionUrl = `http://localhost:5500/team/tmember-list.html?pid=${pid}`;
+		window.location.href = actionUrl;
+	});
+})();
+
+// 작업 조회 버튼 클릭 이벤트
+(() => {
+	const btnTask = document.querySelector(".button-layer button:nth-of-type(4)");
+
+	// 버튼 클릭 이벤트 핸들러
+	btnTask.addEventListener("click", async (e) => {
+		e.preventDefault();
+
+		const form = document.forms[0];
+
+		const pid = form.querySelector("input[name='pid']").value;
+
+		// 작업 조회 페이지로 이동
+		const actionUrl = `http://localhost:5500/task/task-list.html?pid=${pid}`;
 		window.location.href = actionUrl;
 	});
 })();
@@ -293,11 +291,14 @@ function loadImage() {
 		}
 
 		// 삭제 처리 전에 프로젝트에 등록된 Task가 있는지 확인한다.
-		const resTask = await fetch(`http://localhost:8080/project/${pid}/task/count`, {
-			headers: {
-				Authorization: `Bearer ${getCookie("token")}`,
-			},
-		});
+		const resTask = await fetch(
+			`http://localhost:8080/project/${pid}/task/count`,
+			{
+				headers: {
+					Authorization: `Bearer ${getCookie("token")}`,
+				},
+			}
+		);
 
 		const resultTask = await resTask.json();
 		const arrayTask = Array.from(resultTask);
@@ -305,8 +306,10 @@ function loadImage() {
 		console.log("-----countTask");
 		console.log(resultTask.data);
 
-		if(resultTask.data > 0) {
-			alert(`해당 프로젝트에 등록된 Task가 ${resultTask.data}건 존재합니다. Task 먼저 삭제 후 프로젝틑를 삭제하시기 바랍니다.`);
+		if (resultTask.data > 0) {
+			alert(
+				`해당 프로젝트에 등록된 Task가 ${resultTask.data}건 존재합니다. Task 먼저 삭제 후 프로젝틑를 삭제하시기 바랍니다.`
+			);
 
 			window.location.href = `/task/task-list.html?pid=${pid}`;
 			return;
@@ -329,7 +332,9 @@ function loadImage() {
 
 			window.location.href = "/project/project-main.html";
 		} else {
-			alert("삭제 처리 실패! -> TODO : 프로젝트의 Task가 존재할 경우 삭제할 수 없도록 수정 또는 해당 TASK 모두 삭제 예정")
+			alert(
+				"삭제 처리 실패! -> TODO : 프로젝트의 Task가 존재할 경우 삭제할 수 없도록 수정 또는 해당 TASK 모두 삭제 예정"
+			);
 			// window.location.href = "/common/system-notice.html";
 		}
 	});

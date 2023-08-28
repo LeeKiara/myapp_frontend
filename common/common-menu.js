@@ -1,6 +1,5 @@
 (() => {
-	
-  // Top-menu 생성
+	// Top-menu 생성
 	createTopMenu();
 
 	// Left-menu 생성
@@ -25,7 +24,7 @@
 	btnLogout.addEventListener("click", (e) => {
 		e.preventDefault();
 
-		removeCookie("token");		
+		removeCookie("token");
 
 		window.location.href = "/index.html";
 	});
@@ -51,13 +50,23 @@
 		window.location.href = "/project/project-main.html?search=myproject";
 	});
 
+	// 작업 현황
+	const btnTask = document.querySelector("#gnb-menu-task");
 
-	
+	btnTask.addEventListener("click", (e) => {
+		window.location.href = "/task/task-list.html";
+	});
+
+	// 팀원 현황
+	const btnTmember = document.querySelector("#gnb-menu-tmember");
+
+	btnTmember.addEventListener("click", (e) => {
+		window.location.href = "/team/tmember-list.html";
+	});
 })();
 
 // Top-menu 생성
 function createTopMenu() {
-
 	const params = new URLSearchParams(window.location.search);
 	let pid = params.get("pid");
 
@@ -70,8 +79,9 @@ function createTopMenu() {
 		<div class="gnb-menu">
 			<div id="gnb-menu-new-project">프로젝트 등록</div>
 			<div id="gnb-menu-my-project">내 프로젝트</div>
-			<div id="gnb-menu-task">업무 현황</div>
-			<div id="gnb-menu-tmember">참여자</div>
+			<div id="gnb-menu-tmember">팀원 현황</div>
+			<div id="gnb-menu-task">작업 현황</div>
+			
 		</div>
 		<div class="login-logout">
 			<div id='username' class="font-color-emphasis"></div>
@@ -86,19 +96,18 @@ function createTopMenu() {
 
 // client에 저장된 token값 유무에 따라 로그인, 로그아웃 버튼 처리
 function displayBtnLogout(btnLogin, btnLogout, username) {
-	
 	// token 정보 읽어오기
 	let myToken = getCookie("token");
 
-	if (typeof myToken === "undefined") { 	// 토큰이 없으면 로그인 버튼만 보이기
+	if (typeof myToken === "undefined") {
+		// 토큰이 없으면 로그인 버튼만 보이기
 		btnLogin.style.display = "";
-		btnLogout.style.display = 'none';		
-
-	} else {	// 토큰이 있으면 로그아웃 버튼만 보이기
-		btnLogin.style.display = 'none';
-		btnLogout.style.display = "";	
+		btnLogout.style.display = "none";
+	} else {
+		// 토큰이 있으면 로그아웃 버튼만 보이기
+		btnLogin.style.display = "none";
+		btnLogout.style.display = "";
 	}
-
 }
 
 // Left-menu 생성
@@ -121,7 +130,6 @@ function createLeftMenu() {
 
 	// main 영역에  좌측 공통 메뉴 삽입
 	main.prepend(leftbar);
-
 }
 
 // 쿠키값 조회
@@ -142,5 +150,3 @@ function removeCookie(name) {
 		name +
 		"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
 }
-
-

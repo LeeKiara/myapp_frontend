@@ -8,8 +8,13 @@
 		const form = document.querySelector("form");
 		form.querySelector("input[name='pid']").value = pid;
 
+		// 프로젝트 정보 select box에 넣어주기
+		setProjectList(pid);
+		// select option 요소의 클릭 이벤트 핸들러 추가하기
+		selectOptionEvent();
+
 		// 프로젝트 정보 조회
-		getProject(pid);
+		// getProject(pid);
 
 		// 프로젝트에 해당하는 Task 정보 조회(list)
 		getList(pid);
@@ -18,6 +23,61 @@
 		getTeamList(pid);
 	});
 })();
+
+// 프로젝트 정보 리스트 조회하여 select 요소에 값 넣어주기
+async function setProjectList(pid) {
+	let url = `http://localhost:8080/project/list-all`;
+
+	// http 통신을 통해서 데이터 조회 후 응답값 받음
+	//  - await 키워드는 async 함수에서만 사용 가능
+	const response = await fetch(url, {
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
+	const result = await response.json();
+
+	console.log("--- debuging setProjectList result");
+	console.log(result);
+
+	// select 요소
+	const selectElement = document.querySelector(".select-box select");
+
+	// 목록 초기화
+	selectElement.innerHTML = "";
+
+	// select 첫번째 option 추가
+	const createElement = document.createElement("option");
+	createElement.value = "";
+	createElement.innerHTML = `프로젝트를 선택하세요.`;
+	selectElement.append(createElement);
+
+	// 배열 반복을 해서 option 만든다음에 select 가장 마지막 자식에 추가
+	for (let item of result) {
+		// 요소 생성
+		const createElement = document.createElement("option");
+
+		// 2. 요소의 속성 설정
+		createElement.value = `${item.pid}`;
+		createElement.innerHTML = `${item.title}`;
+
+		// tbody에 tr 추가
+		selectElement.append(createElement);
+	}
+
+	// 외부 파라메터로 pid가 넘어올 경우, 해당 pid로 select box 선택하기
+	if (pid != null) {
+		selectElement.value = pid; // 해당 value를 가진 옵션을 선택하도록 설정
+	}
+
+	// select option 요소의 클릭 이벤트 핸들러 추가하기
+	// createOptionEvent();
+
+	// if(pid > 0) {
+	//   getTeamMeberList(pid);
+	//   document.querySelector("form[name='team-members']").querySelector("input[name='pid']").value = pid;
+	// }
+}
 
 // Task 등록 버튼 클릭 : Task 등록 페이지 이동
 (() => {
@@ -37,50 +97,78 @@
 	});
 })();
 
-// Task 삭제 버튼 클릭 : 
+// Task 삭제 버튼 클릭 :
 (() => {
-	const btnDeleteTasks = document.querySelector(".button-layer button:nth-of-type(2)");
+	const btnDeleteTasks = document.querySelector(
+		".button-layer button:nth-of-type(2)"
+	);
 
 	// 버튼 클릭 이벤트 핸들러
 	btnDeleteTasks.addEventListener("click", async (e) => {
-
-    if (!confirm("삭제 하시겠습니까?")) {
+		if (!confirm("삭제 하시겠습니까?")) {
 			return;
 		}
 
 		e.preventDefault();
 
-		const checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
-    const valuesToSend = [];
+		const checkboxes = document.querySelectorAll(
+			"input[type=checkbox]:checked"
+		);
+		const valuesToSend = [];
 
-    checkboxes.forEach(checkbox => {
-      valuesToSend.push(checkbox.value);
-      alert(checkbox.value);
-    });
+		checkboxes.forEach((checkbox) => {
+			valuesToSend.push(checkbox.value);
+			// alert(checkbox.value);
+		});
 
-    let url = `http://localhost:8080/project/task/remove`;
+		let url = `http://localhost:8080/project/task/remove`;
 
-    // http 통신을 통해서 데이터 조회 후 응답값 받음
-    //  - await 키워드는 async 함수에서만 사용 가능
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(valuesToSend)
-    });
-    // alert(response.status);
+		// http 통신을 통해서 데이터 조회 후 응답값 받음
+		//  - await 키워드는 async 함수에서만 사용 가능
+		const response = await fetch(url, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(valuesToSend),
+		});
+		// alert(response.status);
 
-    if([200].includes(response.status)) {
-      alert("삭제되었습니다.");
-      window.location.reload();
-    } else {
-      alert("삭제처리가 실패되었습니다. 시스템 담당자에게 문의하세요.");
-    }
-    // const result = await response.json();
+		if ([200].includes(response.status)) {
+			alert("삭제되었습니다.");
+			window.location.reload();
+		} else {
+			alert("삭제처리가 실패되었습니다. 시스템 담당자에게 문의하세요.");
+		}
+		// const result = await response.json();
 	});
 })();
 
+// select option 요소의 클릭 이벤트 핸들러 추가하기
+function selectOptionEvent() {
+	// 프로젝트 정보 select box
+	const selectElement = document.querySelector(".select-box select");
+
+	selectElement.addEventListener("change", () => {
+		let selectPid = 0;
+
+		if (selectElement.value === "") {
+			alert("옵션을 선택해주세요."); // 사용자에게 메시지 표시
+			selectElement.selectedIndex = -1; // 선택 취소
+		} else {
+			selectPid = selectElement.value;
+			// alert(" select option 요소의 클릭 이벤트 >"+selectPid);
+			window.location.href = "/task/task-list.html?pid=" + selectPid;
+			return;
+		}
+
+		// alert("this..");
+
+		// if(selectPid > 0) {
+		//   getTeamMeberList(selectPid);
+		// }
+	});
+}
 // 데이터 조회(프로젝트 정보)
 async function getProject(pid) {
 	// alert(pid);
@@ -142,8 +230,8 @@ async function getList(pid) {
 		//createTrEvent(createdTr);
 	}
 
-  // Table tr요소, checkbok 요소 이벤트 핸들러 추가하기
-  createTableBody();
+	// Table tr요소, checkbok 요소 이벤트 핸들러 추가하기
+	createTableBody();
 }
 
 // 데이터 조회(팀 멤버 리스트)
@@ -208,34 +296,32 @@ function createRow(item) {
 	return tr;
 }
 
-
 // Table tr요소, checkbok 요소 이벤트 핸들러 추가하기
 function createTableBody() {
+	const tableBody = document.querySelector("tbody");
 
-  const tableBody = document.querySelector('tbody');
+	tableBody.addEventListener("click", (event) => {
+		const clickedElement = event.target;
+		const trElement = clickedElement.closest("tr");
+		const tid = trElement.getAttribute("data-tid");
+		const pid = document.querySelector("input[name='pid']").value;
 
-    tableBody.addEventListener('click', (event) => {
-      const clickedElement = event.target;
-      const trElement = clickedElement.closest('tr');
-      const tid = trElement.getAttribute('data-tid');
-      const pid = document.querySelector("input[name='pid']").value;
+		if (
+			clickedElement.tagName === "INPUT" &&
+			clickedElement.type === "checkbox"
+		) {
+			// alert(`Checkbox with value ${tid} clicked.`);
+			// 여기에 체크박스 클릭 이벤트에 대한 처리 코드를 추가하면 됩니다.
+		} else {
+			// alert(`Non Checkbox with value ${tid} clicked.`);
 
-      if (clickedElement.tagName === 'INPUT' && clickedElement.type === 'checkbox') {
+			// 멤버 수정 페이지로 이동
+			const actionUrl = `http://localhost:5500/task/task-modify.html?pid=${pid}&tid=${tid}`;
+			// alert(actionUrl);
 
-        // alert(`Checkbox with value ${tid} clicked.`);
-
-        // 여기에 체크박스 클릭 이벤트에 대한 처리 코드를 추가하면 됩니다.
-      } else {
-        // alert(`Non Checkbox with value ${tid} clicked.`);
-
-        // 멤버 수정 페이지로 이동
-		    const actionUrl = `http://localhost:5500/task/task-modify.html?pid=${pid}&tid=${tid}`;
-		    // alert(actionUrl);
-
-		    window.location.href = actionUrl;
-      }
-    });
-
+			window.location.href = actionUrl;
+		}
+	});
 }
 
 // 날짜 포맷 (yyyy-MM-dd)
@@ -250,22 +336,3 @@ function dateFormat(date) {
 		(date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
 	return resultDateFormat;
 }
-
-// Table tr 요소의 클릭 이벤트 핸들러 추가하기
-// function createTrEvent(createdTr) {
-
-// 	createdTr.addEventListener("click", (e) => {
-// 		// 기본 제출 동작을 막음.
-// 		e.preventDefault();    
-
-// 		let tid = createdTr.getAttribute("data-tid");
-
-// 		let pid = document.querySelector("input[name='pid']").value;
-
-// 		// 멤버 수정 페이지로 이동
-// 		const actionUrl = `http://localhost:5500/task/task-modify.html?pid=${pid}&tid=${tid}`;
-// 		// alert(actionUrl);
-
-// 		window.location.href = actionUrl;
-// 	});
-// }
