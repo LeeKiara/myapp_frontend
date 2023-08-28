@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body {
+				margin: 0;
+				font-family: "Nanum Gothic", "Apple SD Gothic Neo", "맑은 고딕",
+					"Malgun Gothic", "AppleGothic", "돋움", Dotum, Helvetica, Arial,
+					sans-serif;
+				font-size: 14px;
+				line-height: 1.428571429;
+				color: #555;
+				background-color: #f5f5f5;
+				height: 100%;
+			}
+
+			header.header {
+				min-width: 1080px;
+			}
+
+			header.header .base-nav-client {
+				background-color: #242933;
+			}
+			header.header .container {
+				width: 1080px;
+			}
+			header.header .base-nav-client .nav-logo-wrapper {
+				background: url(https://www.wishket.com/static/renewal/img/global/logo_white.svg?2c532611cefc)
+					10px 22px/80px 20px no-repeat;
+			}
+			.left-nav {
+				float: left;
+			}
+			header.header .base-nav-client .left-nav .gnb-menu:first-child {
+				margin-left: 16px;
+			}
+			header.header .base-nav-client .left-nav .gnb-menu {
+				color: #ffffff;
+			}
+			header.header .base-nav .left-nav .gnb-menu,
+			header.header .base-nav-guest .left-nav .gnb-menu,
+			header.header .base-nav-landing .left-nav .gnb-menu,
+			header.header .base-nav-partner .left-nav .gnb-menu,
+			header.header .base-nav-client .left-nav .gnb-menu {
+				padding: 20px 16px;
+				display: block;
+				float: left;
+			}
+
+			header.header .base-nav .right-nav,
+			header.header .base-nav-guest .right-nav,
+			header.header .base-nav-landing .right-nav,
+			header.header .base-nav-partner .right-nav,
+			header.header .base-nav-client .right-nav {
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				height: 64px;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="header">
+			<section class="base-nav-client">
+				<div class="container">
+					<a class="nav-logo-wrapper" href="/">wishket</a>
+					<div class="left-nav">
+						<a class="gnb-menu body-2" href="/project/add/">프로젝트 등록</a>
+						<a class="gnb-menu body-2" href="/project/#clear">프로젝트 찾기</a>
+						<a class="gnb-menu body-2" href="/partners/#clear">파트너스 찾기</a>
+						<div class="nav-divider"></div>
+					</div>
+
+					<div class="right-nav">
+						<div class="right-nav-list">
+							<a class="right-nav-item" data-toggle="dropdown" href="#"
+								><img
+									alt="hbin1028사진"
+									class="user-img"
+									height="32px"
+									src="https://cdn.wishket.com/profiles/253118_20230822_7c684fa065eaf474.png"
+									width="32px"
+							/></a>
+						</div>
+					</div>
+				</div>
+			</section>
+		</header>
+	</body>
+</html>

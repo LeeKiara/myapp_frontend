@@ -4,7 +4,7 @@
 	createTopMenu();
 
 	// Left-menu 생성
-	createLeftMenu();
+	// createLeftMenu();
 
 	// 로그인 버튼
 	const btnLogin = document.getElementById("login");
@@ -30,43 +30,28 @@
 		window.location.href = "/index.html";
 	});
 
+	// 홈 이동
+	const btnHome = document.querySelector(".home");
+
+	btnHome.addEventListener("click", (e) => {
+		window.location.href = "/";
+	});
+
 	// 프로젝트 생성 버튼 클릭 이벤트
-	const btnNewProject = document.querySelector("aside button");
+	const btnNewProject = document.querySelector("#gnb-menu-new-project");
 
 	btnNewProject.addEventListener("click", (e) => {
 		window.location.href = "/project/project-create.html";
 	});
 
-	// URL 파라메터 정보
-	const params = new URLSearchParams(window.location.search);
-	let pid = params.get("pid");
-	
-	// alert(window.location.search);
-	// alert(`pid=${pid}`);	
+	// 내 프로젝트
+	const btnMyProject = document.querySelector("#gnb-menu-my-project");
 
-	if(pid) {
-		// 프로젝트 Team Member 현황 페이지 링크
-		const leftMenuTm = document.querySelector("aside ul > li:nth-of-type(3)");
+	btnMyProject.addEventListener("click", (e) => {
+		window.location.href = "/project/project-main.html?search=myproject";
+	});
 
-		leftMenuTm.addEventListener("click", (e) => {
-			window.location.href = `/team/tmember-list.html?pid=${pid}`;
-		});
 
-		// 프로젝트 Task 현황 페이지 링크
-		const leftMenuTask = document.querySelector("aside ul > li:nth-of-type(4)");
-
-		leftMenuTask.addEventListener("click", (e) => {
-			window.location.href = `/task/task-list.html?pid=${pid}`;
-		});
-
-	} else {
-		document.querySelector("#top-menu-tmember").innerHTML = "";
-		document.querySelector("#top-menu-task").innerHTML = "";
-		document.querySelector("#left-menu-tmember").innerHTML = "";
-		document.querySelector("#left-menu-task").innerHTML = "";
-	}
-
-	getUserInfo();
 	
 })();
 
@@ -79,21 +64,22 @@ function createTopMenu() {
 	const topbar = document.createElement("header");
 
 	topbar.innerHTML = /*html */ `
-	<div>i-PMS</div>
-	<div>
-		<nav>
-			<ul>
-				<li> <a href="/project/project-main.html">PROJECT</a></li>
-				<li id="top-menu-tmember"><a href="/team/tmember-list.html?pid=${pid}">TEAM</a></li>
-				<li id="top-menu-task"><a href="/task/task-list.html?pid=${pid}">TASK</a></li>
-			</ul>
-		</nav>	
+	<div class="top-left-layer"></div>
+	<div class="top-center-layer">
+		<div class="home">iPMS</div>
+		<div class="gnb-menu">
+			<div id="gnb-menu-new-project">프로젝트 등록</div>
+			<div id="gnb-menu-my-project">내 프로젝트</div>
+			<div id="gnb-menu-task">업무 현황</div>
+			<div id="gnb-menu-tmember">참여자</div>
+		</div>
+		<div class="login-logout">
+			<div id='username' class="font-color-emphasis"></div>
+			<div><button id='login' class="common-button">로그인</button></div>
+			<div><button id='logout'class="common-button">logout</button></div>
+		</div>
 	</div>
-	<div class="login-logout">
-		<div id='username' class="font-color-emphasis"></div>
-		<div><button id='login'>로그인</button></div>
-		<div><button id='logout'>logout</button></div>
-	</div>
+	<div class="top-right-layer"></div>
 `;
 	document.body.prepend(topbar);
 }
@@ -158,25 +144,3 @@ function removeCookie(name) {
 }
 
 
-// 로그인 사용자 정보
-async function getUserInfo() {
-	let url = `http://localhost:8080/member/getUserInfo`;
-
-	// 서버에 데이터를 전송 : fetch(url, options) 
-	const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${getCookie(
-        "token"
-      )}`,
-    },
-  });
-
-	const result = await response.json();
-
-	console.log("getUserInfo");
-	console.log(result);
-	console.log(result.username);
-
- 	document.getElementById("username").innerHTML = result.username;
-
-}

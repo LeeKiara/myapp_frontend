@@ -1,37 +1,111 @@
-// 웹 페이지 로딩이 완료되면, 프로젝트 정보 조회 및 화면 display
+// 팀원 등록 버튼 클릭 > 모달 백그라운드 레이어 보여주기
 (() => {
-	window.addEventListener("DOMContentLoaded", () => {
-		// URL의 쿼리 문자열을 가져옵니다.
-		const queryString = window.location.search;
+  const btnTeamMember = document.querySelector(".button-layer button");
 
-		// console.log(`queryString = ${queryString}`);
+  btnTeamMember.addEventListener("click", (e) => {
 
-		// 쿼리 문자열을 파싱하여 폼 데이터 객체로 변환합니다.
-		const formData = {};
-		const params = new URLSearchParams(queryString);
-		for (const [key, value] of params) {
-			formData[key] = value;
-		}
+    		e.preventDefault();
 
-		// 폼 데이터를 사용하여 프로젝트 정보 조회
-		// alert(formData.pid);
-		getProject(formData.pid);
-		
-	});
+				const parentForm = document.querySelector("form[name='team-members']");
+
+				const pid = parentForm.querySelector("input[name='pid']").value;
+				console.log(pid);
+
+        // 모달 레이어 띄우기
+        /** @type {HTMLDivElement} */
+        const layer = document.querySelector(
+          "#modal-layer"
+        );
+        layer.hidden = false;
+				
+        // 모달 내부의 폼에 선택값을 채워 넣음
+        layer.querySelector("h3").innerHTML = pid;
+
+        // const inputs =
+        //   layer.querySelectorAll("input");
+        // inputs[0].value = cells[0].innerHTML;
+        // inputs[1].value = cells[1].innerHTML;
+
+        // 취소 버튼
+        document.querySelector("#modal-cancel").addEventListener(
+          "click",
+          (e) => {
+            e.preventDefault();
+            layer.hidden = true;
+          }
+        );
+
+				// 팀원추가 버튼
+        document.querySelector("#add-team-member").addEventListener("click",  async (e) => {
+
+            e.preventDefault();
+				  
+
+						const form = document.querySelector("form[name='modal']");
+						const mid = form.querySelector("input[name='mid']").value;
+						
+						console.log("----debug---");
+						console.log("pid:" + pid);
+						console.log("mid:" + mid);
+				
+						if (pid === "") {
+							alert("정보가 유효하지 않습니다.");
+							return;
+						}
+				
+						if (mid === "") {
+							alert("정보가 유효하지 않습니다.");
+							return;
+						}
+				
+							// 서버에 Http 요청 (팀원 추가)
+							// fetch : url, option
+							const response = await fetch("http://localhost:8080/project/member", {
+								// HTTP Method
+								method: "POST",
+								// 보낼 데이터 형식은 json
+								headers: {
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify({
+									pid,
+									mid,
+								}),
+							});
+				
+							// 서버에서 response 받기
+							const result = await response.json();
+				
+							// const { data } = result;
+				
+							console.log("----팀원 추가---");
+							console.log("result" + result);
+							console.log("response.status:" + response.status);
+				
+							if ([201].includes(response.status)) {
+								alert("프로젝트 팀 멤버로 등록하였습니다.");
+								// window.location.href = "/team/tmember-list.html?pid="+pid;
+								layer.hidden = true;
+								window.location.reload();
+							}      
+					}
+        );
+
+    });
 })();
 
 // 이메일로 사용자정보 찾기 
 (()=>{
   
-  const btnFindMemer = document.querySelector("form button:nth-of-type(1)");
+  const btnFindMemer = document.querySelector("#find-user");
 
   // 이메일로 사용자정보 찾기 버튼 클릭 이벤트 핸들러
   btnFindMemer.addEventListener("click", async (e) => {
       e.preventDefault();
 
-      const form = document.forms[0];
+      const modalForm = document.querySelector('form[name="modal"]');
 
-      const email = form.querySelector("input[name='email']").value;
+      const email = modalForm.querySelector("input[name='email']").value;
 
       // 이메일로 사용자정보 찾기 요청(서버로 요청처리)
       getMember(email);
@@ -39,88 +113,6 @@
   });
 
 })();
-
-// 프로젝트 팀 멤버 등록(서버로 요청)
-(() => {
-	const btnSave = document.querySelector(".button-layer");
-
-	btnSave.addEventListener("click", async (e) => {
-		e.preventDefault();
-
-		const form = document.forms[0];
-		const pid = form.querySelector("input[name='pid']").value;
-		const mid = form.querySelector("input[name='mid']").value;
-    
-		console.log("----debug---");
-		console.log("pid:" + pid);
-		console.log("mid:" + mid);
-
-		if (pid === "") {
-			alert("정보가 유효하지 않습니다.");
-			return;
-		}
-
-		if (mid === "") {
-			alert("정보가 유효하지 않습니다.");
-			return;
-		}
-
-			// 서버에 Http 요청 (프로젝트 생성)
-			// fetch : url, option
-			const response = await fetch("http://localhost:8080/project/member", {
-				// HTTP Method
-				method: "POST",
-				// 보낼 데이터 형식은 json
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					pid,
-					mid,
-				}),
-			});
-
-			// 서버에서 response 받기
-			const result = await response.json();
-
-			// const { data } = result;
-
-			console.log("----debug---");
-			console.log("result" + result);
-			console.log("response.status:" + response.status);
-
-			if ([201].includes(response.status)) {
-				alert("프로젝트 팀 멤버로 등록하였습니다.");
-				window.location.href = "/team/tmember-list.html?pid="+pid;
-			}      
-	});
-
-})();
-
-// 데이터 조회(프로젝트 정보)
-async function getProject(pid) {
-	// alert(pid);
-
-	let url = `http://localhost:8080/project/${pid}`;
-
-	// http 통신을 통해서 데이터 조회 후 응답값 받음
-	//  - await 키워드는 async 함수에서만 사용 가능
-	const response = await fetch(url, { 
-		headers: {
-			Authorization: `Bearer ${getCookie("token")}`,
-		},
-	});
-	const result = await response.json();
-
-	console.log("--- debuging result");
-	console.log(result);
-
-	// 화면 dispaly
-	const form = document.forms[0];
-
-	form.querySelector("input").value = result.data.title; // 제목
-	form.querySelector("input[name='pid']").value = result.data.pid; // pid
-}
 
 // 데이터 조회(사용자 정보)
 async function getMember(email) {
@@ -143,6 +135,11 @@ async function getMember(email) {
 	console.log("--- debuging response");
 	console.log(response);
 
+  if([404].includes(response.status)) {
+    alert("사용자 정보가 없습니다.");
+    return;
+  }
+
   const result = await response.json();
 
   console.log("--- debuging result");
@@ -150,7 +147,7 @@ async function getMember(email) {
 	console.log(result.data);
 
 	// 화면 dispaly
-	const form = document.forms[0];
+	const form = document.querySelector("form[name='modal']");
 
   // 사용자 정보 화면에 보여주기
 	form.querySelector("input[name='username']").value = result.data.username; // member name

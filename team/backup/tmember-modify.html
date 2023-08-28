@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>i-PMS</title>
+
+	<link rel="stylesheet" href="/common/reset.css" />
+	<link rel="stylesheet" href="/common/layout.css" />
+	<link rel="stylesheet" href="/project/project-create.css" />
+	<link rel="stylesheet" href="/team/tmember-create.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+	<!-- 최상단 탑 메뉴 -->
+	<script src="/common/common-menu.js"></script>
+
+	<main>
+		<div class="main-left-layer"></div>
+
+		<div class="main-center-layer">
+			<div class="top-content">
+				<div>
+					<h1>프로젝트 참여자 현황</h1>
+				</div>
+			</div>
+			<div class="inner-content">
+				<article class="left-content">
+					<div class="left-box-modify">
+
+						<form action="">
+							<!-- forms[0] -->
+							<div>
+								<label>프로젝트명</label>
+								<input name="title" type="text" readonly />
+							</div>
+							<div>
+								<label>이메일</label>
+								<input name="email" type="email" readonly />&nbsp;&nbsp;
+								<!-- <button>사용자 찾기</button> -->
+							</div>
+							<div>
+								<label>아이디</label>
+								<input name="username" type="text" readonly />
+							</div>
+							<input name="pid" type="hidden" />
+							<input name="mid" type="hidden" />
+
+						</form>
+
+						<div class="button-layer">
+							<button>삭제</button>
+							<button>목록</button>
+							<!-- <button></button> -->
+						</div>
+
+					</div>
+				</article>
+
+				<aside class="right-content">
+					<script src="/common/right-menu.js"></script>
+				</aside>
+
+			</div>
+		</div>
+
+		<div class="main-right-layer"></div>
+	</main>
+
+	<script src="/team/tmember-modify.js"></script>
+	<script src="/common/footer.js"></script>
+</body>
+
+</html>

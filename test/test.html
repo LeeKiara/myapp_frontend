@@ -7,29 +7,31 @@
 	<title>Document</title>
 </head>
 
-<body>
-	<input type="date" id="startDateInput" placeholder="시작일" />
-	<br>
-	<br>
-	<br>
+<select id="projectSelect">
+	<option value="" disabled selected hidden>프로젝트를 선택하세요.</option>
+	<option value="1">AAA</option>
+	<option value="2">BBB</option>
+	<option value="3">CCC</option>
+</select>
 
-	<!-- <img src="/image/star-of-life_gray.svg" referrerpolicy="same-origin"
-		style="display: block; object-fit: cover; border-radius: 3px; width: 36px; height: 36px; transition: opacity 100ms ease-out 0s;"> -->
+<script>
+	function selectOptionByValue(value) {
+		const selectElement = document.getElementById('projectSelect');
 
-	<img src="/image/star-of-life_gray.svg" referrerpolicy="same-origin"
-		style="display: inline; object-fit: cover; border-radius: 3px; width: 15px; height: 15px; transition: opacity 100ms ease-out 0s;">
-	프로젝트명 :
+		for (let option of selectElement.options) {
+			if (option.value === value) {
+				option.selected = true;
+				break;
+			}
+		}
+	}
 
-	<script>
-		// 시작일 input 요소 가져오기
-		var startDateInput = document.getElementById("startDateInput");
+	// 외부 파라미터로 받은 값
+	const externalValue = "3";
 
-		// 오늘 날짜를 기본값으로 설정
-		var today = new Date();
-		var formattedDate = today.toISOString().substr(0, 10); // YYYY-MM-DD 형식으로 변환
+	// 외부 파라미터로 받은 값에 해당하는 옵션 선택
+	selectOptionByValue(externalValue);
+</script>
 
-		startDateInput.value = formattedDate;
-	</script>
-</body>
 
 </html>

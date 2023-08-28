@@ -17,66 +17,104 @@
 
 <body>
 	<!-- 최상단 탑 메뉴 -->
-	<!-- <script src="/common/top-menu.js"></script> -->
-	<!-- <header>
-      <div>i-PMS</div>
-      <div>
-        <nav>
-          <ul>
-            <li>PROJECT</li>
-            <li>TEAM</li>
-            <li>TASK</li>
-          </ul>
-        </nav>	
-      </div>
-      <div>My Profile</div>
-    </header> -->
+	<script src="/common/common-menu.js"></script>
+
 	<main>
-		<!-- 좌측 공통 메뉴 -->
-		<script src="/common/common-menu.js"></script>
-		<!-- <aside>aside
-				<div><button>+새 프로젝트</button></div>
+		<div class="main-left-layer"></div>
+
+		<div class="main-center-layer">
+			<div class="top-content">
 				<div>
-					<ul>
-						<li>프로젝트 현황</li>
-						<li>참여자 현황</li>
-						<li>TASK 현황</li>
-					</ul>
+					<h1>프로젝트 참여자 현황</h1>
 				</div>
-			</aside> -->
-
-		<article>
-			<div>
-				<h1>Project Team Member</h1>
 			</div>
-			<div>
-				<label>* 프로젝트명 : </label>
-				<input name="title" type="text" class="font-color-emphasis" readonly />
-			</div>
+			<div class="inner-content">
+				<article class="left-content">
+					<div class="left-box-modify">
 
-			<form action="">
-				<!-- Project Team Member List -->
-				<table>
-					<thead>
-						<th>아이디</th>
-						<th>이메일</th>
-					</thead>
-					<tbody></tbody>
-				</table>
-				<div class="button-layer">
-					<button>팀원 등록</button>
-					<!-- <button></button> -->
+						<div style="margin-left: 100px;margin-bottom: 10px;">
+							<!-- <label>* 프로젝트명 : </label> -->
+							<input name="title" type="text" class="font-color-emphasis" readonly />
+							<div class="select-box">
+								<select id="projectSelect">
+									<!-- <option value="" disabled selected hidden>프로젝트를 선택하세요.</option>
+									<option value="1">AAA</option>
+									<option value="2">BBB</option>
+									<option value="3">CCC</option> -->
+								</select>
+
+							</div>
+						</div>
+
+						<form name="team-members">
+							<!-- Team Member list -->
+							<ul>
+							</ul>
+
+							<div class="button-layer">
+								<button style="width: 200px;">팀원 등록</button>
+								<button style="width: 200px;">팀원 삭제</button>
+								<!-- <button></button> -->
+							</div>
+							<input name="pid" type="hidden" />
+						</form>
+
+					</div>
+				</article>
+
+				<aside class="right-content">
+					<script src="/common/right-menu.js"></script>
+				</aside>
+
+			</div>
+		</div>
+
+		<div class="main-right-layer"></div>
+
+		<!-- 모달 백그라운드 레이어 -->
+		<div id="modal-layer" hidden>
+			<!-- 컨텐츠 감싸는 영역 -->
+			<div>
+				<!-- 컨텐츠 컨테이너 영역 -->
+				<div id="modal-box">
+
+					<form name="modal">
+						<!-- forms[0] -->
+						<div>
+							<label>프로젝트명</label>
+							<h3></h3>
+							<!-- <input name="title" type="text" readonly /> -->
+						</div>
+						<div>
+							<label>이메일</label>
+							<input name="email" type="email" />&nbsp;&nbsp;
+							<button id="find-user">사용자 찾기</button>
+						</div>
+						<div>
+							<label>아이디</label>
+							<input name="username" type="text" readonly />
+						</div>
+						<div>
+							<button id="add-team-member">팀원 추가</button>
+							<button id="modal-cancel">취소</button>
+						</div>
+						<input name="mid" type="hidden" />
+					</form>
 				</div>
-				<input name="pid" type="hidden" />
-			</form>
+			</div>
+		</div>
 
-		</article>
+
 	</main>
 
 	<script src="/team/tmember-list.js"></script>
+	<script src="/team/tmember-create.js"></script>
+	<script src="/common/footer.js"></script>
+
 	<script>
 
 	</script>
+
 </body>
 
 </html>
