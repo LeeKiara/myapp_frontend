@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>i-PMS</title>
+
+	<link rel="stylesheet" href="/common/reset.css" />
+	<link rel="stylesheet" href="/common/layout.css" />
+	<link rel="stylesheet" href="/project/project-main.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+	<script src="/member/auth.js"></script>
+	<!-- 최상단 탑 메뉴 -->
+	<!-- <script src="/common/top-menu.js"></script> -->
+	<!-- <header>
+      <div>i-PMS</div>
+      <div>
+        <nav>
+          <ul>
+            <li>PROJECT</li>
+            <li>TEAM</li>
+            <li>TASK</li>
+          </ul>
+        </nav>	
+      </div>
+      <div>My Profile</div>
+    </header> -->
+	<main>
+		<!-- 좌측 공통 메뉴 -->
+		<!-- <script src="/common/left-menu.js"></script> -->
+		<!-- <aside>aside
+				<div><button>+새 프로젝트</button></div>
+				<div>
+					<ul>
+						<li>프로젝트 현황</li>
+						<li>참여자 현황</li>
+						<li>TASK 현황</li>
+					</ul>
+				</div>
+			</aside> -->
+
+		<script src="/common/common-menu.js"></script>
+
+		<article>
+			<form action="">
+				<!-- forms[0] -->
+				<div style="margin-bottom: 50px">
+					<h1>전체 프로젝트 현황</h1>
+				</div>
+				<div id="card-layout" class="card-layout between">
+					<!-- <div class="item">
+						<ul>
+							<li><img src="/image/project-main.png" style="height: 120px;"></li>
+							<li>프로젝트example</li>
+							<li>프로젝트 프로젝트example 설명입니다.주저리 주저리....</li>
+						</ul>
+					</div> -->
+				</div>
+			</form>
+
+			<form action="">
+				<!-- forms[1] -->
+				<div>
+					<button id="btnPrev">이전</button>
+					<button id="btnNext">다음</button>
+				</div>
+			</form>
+
+			<div style="margin-top: 100px;color: brown;font-weight: 700;">
+				* TODO : 내가 참여한 프로젝트
+				<table>
+					<thead>
+						<th>프로젝트명</th>
+						<th>설명</th>
+						<th>시작일</th>
+						<th>종료일</th>
+						<th>상태</th>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+		</article>
+	</main>
+
+
+	<script src="./project-main.js"></script>
+</body>
+
+</html>

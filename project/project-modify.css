@@ -1,9 +1,23 @@
+.margin-right-30 {
+  margin: 0px 30%;
+}
+
+
+.button-layer {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+
 .button-layer button {
-  width: 160px;
+  width: 120px;
   height: 40px;
-  background-color: #007bff;
+  background-color: #2e6baa;
   color: #fff;
-  border: none;
+  border: #2e6baa;
   border-radius: 5px;
   cursor: pointer;
+
+  margin: 0 10px; /* 버튼 간격을 조절할 마진 값 */
 }

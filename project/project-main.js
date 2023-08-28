@@ -14,7 +14,7 @@ let currentQuery = ""; // 현재 검색 키워드
 			getPagedList(0);
 		}
 
-		getJoinProjects();
+		// getJoinProjects();
 	});
 })();
 
@@ -118,7 +118,6 @@ async function getPagedList(page, query) {
 
 // 데이터 조회(내가 참여한 프로젝트)
 async function getJoinProjects() {
-	
 	let url = `http://localhost:8080/project/join`;
 
 	// 서버에 데이터를 전송 : fetch(url, options)
@@ -153,7 +152,6 @@ async function getJoinProjects() {
 		// Table tr 요소의 클릭 이벤트 핸들러 추가하기
 		// createTrEvent(createdTr);
 	}
-
 }
 
 function cardTemplate(item) {

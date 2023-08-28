@@ -1,21 +1,21 @@
 // 새 프로젝트 생성 button 클릭 시 폼데이터 reset
-(() => {
-	const btnAddProject = document.querySelector("aside").querySelector("button");
+// (() => {
+// 	const btnAddProject = document.querySelector(".button-layer");
 
-	btnAddProject.addEventListener("click", (e) => {
-		e.preventDefault();
+// 	btnAddProject.addEventListener("click", (e) => {
+// 		e.preventDefault();
 
-		const form = document.forms[0];
-		form.reset();
+// 		const form = document.forms[0];
+// 		form.reset();
 
-		const divProjectImage = document.getElementById("project-image");
-		divProjectImage.remove();
-	});
-})();
+// 		const divProjectImage = document.getElementById("project-image");
+// 		divProjectImage.remove();
+// 	});
+// })();
 
 // 프로젝트 정보 등록(서버로 요청)
 (() => {
-	const btnSave = document.querySelector("article").querySelector("button");
+	const btnSave = document.querySelector(".button-layer");
 
 	btnSave.addEventListener("click", async (e) => {
 		e.preventDefault();
@@ -40,8 +40,8 @@
 		}
 
 		if (description === "") {
-			alert("프로젝트 소개를 입력해주세요.");
-			return;
+			// alert("프로젝트 소개를 입력해주세요.");
+			// return;
 		}
 
 		if (startDate === "") {
@@ -73,6 +73,9 @@
 
 		// 데이터를 서버에 전송, 결과값으로 UI요소 생성
 		async function createProject(image) {
+			console.log("getCookie");
+			console.log(getCookie("token"));
+
 			// 서버에 Http 요청 (프로젝트 생성)
 			// fetch : url, option
 			const response = await fetch("http://localhost:8080/project", {
@@ -120,3 +123,14 @@ function createImage(image) {
 
 	return divProjectImage;
 }
+
+// function getCookie(name) {
+// 	let matches = document.cookie.match(
+// 		new RegExp(
+// 			"(?:^|; )" +
+// 				name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+// 				"=([^;]*)"
+// 		)
+// 	);
+// 	return matches ? decodeURIComponent(matches[1]) : undefined;
+// }
