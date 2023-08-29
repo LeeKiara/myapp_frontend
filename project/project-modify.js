@@ -124,18 +124,18 @@ function createImage(image) {
 	return divProjectImage;
 }
 
-// 날짜 포맷 (yyyy-MM-dd)
-function dateFormat(date) {
-	let resultDateFormat =
-		date.getFullYear() +
-		"-" +
-		(date.getMonth() + 1 < 9
-			? "0" + (date.getMonth() + 1)
-			: date.getMonth() + 1) +
-		"-" +
-		(date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
-	return resultDateFormat;
-}
+// // 날짜 포맷 (yyyy-MM-dd)
+// function dateFormat(date) {
+// 	let resultDateFormat =
+// 		date.getFullYear() +
+// 		"-" +
+// 		(date.getMonth() + 1 < 10
+// 			? "0" + (date.getMonth() + 1)
+// 			: date.getMonth() + 1) +
+// 		"-" +
+// 		(date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
+// 	return resultDateFormat;
+// }
 
 // 이미지 파일 선택 후 div에 선택된 이미지 보여주기
 function loadImage() {

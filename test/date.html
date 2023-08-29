@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+	<body>
+		1. Date 객체
+		<br />
+		자바스크립트는 Date 객체를 사용해서 날짜와 시간을 표현한다.
+		<br />
+		Date 객체는 반드시 '날짜'와 '시간'을 모두 포함하고, 날짜와 시간을 따로
+		저장하는 방식은 불가능하다.
+		<br />
+		Date 형식은 [Thu May 19 2022 18:11:13 GMT+0900 (한국 표준시)](예시)이다.
+		<br />
+		월은 [0 ~ 11] 인덱스 사용 : 0 = 1월 / 11 = 12월
+		<br />
+		요일은 [0 ~ 6] 인덱스 사용 : 0 = 일요일 / 6은 토요일
+		<br />
+		요일 데이터를 작성할 수 있는 방법은 없다. 해당 날짜 요일을 자동으로
+		출력한다.
+		<br />
+		UTC는 1970년 1월 1일 00시 00분 00초이다.
+		<br />
+		자바스크립트 타임스탬프는 밀리초가 기준이다.
+		<script>
+			function dateFormat(date) {
+				let dateFormat2 =
+					date.getFullYear() +
+					"-" +
+					(date.getMonth() + 1 < 10
+						? "0" + (date.getMonth() + 1)
+						: date.getMonth() + 1) +
+					"-" +
+					(date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
+				return dateFormat2;
+			}
 
-<body>
+			let toDay = dateFormat(new Date());
 
-  1. Date 객체
-  <br>
-  자바스크립트는 Date 객체를 사용해서 날짜와 시간을 표현한다.
-  <br>
-  Date 객체는 반드시 '날짜'와 '시간'을 모두 포함하고, 날짜와 시간을 따로 저장하는 방식은 불가능하다.
-  <br>
-  Date 형식은 [Thu May 19 2022 18:11:13 GMT+0900 (한국 표준시)](예시)이다.
-  <br>
-  월은 [0 ~ 11] 인덱스 사용 : 0 = 1월 / 11 = 12월
-  <br>
-  요일은 [0 ~ 6] 인덱스 사용 : 0 = 일요일 / 6은 토요일
-  <br>
-  요일 데이터를 작성할 수 있는 방법은 없다. 해당 날짜 요일을 자동으로 출력한다.
-  <br>
-  UTC는 1970년 1월 1일 00시 00분 00초이다.
-  <br>
-  자바스크립트 타임스탬프는 밀리초가 기준이다.
-  <script>
-    function dateFormat(date) {
-      let dateFormat2 = date.getFullYear() +
-        '-' + ((date.getMonth() + 1) < 9 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)) +
-        '-' + ((date.getDate()) < 9 ? "0" + (date.getDate()) : (date.getDate()));
-      return dateFormat2;
-    }
-
-    let toDay = dateFormat(new Date());
-
-    console.log(toDay);
-  </script>
-</body>
-
+			console.log(toDay);
+		</script>
+	</body>
 </html>

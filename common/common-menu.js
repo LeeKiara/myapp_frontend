@@ -94,7 +94,6 @@ function createTopMenu() {
 	document.body.prepend(topbar);
 }
 
-
 // client에 저장된 token값 유무에 따라 로그인, 로그아웃 버튼 처리
 function displayBtnLogout(btnLogin, btnLogout, username) {
 	// token 정보 읽어오기
@@ -128,4 +127,17 @@ function removeCookie(name) {
 	document.cookie =
 		name +
 		"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
+}
+
+// 날짜 포맷 (yyyy-MM-dd)
+function dateFormat(date) {
+	let resultDateFormat =
+		date.getFullYear() +
+		"-" +
+		(date.getMonth() + 1 < 10
+			? "0" + (date.getMonth() + 1)
+			: date.getMonth() + 1) +
+		"-" +
+		(date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
+	return resultDateFormat;
 }

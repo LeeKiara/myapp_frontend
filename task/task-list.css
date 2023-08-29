@@ -60,6 +60,7 @@ td {
 tbody>tr:hover {
   /* background-color: lightgoldenrodyellow; */
   font-weight: bold;
+  cursor: pointer;
 }
 
 .div-desc {

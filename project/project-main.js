@@ -6,7 +6,6 @@ let currentQuery = ""; // 현재 검색 키워드
 // 웹 페이지 로딩이 완료되면, 페이징으로 데이터 조회 및 화면 display
 (() => {
 	window.addEventListener("DOMContentLoaded", () => {
-
 		// request parameter 정보를 가져온다. (URL QueryString)
 		const params = new URLSearchParams(window.location.search);
 
@@ -16,11 +15,12 @@ let currentQuery = ""; // 현재 검색 키워드
 
 			// 내가 참여한 프로젝트 조회
 			getJoinProjects();
-		
-		} else {
-			getPagedList(0);			
-		}
 
+			// ul li 요소의 클릭 이벤트 핸들러 추가하기
+			joinProjectsEvent();
+		} else {
+			getPagedList(0);
+		}
 	});
 })();
 
@@ -133,51 +133,51 @@ async function getJoinProjects() {
 	console.log("*** getJoinProjects data");
 	console.log(result);
 
-	const targetbody = document.querySelector(".joinProjects").querySelector("ul");
+	const targetbody = document
+		.querySelector(".joinProjects")
+		.querySelector("ul");
 
 	console.log(targetbody);
 
 	// 목록 초기화
 	targetbody.innerHTML = "";
 
-	if(result.length > 0 ) {
+	if (result.length > 0) {
 		// 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
 		for (let item of result) {
-
 			let createdEle = createRow(item);
 
-			// targetbody tr 추가
+			// targetbody li 요소 추가
 			targetbody.append(createdEle);
 
-			// Table tr 요소의 클릭 이벤트 핸들러 추가하기
-			// createTrEvent(createdTr);
+			// targetbody li 요소의 클릭 이벤트 핸들러 추가하기
+			// createEleEvent(createdEle);
 		}
-
 	} else {
-		targetbody.append("** 아직 참여중인 프로젝트가 없습니다.");		
+		targetbody.append("** 아직 참여중인 프로젝트가 없습니다.");
 	}
 
 	// 내가 참여한 프로젝트 조회 layer 보이기
 	const secondLeftBox = document.querySelector("#left-box-second");
 	secondLeftBox.hidden = false;
-
 }
 
 // 내가 참여한 프로젝트 정보 template
 function createRow(item) {
-
-  // 1. 요소 생성
-  const li = document.createElement("li");
+	// 1. 요소 생성
+	const li = document.createElement("li");
 
 	// console.log(item.image);
 
-  // 2. 요소의 속성 설정
-  li.dataset.tid = item.tid;
-  li.innerHTML = /*html*/ `    
-  <div> ${item.image ? `<img src="${item.image}" class="joinProjects">` : ""}</div>
+	// 2. 요소의 속성 설정
+	li.dataset.tid = item.tid;
+	li.innerHTML = /*html*/ `    
+  <div> ${
+		item.image ? `<img src="${item.image}" class="joinProjects">` : ""
+	}</div>
   <div>${item.title}</div>
   `;
-  return li;
+	return li;
 
 	// <div><img src="/image/profile.png" width="40px"></div>
 }
@@ -225,8 +225,6 @@ function createDivEvent(divContent) {
 	});
 }
 
-
-
 // 이전/다음 버튼 활성화 여부 처리
 function setBtnActive() {
 	const buttons = document.forms[0].querySelectorAll("button");
@@ -251,15 +249,34 @@ function setBtnActive() {
 	}
 }
 
-// 날짜 포맷 (yyyy-MM-dd)
-function dateFormat(date) {
-	let resultDateFormat =
-		date.getFullYear() +
-		"-" +
-		(date.getMonth() + 1 < 9
-			? "0" + (date.getMonth() + 1)
-			: date.getMonth() + 1) +
-		"-" +
-		(date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
-	return resultDateFormat;
+// 내가 참여한 프로젝트 리스트의 클릭 이벤트 핸들러 추가하기
+function joinProjectsEvent() {
+	const li = document.querySelector("ul");
+	// document.getElementById("card-layout-item");
+
+	li.addEventListener("click", (e) => {
+		const datano = document.querySelector("ul").getAttribute("data-no");
+		// alert(datano);
+
+		// 기본 제출 동작을 막음.
+		e.preventDefault();
+
+		// 프로젝트 수정 페이지로 이동
+		const actionUrl = `http://localhost:5500/task/task-list.html?pid=${datano}`;
+		window.location.href = actionUrl;
+		// const newWindow = window.open(actionUrl, "_blank");
+	});
 }
+
+// // 날짜 포맷 (yyyy-MM-dd)
+// function dateFormat(date) {
+// 	let resultDateFormat =
+// 		date.getFullYear() +
+// 		"-" +
+// 		(date.getMonth() + 1 < 9
+// 			? "0" + (date.getMonth() + 1)
+// 			: date.getMonth() + 1) +
+// 		"-" +
+// 		(date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
+// 	return resultDateFormat;
+// }
