@@ -50,7 +50,7 @@ textarea {
 }
 
 
-button {
+/* button {
   width: 200px;
   height: 30px;
   text-align: center;
@@ -61,7 +61,7 @@ button {
   border: #2e6baa;
   border-radius: 4px;
   padding: 11px 24px;
-}
+} */
 
 label {
   width: 100px;
@@ -126,8 +126,8 @@ li div {
   transform: translateX(-50%)
     translateY(-50%);
   background-color: white;
-  width: 500px;
-  padding: 2rem;
+  width: 600px;
+  /* padding: 2rem; */
 }
 
 #modal-box form {
@@ -143,6 +143,6 @@ li div {
   
 }
 #modal-box form > div button {
-  flex: 1;
+  /* flex: 3; */
 }
 

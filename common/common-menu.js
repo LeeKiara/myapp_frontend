@@ -75,7 +75,7 @@ function createTopMenu() {
 	topbar.innerHTML = /*html */ `
 	<div class="top-left-layer"></div>
 	<div class="top-center-layer">
-		<div class="home">iPMS</div>
+		<div class="home"> <img src="/image/home-button.png" style="width:50px">	</div>
 		<div class="gnb-menu">
 			<div id="gnb-menu-new-project">프로젝트 등록</div>
 			<div id="gnb-menu-my-project">내 프로젝트</div>
@@ -85,14 +85,15 @@ function createTopMenu() {
 		</div>
 		<div class="login-logout">
 			<div id='username' class="font-color-emphasis"></div>
-			<div><button id='login' class="common-button">로그인</button></div>
-			<div><button id='logout'class="common-button">logout</button></div>
+			<div><button id='login' class="common-button-circle">로그인</button></div>
+			<div><button id='logout'class="common-button-circle">logout</button></div>
 		</div>
 	</div>
 	<div class="top-right-layer"></div>
 `;
 	document.body.prepend(topbar);
 }
+
 
 // client에 저장된 token값 유무에 따라 로그인, 로그아웃 버튼 처리
 function displayBtnLogout(btnLogin, btnLogout, username) {
@@ -108,28 +109,6 @@ function displayBtnLogout(btnLogin, btnLogout, username) {
 		btnLogin.style.display = "none";
 		btnLogout.style.display = "";
 	}
-}
-
-// Left-menu 생성
-function createLeftMenu() {
-	const leftbar = document.createElement("aside");
-
-	leftbar.innerHTML = /*html */ `
-				<div><button>+새 프로젝트</button></div>
-				<div>
-					<ul>
-						<li> <a href="/project/project-main.html">전체 프로젝트</a></li>
-						<li> <a href="/project/project-main.html?search=myproject">내 프로젝트</a></li>
-						<li id="left-menu-tmember">Team Member 현황</li>
-						<li id="left-menu-task">TASK 현황</li>
-					</ul>
-				</div>
-`;
-
-	const main = document.querySelector("main");
-
-	// main 영역에  좌측 공통 메뉴 삽입
-	main.prepend(leftbar);
 }
 
 // 쿠키값 조회

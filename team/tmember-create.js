@@ -4,94 +4,94 @@
 
   btnTeamMember.addEventListener("click", (e) => {
 
-    		e.preventDefault();
+    e.preventDefault();
 
-				const parentForm = document.querySelector("form[name='team-members']");
+    const parentForm = document.querySelector("form[name='team-members']");
 
-				const pid = parentForm.querySelector("input[name='pid']").value;
-				console.log(pid);
+    const pid = parentForm.querySelector("input[name='pid']").value;
+    console.log("모달레이어 pid:"+pid);
 
-        // 모달 레이어 띄우기
-        /** @type {HTMLDivElement} */
-        const layer = document.querySelector(
-          "#modal-layer"
-        );
-        layer.hidden = false;
-				
-        // 모달 내부의 폼에 선택값을 채워 넣음
-        layer.querySelector("h3").innerHTML = pid;
+    if(pid < 1) {
+      alert("프로젝트를 선택해주세요.");
+      return;
+    }
 
-        // const inputs =
-        //   layer.querySelectorAll("input");
-        // inputs[0].value = cells[0].innerHTML;
-        // inputs[1].value = cells[1].innerHTML;
+    // 모달 레이어 띄우기
+    /** @type {HTMLDivElement} */
+    const layer = document.querySelector(
+      "#modal-layer"
+    );
+    layer.hidden = false;
+    
+    // 프로젝트 pid
+    layer.querySelector("h3").innerHTML = pid;
 
-        // 취소 버튼
-        document.querySelector("#modal-cancel").addEventListener(
-          "click",
-          (e) => {
-            e.preventDefault();
-            layer.hidden = true;
-          }
-        );
+    // 취소 버튼
+    document.querySelector("#modal-cancel").addEventListener(
+      "click",
+      (e) => {
+        e.preventDefault();
+        layer.hidden = true;
+      }
+    );
 
-				// 팀원추가 버튼
-        document.querySelector("#add-team-member").addEventListener("click",  async (e) => {
+    // 팀원추가 버튼
+    document.querySelector("#add-team-member").addEventListener("click",  async (e) => {
 
-            e.preventDefault();
-				  
+      e.preventDefault();
+    
 
-						const form = document.querySelector("form[name='modal']");
-						const mid = form.querySelector("input[name='mid']").value;
-						
-						console.log("----debug---");
-						console.log("pid:" + pid);
-						console.log("mid:" + mid);
-				
-						if (pid === "") {
-							alert("정보가 유효하지 않습니다.");
-							return;
-						}
-				
-						if (mid === "") {
-							alert("정보가 유효하지 않습니다.");
-							return;
-						}
-				
-							// 서버에 Http 요청 (팀원 추가)
-							// fetch : url, option
-							const response = await fetch("http://localhost:8080/project/member", {
-								// HTTP Method
-								method: "POST",
-								// 보낼 데이터 형식은 json
-								headers: {
-									"Content-Type": "application/json",
-								},
-								body: JSON.stringify({
-									pid,
-									mid,
-								}),
-							});
-				
-							// 서버에서 response 받기
-							const result = await response.json();
-				
-							// const { data } = result;
-				
-							console.log("----팀원 추가---");
-							console.log("result" + result);
-							console.log("response.status:" + response.status);
-				
-							if ([201].includes(response.status)) {
-								alert("프로젝트 팀 멤버로 등록하였습니다.");
-								// window.location.href = "/team/tmember-list.html?pid="+pid;
-								layer.hidden = true;
-								window.location.reload();
-							}      
-					}
-        );
+      const form = document.querySelector("form[name='modal']");
+      const mid = form.querySelector("input[name='mid']").value;
+      
+      console.log("----debug---");
+      console.log("pid:" + pid);
+      console.log("mid:" + mid);
+  
+      if (pid === "") {
+        alert("정보가 유효하지 않습니다.");
+        return;
+      }
+  
+      if (mid === "") {
+        alert("정보가 유효하지 않습니다.");
+        return;
+      }
+  
+      // 서버에 Http 요청 (팀원 추가)
+      // fetch : url, option
+      const response = await fetch("http://localhost:8080/project/member", {
+        // HTTP Method
+        method: "POST",
+        // 보낼 데이터 형식은 json
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pid,
+          mid,
+        }),
+      });
+  
+      // 서버에서 response 받기
+      const result = await response.json();
 
-    });
+      // const { data } = result;
+
+      console.log("----팀원 추가---");
+      console.log("result" + result);
+      console.log("response.status:" + response.status);
+
+      if ([201].includes(response.status)) {
+        // alert("프로젝트 팀 멤버로 등록하였습니다.");
+        // window.location.href = "/team/tmember-list.html?pid="+pid;
+        layer.hidden = true;
+        window.location.reload();
+      }      
+    }
+  );
+
+  });
 })();
 
 // 이메일로 사용자정보 찾기 

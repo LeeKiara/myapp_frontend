@@ -5,10 +5,15 @@
     const params = new URLSearchParams(window.location.search);
     pid = params.get("pid");
 
-    console.log("1."+pid);
+    console.log("<< tmember-list page에서 pid 확인 >> "+pid);
 
     if(pid != null) {
+      // url 파라메터로 pid가 들어올 경우, 폼 hidden 값에 넣어주기
       document.querySelector("form[name='team-members']").querySelector("input[name='pid']").value = pid;
+
+      // 프로젝트 정보 조회
+		  getProject(pid);
+
     }    
 
     // 프로젝트 정보 select box에 넣어주기
@@ -18,6 +23,113 @@
 	});
 })();
 
+// 데이터 조회(프로젝트 정보)
+async function getProject(pid) {
+	// alert(pid);
+
+	let url = `http://localhost:8080/project/${pid}`;
+
+	// http 통신을 통해서 데이터 조회 후 응답값 받음
+	//  - await 키워드는 async 함수에서만 사용 가능
+	const response = await fetch(url, {
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
+
+	const result = await response.json();
+
+	console.log("--- 프로젝트 정보 result");
+	console.log(result);
+
+	// // 화면 dispaly
+	// const form = document.forms[0];
+
+	// form.querySelector("input").value = result.data.title; // 제목
+	// form.querySelector("textarea").value = result.data.description; // 설명
+
+	// // 시작일
+	// const startDateInput = document.getElementById("startDateInput");
+	// startDateInput.value = dateFormat(new Date(result.data.startDate)); // YYYY-MM-DD 형식으로 변환
+
+	// // 종료일
+	// const endDateInput = document.getElementById("endDateInput");
+	// endDateInput.value = dateFormat(new Date(result.data.endDate)); // YYYY-MM-DD 형식으로 변환
+
+	// // 이미지 표시
+	// createImage(result.data.image);
+
+	// form.querySelector("input[name='pid']").value = result.data.pid; // pid
+	// form.querySelector("input[name='status']").value = result.data.status; // project 상태
+	// document.getElementById("pm-id").innerHTML = result.data2.username; // project pm id
+
+	// console.log(result.role);
+
+	// 내 프로젝트만 수정/삭제할 수 있도록 버튼처리 함
+	// const buttonLayerDiv = document.querySelector(".button-layer");
+	// if (result.role === "modify") {
+	// 	buttonLayerDiv.style.display = "";
+	// } else {
+	// 	buttonLayerDiv.style.display = "none";
+	// }
+}
+
+// 팀 멤버 삭제(서버로 요청)
+(() => {
+	const btnRemove = document.querySelector(".button-layer button:nth-of-type(2)");
+
+	btnRemove.addEventListener("click", async (e) => {
+		e.preventDefault();
+
+		if(!confirm("삭제 하시겠습니까?")) {
+			return;
+		}
+
+		const form = document.querySelector("form[name='team-members']");
+		const pid = form.querySelector("input[name='pid']").value;
+
+    const checkedMember = document.querySelector("input[name='members']:checked");
+    let mid = checkedMember.value;
+
+		console.log("----debug---");
+		console.log("pid:" + pid);
+		console.log("mid:" + mid);
+
+		if (pid === "") {
+			alert("정보가 유효하지 않습니다.");
+			return;
+		}
+
+		if (mid === "") {
+			alert("정보가 유효하지 않습니다.");
+			return;
+		}
+
+			// 서버에 Http 요청 (프로젝트 생성)
+			// fetch : url, option
+			const response = await fetch("http://localhost:8080/project/member", {
+				// HTTP Method
+				method: "DELETE",
+				// 보낼 데이터 형식은 json
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					pid,
+					mid,
+				}),
+			});
+
+			console.log("----debug---");
+			console.log("response.status:" + response.status);
+
+			if ([200].includes(response.status)) {
+				alert("삭제 되었습니다.");
+				window.location.href = "/team/tmember-list.html?pid="+pid;
+			}      
+	});
+
+})();
 
 // 프로젝트 정보 리스트 조회하여 select 요소에 값 넣어주기
 async function setProjectList(pid) {
@@ -72,6 +184,8 @@ async function setProjectList(pid) {
   if(pid > 0) {
     getTeamMeberList(pid);
     document.querySelector("form[name='team-members']").querySelector("input[name='pid']").value = pid;
+
+    
   }
 
 }
@@ -181,6 +295,8 @@ function selectOptionByValue(value) {
   }
 }
 
+
+
 // 팀 멤버 목록 click event
 function teamMembersClickEvent() {
   const ulBody = document.querySelector('ul');
@@ -207,60 +323,3 @@ function teamMembersClickEvent() {
   });
 
 }
-
-// 팀 멤버 삭제(서버로 요청)
-(() => {
-	const btnRemove = document.querySelector(".button-layer button:nth-of-type(2)");
-
-	btnRemove.addEventListener("click", async (e) => {
-		e.preventDefault();
-
-		if(!confirm("삭제 하시겠습니까?")) {
-			return;
-		}
-
-		const form = document.querySelector("form[name='team-members']");
-		const pid = form.querySelector("input[name='pid']").value;
-
-    const checkedMember = document.querySelector("input[name='members']:checked");
-    let mid = checkedMember.value;
-
-		console.log("----debug---");
-		console.log("pid:" + pid);
-		console.log("mid:" + mid);
-
-		if (pid === "") {
-			alert("정보가 유효하지 않습니다.");
-			return;
-		}
-
-		if (mid === "") {
-			alert("정보가 유효하지 않습니다.");
-			return;
-		}
-
-			// 서버에 Http 요청 (프로젝트 생성)
-			// fetch : url, option
-			const response = await fetch("http://localhost:8080/project/member", {
-				// HTTP Method
-				method: "DELETE",
-				// 보낼 데이터 형식은 json
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					pid,
-					mid,
-				}),
-			});
-
-			console.log("----debug---");
-			console.log("response.status:" + response.status);
-
-			if ([200].includes(response.status)) {
-				alert("삭제 되었습니다.");
-				window.location.href = "/team/tmember-list.html?pid="+pid;
-			}      
-	});
-
-})();

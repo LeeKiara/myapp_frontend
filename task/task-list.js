@@ -17,10 +17,16 @@
 		// getProject(pid);
 
 		// 프로젝트에 해당하는 Task 정보 조회(list)
-		getList(pid);
+		if(pid != null && pid > 0) {
+			
+			// 작업 리스트 조회
+			getTaskList(pid);
 
-		// 데이터 조회(팀 멤버 리스트)
-		getTeamList(pid);
+			// 데이터 조회(팀 멤버 리스트)
+			getTeamList(pid);
+				
+		}
+
 	});
 })();
 
@@ -91,9 +97,15 @@ async function setProjectList(pid) {
 
 		const pid = form.querySelector("input[name='pid']").value;
 
-		// 프로젝트 팀원 등록 페이지로 이동
-		const actionUrl = `http://localhost:5500/task/task-create.html?pid=${pid}`;
-		window.location.href = actionUrl;
+		if(pid != null && pid > 0) {
+			// 프로젝트 팀원 등록 페이지로 이동
+			const actionUrl = `http://localhost:5500/task/task-create.html?pid=${pid}`;
+			window.location.href = actionUrl;
+		} else {
+			alert("프로젝트를 선택하세요.");
+			return;
+		}
+
 	});
 })();
 
@@ -102,6 +114,11 @@ async function setProjectList(pid) {
 	const btnDeleteTasks = document.querySelector(
 		".button-layer button:nth-of-type(2)"
 	);
+
+	if(btnDeleteTasks === null) {
+		alert("삭제 대상이 없습니다.");
+		return;
+	}
 
 	// 버튼 클릭 이벤트 핸들러
 	btnDeleteTasks.addEventListener("click", async (e) => {
@@ -193,8 +210,12 @@ async function getProject(pid) {
 }
 
 // 프로젝트에 해당하는 Task 정보 조회(list) : GET /project/tasks?pid=1
-async function getList(pid) {
+async function getTaskList(pid) {
 	console.log("pid : " + pid);
+
+	if(pid === null || (pid != null && pid < 1)) {
+		return;
+	}
 
 	let url = `http://localhost:8080/project/tasks-member?pid=${pid}`;
 

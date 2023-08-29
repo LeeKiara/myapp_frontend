@@ -52,11 +52,14 @@
 							</ul>
 
 							<div class="button-layer">
-								<button style="width: 200px;">팀원 등록</button>
-								<button style="width: 200px;">팀원 삭제</button>
+								<button>팀원 등록</button>
+								<button>팀원 삭제</button>
 								<!-- <button></button> -->
 							</div>
+							<div>&nbsp;</div>
+							<div>&nbsp;</div>
 							<input name="pid" type="hidden" />
+							<input name="project-title" type="hidden" />
 						</form>
 
 					</div>
@@ -77,18 +80,31 @@
 			<div>
 				<!-- 컨텐츠 컨테이너 영역 -->
 				<div id="modal-box">
-
 					<form name="modal">
-						<!-- forms[0] -->
+						<div>&nbsp;</div>
+						<div>프로젝트명 : <h3></h3>
+						</div>
+						<div>이메일 <input name="email" type="email" />&nbsp;&nbsp;
+							<button id="find-user" style="width: 140px;height: 40px;">사용자 찾기</button>
+						</div>
+						<div>아이디 <input name="username" type="text" readonly /></div>
+						<div class="button-layer">
+							<button id="add-team-member">팀원 추가</button>
+							<button id="modal-cancel">취소</button>
+						</div>
+						<div>&nbsp;</div>
+						<input name="mid" type="hidden" />
+					</form>
+					<!-- <form name="modal">						
 						<div>
 							<label>프로젝트명</label>
 							<h3></h3>
-							<!-- <input name="title" type="text" readonly /> -->
+							
 						</div>
 						<div>
 							<label>이메일</label>
 							<input name="email" type="email" />&nbsp;&nbsp;
-							<button id="find-user">사용자 찾기</button>
+							<button id="find-user" class="common-button-size">사용자 찾기</button>
 						</div>
 						<div>
 							<label>아이디</label>
@@ -99,7 +115,7 @@
 							<button id="modal-cancel">취소</button>
 						</div>
 						<input name="mid" type="hidden" />
-					</form>
+					</form> -->
 				</div>
 			</div>
 		</div>

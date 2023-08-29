@@ -22,7 +22,7 @@ header .top-center-layer .gnb-menu {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  font-size: 1rem;
+  font-size: 1.1rem;
   height: 50px;
   line-height: 50px;
   font-weight: 400;
@@ -91,18 +91,28 @@ main {
   padding-top: 10px;
   width: 100%; /* 변경: 100%로 설정하여 부모 너비에 맞춤 */
   /* max-width: 550px; 변경: 최대 너비 설정 */
-  height: 500px;
+  /* height: 500px; */
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
+  justify-content: center;
+  align-items: center;
    /* border: 1px solid black; */
+}
+
+.height-700 {
+  height: 700px;	
+}
+
+.left-box form {
+	justify-content : center;
 }
 
 .left-box-modify {
   padding-top: 10px;
   width: 100%; /* 변경: 100%로 설정하여 부모 너비에 맞춤 */
   /* max-width: 550px; 변경: 최대 너비 설정 */
-  height: 600px;
+  /*height: 600px;*/
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
@@ -120,8 +130,13 @@ main {
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
-  font-size: 0.8rem;
-  padding: 0px;
+  font-size: 0.9rem;
+  padding: 20px 10px;
+  line-height: 20px;
+}
+
+.right-box-userinfo {
+  display: flex;
 }
 
 .profile-username {
@@ -168,3 +183,44 @@ main {
   height: 40px;
 }
 
+.common-button-circle {
+  width: 100px; /* 버튼의 너비 */
+  height: 40px; /* 버튼의 높이 */
+  line-height: 20px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50%; /* 원 모양을 위해 절반 크기로 설정 */
+  background-color: #2e6baa;
+  color: #fff;
+  border: none;
+  text-align: center;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+
+.button-layer {
+  text-align: center;
+  display: flex;
+  /* width: 700px; */
+  justify-content: space-evenly;
+  margin-top: 50px;
+  padding-left: 50px;
+  /* border: 1px solid black; */
+}
+
+.button-layer button {
+  width: 150px;
+  height: 80px;
+  /* line-height: 40px; */
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #2e6baa;
+  color: #fff;
+  border: #2e6baa;
+  border-radius: 4px;  
+}

@@ -9,16 +9,14 @@ let currentQuery = ""; // 현재 검색 키워드
 
 		// request parameter 정보를 가져온다. (URL QueryString)
 		const params = new URLSearchParams(window.location.search);
+
+		// url에 myproject 파라메터를 넘겨주면 내 프로젝트 내용 display
 		if (params.get("search")) {
 			getPagedList(0, "myproject");
 
 			// 내가 참여한 프로젝트 조회
 			getJoinProjects();
 		
-			// 내가 참여한 프로젝트 조회 layer 보이기
-			const secondLeftBox = document.querySelector("#left-box-second");
-			secondLeftBox.hidden = false;
-
 		} else {
 			getPagedList(0);			
 		}
@@ -26,25 +24,14 @@ let currentQuery = ""; // 현재 검색 키워드
 	});
 })();
 
-function toggleSecondLeftBox(search) {
-
-	const secondLeftBox = document.querySelector(".left-box:nth-of-type(2) div");
-        
-	if (secondLeftBox) {
-		secondLeftBox.classList.toggle(search);	
-	}
-
-}
-
 // 이전/다음 페이징
 (() => {
-	// const buttons =
-	// document.forms[1].querySelectorAll("button");
-	// const btnPrev = buttons[0];
-	// const btnNext = buttons[1];
+	const buttons = document.forms[0].querySelectorAll("button");
+	const btnPrev = buttons[0];
+	const btnNext = buttons[1];
 
-	const btnPrev = document.getElementById("btnPrev");
-	const btnNext = document.getElementById("btnNext");
+	// const btnPrev = document.getElementById("btnPrev");
+	// const btnNext = document.getElementById("btnNext");
 
 	// 이전 버튼
 	btnPrev.addEventListener("click", (e) => {
@@ -122,9 +109,6 @@ async function getPagedList(page, query) {
 	currentPage = result.number; // 현재 페이지 설정
 	isLastPage = result.last; // 마지막 페이지 여부
 
-	// console.log("--- debuging currentPage, isLastPage");
-	// console.log(currentPage + "," + isLastPage);
-
 	// 이전/다음 버튼 활성화 여부 처리
 	setBtnActive();
 
@@ -155,19 +139,27 @@ async function getJoinProjects() {
 
 	// 목록 초기화
 	targetbody.innerHTML = "";
-	// 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
-	for (let item of result) {
 
-		let createdEle = createRow(item);
+	if(result.length > 0 ) {
+		// 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
+		for (let item of result) {
 
-		// targetbody tr 추가
-		targetbody.append(createdEle);
+			let createdEle = createRow(item);
 
-		// Table tr 요소의 클릭 이벤트 핸들러 추가하기
-		// createTrEvent(createdTr);
+			// targetbody tr 추가
+			targetbody.append(createdEle);
+
+			// Table tr 요소의 클릭 이벤트 핸들러 추가하기
+			// createTrEvent(createdTr);
+		}
+
+	} else {
+		targetbody.append("** 아직 참여중인 프로젝트가 없습니다.");		
 	}
 
-	document.querySelector(".left-box div:nth-of-type(2)").style.display = "";
+	// 내가 참여한 프로젝트 조회 layer 보이기
+	const secondLeftBox = document.querySelector("#left-box-second");
+	secondLeftBox.hidden = false;
 
 }
 
@@ -237,8 +229,12 @@ function createDivEvent(divContent) {
 
 // 이전/다음 버튼 활성화 여부 처리
 function setBtnActive() {
-	const btnPrev = document.getElementById("btnPrev");
-	const btnNext = document.getElementById("btnNext");
+	const buttons = document.forms[0].querySelectorAll("button");
+	const btnPrev = buttons[0];
+	const btnNext = buttons[1];
+
+	console.log("--- debuging currentPage, isLastPage");
+	console.log(currentPage + "," + isLastPage);
 
 	// 첫번째 페이지이면 이전 버튼 비활성화
 	if (currentPage === 0) {

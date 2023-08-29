@@ -51,16 +51,16 @@ textarea:focus {
 }
 
 .button-layer button {
-  width: 80px;
-  height: 30px;
+  width: 150px;
+  height: 40px;
+  /* line-height: 40px; */
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
   background-color: #2e6baa;
   color: #fff;
   border: #2e6baa;
-  border-radius: 4px;
-  padding: 11px 24px;
+  border-radius: 4px;  
 }
 
 .image-layer {
