@@ -55,3 +55,27 @@
 #card-layout-item li:nth-of-type(2) {
   font-weight: 700;
 }
+
+li {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+li div {
+  margin-top: 10px; /* div 요소 사이 간격 */
+}
+
+.joinProjects ul {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.joinProjects img {
+  width: 40px;
+  height: 40px;
+}
+
+.hidden {
+  display: none;
+}

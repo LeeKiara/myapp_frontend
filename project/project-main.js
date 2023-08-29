@@ -6,17 +6,35 @@ let currentQuery = ""; // 현재 검색 키워드
 // 웹 페이지 로딩이 완료되면, 페이징으로 데이터 조회 및 화면 display
 (() => {
 	window.addEventListener("DOMContentLoaded", () => {
+
 		// request parameter 정보를 가져온다. (URL QueryString)
 		const params = new URLSearchParams(window.location.search);
 		if (params.get("search")) {
 			getPagedList(0, "myproject");
+
+			// 내가 참여한 프로젝트 조회
+			getJoinProjects();
+		
+			// 내가 참여한 프로젝트 조회 layer 보이기
+			const secondLeftBox = document.querySelector("#left-box-second");
+			secondLeftBox.hidden = false;
+
 		} else {
-			getPagedList(0);
+			getPagedList(0);			
 		}
 
-		// getJoinProjects();
 	});
 })();
+
+function toggleSecondLeftBox(search) {
+
+	const secondLeftBox = document.querySelector(".left-box:nth-of-type(2) div");
+        
+	if (secondLeftBox) {
+		secondLeftBox.classList.toggle(search);	
+	}
+
+}
 
 // 이전/다음 페이징
 (() => {
@@ -127,31 +145,49 @@ async function getJoinProjects() {
 		},
 	});
 
-	// 401: 미인증, 403: 미인가(허가없는)
-	//  if ([401, 403].includes(response.status)) {
-	//   // 로그인 페이지로 튕김
-	//   alert("인증처리가 되지 않았습니다.");
-	//   window.location.href = "/member/login.html";
-	// }
-
 	const result = await response.json();
-	console.log("*** debuging data");
+	console.log("*** getJoinProjects data");
 	console.log(result);
 
-	const tbody = document.querySelector("tbody");
+	const targetbody = document.querySelector(".joinProjects").querySelector("ul");
+
+	console.log(targetbody);
 
 	// 목록 초기화
-	tbody.innerHTML = "";
+	targetbody.innerHTML = "";
 	// 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
 	for (let item of result) {
-		let createdTr = createRow(item);
 
-		// tbody에 tr 추가
-		tbody.append(createdTr);
+		let createdEle = createRow(item);
+
+		// targetbody tr 추가
+		targetbody.append(createdEle);
 
 		// Table tr 요소의 클릭 이벤트 핸들러 추가하기
 		// createTrEvent(createdTr);
 	}
+
+	document.querySelector(".left-box div:nth-of-type(2)").style.display = "";
+
+}
+
+// 내가 참여한 프로젝트 정보 template
+function createRow(item) {
+
+  // 1. 요소 생성
+  const li = document.createElement("li");
+
+	// console.log(item.image);
+
+  // 2. 요소의 속성 설정
+  li.dataset.tid = item.tid;
+  li.innerHTML = /*html*/ `    
+  <div> ${item.image ? `<img src="${item.image}" class="joinProjects">` : ""}</div>
+  <div>${item.title}</div>
+  `;
+  return li;
+
+	// <div><img src="/image/profile.png" width="40px"></div>
 }
 
 function cardTemplate(item) {
@@ -197,26 +233,7 @@ function createDivEvent(divContent) {
 	});
 }
 
-// Task 정보 테이블 template
-function createRow(item) {
-	// 1. 요소 생성
-	const tr = document.createElement("tr");
 
-	// 시작일,종료일 YYYY-MM-DD 형식으로 변환
-	const startDateFormat = dateFormat(new Date(item.startDate));
-	const endDateFormat = dateFormat(new Date(item.endDate));
-
-	// 2. 요소의 속성 설정
-	tr.dataset.tid = item.tid;
-	tr.innerHTML = /*html*/ `
-  <td>${item.title}</td>
-  <td>${item.description}</td>  
-  <td>${startDateFormat}</td>  
-  <td>${endDateFormat}</td>  
-  <td>${item.status}</td>  
-  `;
-	return tr;
-}
 
 // 이전/다음 버튼 활성화 여부 처리
 function setBtnActive() {
