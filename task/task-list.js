@@ -8,16 +8,21 @@
 		const form = document.querySelector("form");
 		form.querySelector("input[name='pid']").value = pid;
 
+		// 등록/삭제 버튼 초기화(권한이 있을경우에만 보여주기)
+		const buttonLayerDiv = document.querySelector(".button-layer");
+		buttonLayerDiv.style.display = "none";
+
 		// 프로젝트 정보 select box에 넣어주기
 		setProjectList(pid);
 		// select option 요소의 클릭 이벤트 핸들러 추가하기
 		selectOptionEvent();
 
-		// 프로젝트 정보 조회
-		// getProject(pid);
-
 		// 프로젝트에 해당하는 Task 정보 조회(list)
 		if (pid != null && pid > 0) {
+
+		  // 프로젝트 권한 조회
+			getProjectRole(pid);
+
 			// 작업 리스트 조회
 			getTaskList(pid);
 
@@ -182,11 +187,11 @@ function selectOptionEvent() {
 		// }
 	});
 }
-// 데이터 조회(프로젝트 정보)
-async function getProject(pid) {
+// 데이터 조회(프로젝트 권한 정보)
+async function getProjectRole(pid) {
 	// alert(pid);
 
-	let url = `http://localhost:8080/project/${pid}`;
+	let url = `http://localhost:8080/project/${pid}/role`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -197,12 +202,21 @@ async function getProject(pid) {
 	});
 	const result = await response.json();
 
-	console.log("--- debuging getProject result");
+	console.log("--- debuging getProjectRole result");
 	console.log(result);
 
+	// Task 등록/수정 권한 체크
+	// 해당 유저가 팀 멤버에 등록되어 있을 경우에만, 수정/삭제할 수 있도록 버튼처리 함
+	const buttonLayerDiv = document.querySelector(".button-layer");
+	if (result["role-task"] != "R") {
+		buttonLayerDiv.style.display = "";
+	} else {
+		buttonLayerDiv.style.display = "none";
+	}
+
 	// 프로젝트 제목 넣어주기
-	document.querySelector(".div-desc").innerHTML =
-		"- 프로젝트명 : " + result.data.title;
+	// document.querySelector(".div-desc").innerHTML =
+	// 	"- 프로젝트명 : " + result.data.title;
 }
 
 // 프로젝트에 해당하는 Task 정보 조회(list) : GET /project/tasks?pid=1
@@ -300,15 +314,24 @@ function createRow(item) {
 	const startDateFormat = dateFormat(new Date(item.startDate));
 	const endDateFormat = dateFormat(new Date(item.endDate));
 
+	let statusName = "";
+	if(item.status === "1") {
+		statusName = "진행중";
+	} else if (item.status === "2") {
+		statusName = "완료";
+	} else if (item.status === "3") {
+		statusName = "지연";
+	}
 	// 2. 요소의 속성 설정
 	tr.dataset.tid = item.tid;
 	tr.innerHTML = /*html*/ `
   <td><input type="checkbox" value="${item.tid}"></td>
   <td>${item.title}</td>
-  <td>${item.description}</td>  
+  <!--<td>${item.description}</td>--> 
   <td>${startDateFormat}</td>  
   <td>${endDateFormat}</td>  
   <td>${item.username}</td>  
+  <td>${statusName}</td>  
   `;
 	return tr;
 }

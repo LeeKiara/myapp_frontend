@@ -35,7 +35,7 @@
       }
     );
 
-    // 팀원추가 버튼
+    // 팀원 추가 버튼
     document.querySelector("#add-team-member").addEventListener("click",  async (e) => {
 
       e.preventDefault();
@@ -81,6 +81,13 @@
       console.log("----팀원 추가---");
       console.log("result" + result);
       console.log("response.status:" + response.status);
+
+      // 이미 등록된 데이터를 등록하려고 할 때 409 Conflict 상태 코드가 반환됨
+      if ([409].includes(response.status)) {
+        alert("등록된 팀원 입니다.");
+        // layer.hidden = true;
+        // window.location.reload();
+      }  
 
       if ([201].includes(response.status)) {
         // alert("프로젝트 팀 멤버로 등록하였습니다.");

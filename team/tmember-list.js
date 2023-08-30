@@ -7,12 +7,16 @@
 
     console.log("<< tmember-list page에서 pid 확인 >> "+pid);
 
+    // 등록/삭제 버튼 초기화(권한이 있을경우에만 보여주기)
+    const buttonLayerDiv = document.querySelector(".button-layer");
+    buttonLayerDiv.style.display = "none";
+
     if(pid != null) {
       // url 파라메터로 pid가 들어올 경우, 폼 hidden 값에 넣어주기
       document.querySelector("form[name='team-members']").querySelector("input[name='pid']").value = pid;
 
-      // 프로젝트 정보 조회
-		  getProject(pid);
+		  // 프로젝트 권한 조회
+		  getProjectRole(pid);
 
     }    
 
@@ -23,11 +27,11 @@
 	});
 })();
 
-// 데이터 조회(프로젝트 정보)
-async function getProject(pid) {
+// 데이터 조회(프로젝트 권한 정보)
+async function getProjectRole(pid) {
 	// alert(pid);
 
-	let url = `http://localhost:8080/project/${pid}`;
+	let url = `http://localhost:8080/project/${pid}/role`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -36,43 +40,22 @@ async function getProject(pid) {
 			Authorization: `Bearer ${getCookie("token")}`,
 		},
 	});
-
 	const result = await response.json();
 
-	console.log("--- 프로젝트 정보 result");
+	console.log("--- debuging getProjectRole result");
 	console.log(result);
 
-	// // 화면 dispaly
-	// const form = document.forms[0];
+	// Project member 등록/수정 권한 체크
+	// 해당 유저가 프로젝트 관리자일 경우에만, 수정/삭제할 수 있도록 버튼처리 함
+	const buttonLayerDiv = document.querySelector(".button-layer");
+	if (result["role-tmember"] != "R") {
+		buttonLayerDiv.style.display = "";
+	} else {
+		buttonLayerDiv.style.display = "none";
+	}
 
-	// form.querySelector("input").value = result.data.title; // 제목
-	// form.querySelector("textarea").value = result.data.description; // 설명
-
-	// // 시작일
-	// const startDateInput = document.getElementById("startDateInput");
-	// startDateInput.value = dateFormat(new Date(result.data.startDate)); // YYYY-MM-DD 형식으로 변환
-
-	// // 종료일
-	// const endDateInput = document.getElementById("endDateInput");
-	// endDateInput.value = dateFormat(new Date(result.data.endDate)); // YYYY-MM-DD 형식으로 변환
-
-	// // 이미지 표시
-	// createImage(result.data.image);
-
-	// form.querySelector("input[name='pid']").value = result.data.pid; // pid
-	// form.querySelector("input[name='status']").value = result.data.status; // project 상태
-	// document.getElementById("pm-id").innerHTML = result.data2.username; // project pm id
-
-	// console.log(result.role);
-
-	// 내 프로젝트만 수정/삭제할 수 있도록 버튼처리 함
-	// const buttonLayerDiv = document.querySelector(".button-layer");
-	// if (result.role === "modify") {
-	// 	buttonLayerDiv.style.display = "";
-	// } else {
-	// 	buttonLayerDiv.style.display = "none";
-	// }
 }
+
 
 // 팀 멤버 삭제(서버로 요청)
 (() => {
@@ -81,12 +64,19 @@ async function getProject(pid) {
 	btnRemove.addEventListener("click", async (e) => {
 		e.preventDefault();
 
+		const form = document.querySelector("form[name='team-members']");
+		const pid = form.querySelector("input[name='pid']").value;
+    // console.log("모달레이어 pid:"+pid);
+
+    if(pid < 1) {
+      alert("프로젝트를 선택해주세요.");
+      return;
+    }
+
 		if(!confirm("삭제 하시겠습니까?")) {
 			return;
 		}
 
-		const form = document.querySelector("form[name='team-members']");
-		const pid = form.querySelector("input[name='pid']").value;
 
     const checkedMember = document.querySelector("input[name='members']:checked");
     let mid = checkedMember.value;

@@ -64,6 +64,11 @@ li {
   align-items: center;
 }
 
+li:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
 li div {
   margin-top: 10px; /* div 요소 사이 간격 */
 }
