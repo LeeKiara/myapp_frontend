@@ -12,6 +12,8 @@
 </head>
 
 <body>
+	<!-- 인증처리 -->
+	<script src="/member/auth.js"></script>
 	<!-- 최상단 탑 메뉴 -->
 	<script src="/common/common-menu.js"></script>
 
@@ -46,13 +48,22 @@
 					<div style="height: 20px;"></div>
 
 					<div id="left-box-second" class="left-box" hidden>
-						<div class="joinProjects">
-							<div style="height: 20px;">
-								<h1>내가 참여한 프로젝트</h1>
-							</div>
-							<ul>
-							</ul>
+
+						<div style="height: 20px;">
+							<h1>내가 참여한 프로젝트</h1>
 						</div>
+						<div>&nbsp;</div>
+						<div>
+							<table class="joinProjects">
+								<thead>
+									<th></th> <!--project status-->
+									<th></th> <!--project image-->
+									<th></th> <!--project title-->
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						<div>&nbsp;</div>
 						<div>&nbsp;</div>
 					</div>
 

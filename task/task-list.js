@@ -14,8 +14,9 @@
 
 		// 프로젝트 정보 select box에 넣어주기
 		setProjectList(pid);
+
 		// select option 요소의 클릭 이벤트 핸들러 추가하기
-		selectOptionEvent();
+		addEventForProjects();
 
 		// 프로젝트에 해당하는 Task 정보 조회(list)
 		if (pid != null && pid > 0) {
@@ -163,7 +164,7 @@ async function setProjectList(pid) {
 })();
 
 // select option 요소의 클릭 이벤트 핸들러 추가하기
-function selectOptionEvent() {
+function addEventForProjects() {
 	// 프로젝트 정보 select box
 	const selectElement = document.querySelector(".select-box select");
 
@@ -244,6 +245,7 @@ async function getTaskList(pid) {
 
 	// 결과가 배열
 	const result = await response.json();
+	console.log("getTaskList result>>>>>>>>");
 	console.log(result);
 
 	const tbody = document.querySelector("tbody");
@@ -295,13 +297,11 @@ async function getTeamList(pid) {
 	let createdTr = "";
 	// 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
 	for (let item of result) {
-		createdTr = "[NO:" + item.mid + "] " + item.username + " , " + createdTr;
-		// createdTr = item.username;
-		console.log(createdTr);
-	}
-	if (createdTr.length > 0) {
-		divTeamInfo.innerHTML = createdTr.slice(0, createdTr.length - 3);
-		console.log(divTeamInfo.innerHTML);
+		const subdiv = document.createElement("div");
+
+		subdiv.innerHTML = /*html*/ ` 🔹 ${item.mname}`;
+
+		divTeamInfo.prepend(subdiv);
 	}
 }
 
@@ -330,7 +330,7 @@ function createRow(item) {
   <!--<td>${item.description}</td>--> 
   <td>${startDateFormat}</td>  
   <td>${endDateFormat}</td>  
-  <td>${item.username}</td>  
+  <td>${item.mname}</td>  
   <td>${statusName}</td>  
   `;
 	return tr;
@@ -363,16 +363,3 @@ function createTableBody() {
 		}
 	});
 }
-
-// // 날짜 포맷 (yyyy-MM-dd)
-// function dateFormat(date) {
-// 	let resultDateFormat =
-// 		date.getFullYear() +
-// 		"-" +
-// 		(date.getMonth() + 1 < 10
-// 			? "0" + (date.getMonth() + 1)
-// 			: date.getMonth() + 1) +
-// 		"-" +
-// 		(date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
-// 	return resultDateFormat;
-// }

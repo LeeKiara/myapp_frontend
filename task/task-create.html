@@ -1,98 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>i-PMS</title>
 
-		<link rel="stylesheet" href="/common/reset.css" />
-		<link rel="stylesheet" href="/common/layout.css" />
-		<link rel="stylesheet" href="/project/project-create.css" />
-		<link rel="stylesheet" href="/task/task-create.css" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
-			rel="stylesheet"
-		/>
-	</head>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>i-PMS</title>
 
-	<body>
-		<!-- 최상단 탑 메뉴 -->
-		<script src="/common/common-menu.js"></script>
+	<link rel="stylesheet" href="/common/reset.css" />
+	<link rel="stylesheet" href="/common/layout.css" />
+	<link rel="stylesheet" href="/project/project-create.css" />
+	<link rel="stylesheet" href="/task/task-create.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
+</head>
 
-		<main>
-			<div class="main-left-layer"></div>
+<body>
+	<!-- 인증처리 -->
+	<script src="/member/auth.js"></script>
+	<!-- 최상단 탑 메뉴 -->
+	<script src="/common/common-menu.js"></script>
 
-			<div class="main-center-layer">
-				<div class="top-content">
-					<div>
-						<h1>작업 등록</h1>
-					</div>
+	<main>
+		<div class="main-left-layer"></div>
+
+		<div class="main-center-layer">
+			<div class="top-content">
+				<div>
+					<h1>작업 등록</h1>
 				</div>
-				<div class="inner-content">
-					<article class="left-content">
-						<div class="left-box-modify">
-							<form action="">
-								<!-- forms[0] -->
-								<div>
-									<label>프로젝트명</label>
-									<input name="project-title" type="text" />
-								</div>
-								<div>
-									<label>작업명</label>
-									<input
-										name="title"
-										type="text"
-										placeholder="작업명을 입력하세요"
-									/>
-								</div>
-								<div>
-									<label>설명</label>
-									<textarea
-										name="description"
-										cols="30"
-										rows="10"
-										placeholder="작업에 관한 설명 입력(옵션)"
-									></textarea>
-								</div>
-								<div>
-									<label>시작일</label
-									><input name="start-date" type="date" placeholder="시작일" />
-									~ <label>종료일</label
-									><input name="end-date" type="date" placeholder="종료일" />
-								</div>
-								<input type="hidden" name="task-status" value="1" />
-								<!--상태:진행중-->
-								<!-- <div>
+			</div>
+			<div class="inner-content">
+				<article class="left-content">
+					<div class="left-box-modify">
+						<form action="">
+							<!-- forms[0] -->
+							<div>
+								<label>프로젝트명</label>
+								<input name="project-title" type="text" />
+							</div>
+							<div>
+								<label>작업명</label>
+								<input name="title" type="text" placeholder="작업명을 입력하세요" />
+							</div>
+							<div>
+								<label>설명</label>
+								<textarea name="description" cols="30" rows="10" placeholder="작업에 관한 설명 입력(옵션)"></textarea>
+							</div>
+							<div>
+								<label>시작일</label><input name="start-date" type="date" placeholder="시작일" />
+								~ <label>종료일</label><input name="end-date" type="date" placeholder="종료일" />
+							</div>
+							<input type="hidden" name="task-status" value="1" />
+							<!--상태:진행중-->
+							<!-- <div>
 									<label>상태</label>
 									<input type="radio" name="task-status" value="1">진행중
 									<input type="radio" name="task-status" value="1">완료
 									<input type="radio" name="task-status" value="1">지연
 								</div>
 								 -->
-								<input name="pid" type="hidden" />
-								<input name="project-status" type="hidden" />
-							</form>
+							<input name="pid" type="hidden" />
+							<input name="project-status" type="hidden" />
+						</form>
 
-							<div class="button-layer">
-								<button>작업 등록</button>
-							</div>
-							<div>&nbsp;</div>
-							<div>&nbsp;</div>
+						<div class="button-layer">
+							<button>작업 등록</button>
 						</div>
-					</article>
+						<div>&nbsp;</div>
+						<div>&nbsp;</div>
+					</div>
+				</article>
 
-					<aside class="right-content">
-						<script src="/common/right-menu.js"></script>
-					</aside>
-				</div>
+				<aside class="right-content">
+					<script src="/common/right-menu.js"></script>
+				</aside>
 			</div>
+		</div>
 
-			<div class="main-right-layer"></div>
-		</main>
+		<div class="main-right-layer"></div>
+	</main>
 
-		<script src="/task/task-create.js"></script>
-		<script src="/common/footer.js"></script>
-	</body>
+	<script src="/task/task-create.js"></script>
+	<script src="/common/footer.js"></script>
+</body>
+
 </html>

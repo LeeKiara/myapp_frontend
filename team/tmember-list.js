@@ -173,9 +173,7 @@ async function setProjectList(pid) {
 
   if(pid > 0) {
     getTeamMeberList(pid);
-    document.querySelector("form[name='team-members']").querySelector("input[name='pid']").value = pid;
-
-    
+    document.querySelector("form[name='team-members']").querySelector("input[name='pid']").value = pid;    
   }
 
 }
@@ -239,6 +237,7 @@ async function getTeamMeberList(pid) {
   for (let item of result) {
     let createdEle = createRow(
       item.mid,
+      item.mname,
       item.username,
       item.email,
     );
@@ -258,7 +257,7 @@ async function getTeamMeberList(pid) {
 }
 
 // 팀원 정보 테이블 template
-function createRow(mid, name, email) {
+function createRow(mid, mname, username, email) {
   // 1. 요소 생성
   const li = document.createElement("li");
 
@@ -267,8 +266,8 @@ function createRow(mid, name, email) {
   li.innerHTML = /*html*/ `  
   <div><input type="radio" name="members" value=${mid}></div>
   <div><img src="/image/profile.png" width="40px"></div>
-  <div>${name}</div>
-  <div>${email}</div>
+  <div>${mname}</div>  
+  <div>(${email})</div>
   `;
   return li;
 }

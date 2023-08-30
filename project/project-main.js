@@ -11,14 +11,15 @@ let currentQuery = ""; // 현재 검색 키워드
 
 		// url에 myproject 파라메터를 넘겨주면 내 프로젝트 내용 display
 		if (params.get("search")) {
+
+			// 내가 생성한 프로젝트 조회
 			getPagedList(0, "myproject");
 
 			// 내가 참여한 프로젝트 조회
 			getJoinProjects();
 
-			// ul li 요소의 클릭 이벤트 핸들러 추가하기
-			joinProjectsEvent();
 		} else {
+			// 전체 프로젝트 조회
 			getPagedList(0);
 		}
 	});
@@ -53,7 +54,7 @@ let currentQuery = ""; // 현재 검색 키워드
 	});
 })();
 
-// 데이터 조회(페이징 처리)
+// 전체 프로젝트 조회
 async function getPagedList(page, query) {
 	let url = `http://localhost:8080/project/paging?page=${page}&size=${PAGE_SIZE}`;
 
@@ -96,13 +97,14 @@ async function getPagedList(page, query) {
 			// console.log("--- debuging item");
 			// console.log(item);
 
+			// 프로젝트 정보 card layout tag 생성
 			const template = cardTemplate(item);
 			// console.log("--- debuging template");
 			// console.log(template);
 
 			divContent.insertAdjacentHTML("afterbegin", template);
 
-			// div 클릭 이벤트 핸들러 추가하기
+			// 프로젝트 클릭 이벤트 핸들러 추가하기
 			createDivEvent(divContent);
 		});
 
@@ -133,11 +135,9 @@ async function getJoinProjects() {
 	console.log("*** getJoinProjects data");
 	console.log(result);
 
-	const targetbody = document
-		.querySelector(".joinProjects")
-		.querySelector("ul");
+	const targetbody = document.querySelector("tbody");
 
-	console.log(targetbody);
+	// console.log(targetbody);
 
 	// 목록 초기화
 	targetbody.innerHTML = "";
@@ -147,12 +147,13 @@ async function getJoinProjects() {
 		for (let item of result) {
 			let createdEle = createRow(item);
 
-			// targetbody li 요소 추가
+			// targetbody에 tr 요소 추가
 			targetbody.append(createdEle);
-
-			// targetbody li 요소의 클릭 이벤트 핸들러 추가하기
-			// createEleEvent(createdEle);
 		}
+
+		// 내가 참여한 프로젝트 Table tr요소 이벤트 핸들러 추가하기
+		createTableBody();
+
 	} else {
 		targetbody.append("** 아직 참여중인 프로젝트가 없습니다.");
 	}
@@ -162,35 +163,22 @@ async function getJoinProjects() {
 	secondLeftBox.hidden = false;
 }
 
-// 내가 참여한 프로젝트 정보 template
-function createRow(item) {
-	// 1. 요소 생성
-	const li = document.createElement("li");
-
-	// console.log(item.image);
-
-	// 2. 요소의 속성 설정
-	li.dataset.tid = item.tid;
-	li.innerHTML = /*html*/ `    
-  <div> ${
-		item.image ? `<img src="${item.image}" class="joinProjects">` : ""
-	}</div>
-  <div>${item.title}</div>
-  `;
-	return li;
-
-	// <div><img src="/image/profile.png" width="40px"></div>
-}
-
+// 프로젝트 정보 card layout tag 생성
 function cardTemplate(item) {
+	let projectDesc = item.description;
+
+	if(projectDesc.length > 20) {
+		projectDesc = projectDesc.slice(0,17)+"...";
+	}
+
 	const template = /*html*/ `
   <div id="card-layout-item" class="item">    
-      <ul data-no='${item.pid}'>
+      <ul data-no='${item.pid}' >
         <li>      
         ${item.image ? `<img src="${item.image}" alt="${item.title}">` : ""}
         </li>
         <li>${item.title}</li>
-        <li>${item.description}</li>
+        <li>${projectDesc}</li>        
       </ul>
   </div>
   `;
@@ -198,7 +186,7 @@ function cardTemplate(item) {
 	return template;
 }
 
-// div 클릭 이벤트 핸들러 추가하기
+// 프로젝트 클릭 이벤트 핸들러 추가하기
 function createDivEvent(divContent) {
 	const divItem = divContent.querySelector("div");
 	// document.getElementById("card-layout-item");
@@ -249,34 +237,58 @@ function setBtnActive() {
 	}
 }
 
-// 내가 참여한 프로젝트 리스트의 클릭 이벤트 핸들러 추가하기
-function joinProjectsEvent() {
-	const li = document.querySelector("ul");
-	// document.getElementById("card-layout-item");
+// 내가 참여한 프로젝트 정보 template
+function createRow(item) {
+	// 1. 요소 생성
+	const tr = document.createElement("tr");
 
-	li.addEventListener("click", (e) => {
-		const datano = document.querySelector("ul").getAttribute("data-no");
-		// alert(datano);
+	let statusName = "";
+	let stausColor = "status-color-1";
+	let stausTitleColor = "rgb(194, 135, 9);";
+	
+	if(item.status === "1") {
+		statusName = "진행중";
+	} else if (item.status === "2") {
+		statusName = "완료";
+		stausColor = "status-color-2";
+		stausTitleColor = "rgb(20, 109, 156)";
+	} else if (item.status === "3") {
+		statusName = "지연";
+		stausColor = "status-color-3";
+		stausTitleColor = "rgb(119, 37, 167);";
+	}
 
-		// 기본 제출 동작을 막음.
-		e.preventDefault();
-
-		// 프로젝트 수정 페이지로 이동
-		const actionUrl = `http://localhost:5500/task/task-list.html?pid=${datano}`;
-		window.location.href = actionUrl;
-		// const newWindow = window.open(actionUrl, "_blank");
-	});
+	// 2. 요소의 속성 설정
+	tr.dataset.pid = item.pid;
+	tr.innerHTML = /*html*/ `
+	<td>
+		<div class="status-layout ${stausColor}"><span style="color:rgb(194, 135, 9);">●</span> <span>${statusName}</span></div>
+	</td>
+	<td> ${
+		item.image ? `<img src="${item.image}" class="joinProjects">` : ""
+	}</td>
+  <td>${item.title}</td>
+  `;
+	return tr;
 }
 
-// // 날짜 포맷 (yyyy-MM-dd)
-// function dateFormat(date) {
-// 	let resultDateFormat =
-// 		date.getFullYear() +
-// 		"-" +
-// 		(date.getMonth() + 1 < 9
-// 			? "0" + (date.getMonth() + 1)
-// 			: date.getMonth() + 1) +
-// 		"-" +
-// 		(date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
-// 	return resultDateFormat;
-// }
+// 내가 참여한 프로젝트 Table tr요소 이벤트 핸들러 추가하기
+function createTableBody() {
+	const tableBody = document.querySelector("tbody");
+
+	tableBody.addEventListener("click", (event) => {
+		const clickedElement = event.target;
+		const trElement = clickedElement.closest("tr");
+		const pid = trElement.getAttribute("data-pid");
+
+		// console.log("trElement==>");
+		// console.log(trElement);
+		// console.log(pid);
+
+		if (pid != null && pid > 0) {
+			// 프로젝트 수정 페이지로 이동
+			const actionUrl = `http://localhost:5500/task/task-list.html?pid=${pid}`;
+			window.location.href = actionUrl;
+		}			
+	});
+}

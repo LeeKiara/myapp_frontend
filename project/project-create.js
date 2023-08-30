@@ -1,17 +1,14 @@
-// 새 프로젝트 생성 button 클릭 시 폼데이터 reset
-// (() => {
-// 	const btnAddProject = document.querySelector(".button-layer");
+// 웹 페이지 로딩이 완료되면, 데이터 조회 및 화면 display
+(() => {
+	window.addEventListener("DOMContentLoaded", () => {
 
-// 	btnAddProject.addEventListener("click", (e) => {
-// 		e.preventDefault();
-
-// 		const form = document.forms[0];
-// 		form.reset();
-
-// 		const divProjectImage = document.getElementById("project-image");
-// 		divProjectImage.remove();
-// 	});
-// })();
+		const projectImageDiv = document.getElementById("project-image");
+		projectImageDiv.style.display = "none";
+		
+		// 이미지 파일 선택 후 div에 선택된 이미지 보여주기
+		loadImage();
+	});
+})();
 
 // 프로젝트 정보 등록(서버로 요청)
 (() => {
@@ -124,13 +121,34 @@ function createImage(image) {
 	return divProjectImage;
 }
 
-// function getCookie(name) {
-// 	let matches = document.cookie.match(
-// 		new RegExp(
-// 			"(?:^|; )" +
-// 				name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
-// 				"=([^;]*)"
-// 		)
-// 	);
-// 	return matches ? decodeURIComponent(matches[1]) : undefined;
-// }
+// 이미지 파일 선택 후 div에 선택된 이미지 보여주기
+function loadImage() {
+	const inputFile = document.querySelector("input[type='file']");
+	const projectImageDiv = document.getElementById("project-image");
+
+	// 파일이 변경되는 이벤트가 발생이 되면...
+	inputFile.addEventListener("change", (e) => {
+		const selectedFile = e.target.files[0];
+
+		// 선택된 파일이 있으면
+		if (selectedFile) {
+			// 기존에 표시된 이미지 clear
+			projectImageDiv.innerHTML = "";
+
+			const reader = new FileReader();
+
+			reader.addEventListener("load", (e) => {
+				// console.log(e);
+				// file -> base64 data-url
+				const image = e.target.result;
+
+				// div 요소에 이미지 내용 삽입
+				createImage(image);
+			});
+			// 파일을 dataURL(base64)로 읽음
+			reader.readAsDataURL(selectedFile);
+
+			projectImageDiv.style.display = "";
+		}
+	});
+}

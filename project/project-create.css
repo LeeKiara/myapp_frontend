@@ -71,10 +71,17 @@ textarea:focus {
 .image-layer div {
   margin-left: 0px;
   border: 1px solid black;  
-  width: 110px;
   box-shadow: 0 0 8px 0 #aaa;
+  width: 200px;
+  height: 200px;
+
 }
 
 .image-layer img {
   width: 100%;
+  height: 100%;
+}
+
+input[name="image-file"] {
+  width: 200px;
 }

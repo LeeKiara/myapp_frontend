@@ -16,8 +16,11 @@
 </head>
 
 <body>
+	<!-- 인증처리 -->
+	<script src="/member/auth.js"></script>
 	<!-- 최상단 탑 메뉴 -->
 	<script src="/common/common-menu.js"></script>
+
 
 	<main>
 		<div class="main-left-layer"></div>
@@ -33,6 +36,10 @@
 					<div class="left-box-modify">
 						<form action="" class="margin-right-30">
 							<!-- forms[0] -->
+							<div>
+								<label>프로젝트 관리자</label>
+								<span id="pm-id" class="font-color-emphasis"></span>
+							</div>
 							<div>
 								<label>프로젝트명</label>
 								<input name="title" type="text" placeholder="제목을 입력하세요." />
@@ -50,12 +57,15 @@
 								<input name="image-file" type="file" placeholder="대표이미지" accept="image/*" />
 								<div id="project-image"></div>
 							</div>
+							<!--상태:진행중-->
 							<div>
-								<label>프로젝트 관리자</label>
-								<span id="pm-id" class="font-color-emphasis"></span>
+								<label>상태</label>
+								<input type="radio" name="status" value="1" />진행중
+								<input type="radio" name="status" value="2" />완료
+								<input type="radio" name="status" value="3" />지연
 							</div>
 							<input name="pid" type="hidden" />
-							<input name="status" type="hidden" />
+							<!-- <input name="status" type="hidden" /> -->
 						</form>
 						<div class="button-layer">
 							<button>수정</button>

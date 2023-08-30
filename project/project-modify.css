@@ -21,3 +21,7 @@
 
   margin: 0 10px; /* 버튼 간격을 조절할 마진 값 */
 }
+
+input[name="image-file"] {
+  width: 200px;
+}

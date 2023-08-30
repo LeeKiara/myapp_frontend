@@ -58,24 +58,20 @@
   font-weight: 700;
 }
 
-li {
-  display: flex;
-  gap: 20px;
-  align-items: center;
+table {
+  margin: 20px 20px;
 }
-
-li:hover {
+tr:hover {
   font-weight: bold;
   cursor: pointer;
 }
-
-li div {
-  margin-top: 10px; /* div 요소 사이 간격 */
-}
-
-.joinProjects ul {
-  margin-left: 10px;
-  margin-bottom: 10px;
+td {
+  /* border: 1px solid gray; */
+  /* height: 40px;
+  line-height: 40px; */
+  padding-top: 10px;
+  padding-left: 10px;
+  
 }
 
 .joinProjects img {
@@ -92,4 +88,28 @@ li div {
   text-align: center;
   font-size: 1.1rem; 
   font-weight: 700;
+}
+
+.status-layout {
+  width: 90px;
+  height: 25px;
+  line-height: 25px;
+  text-align: left;
+  padding-left: 20px;
+  border-radius: 10px;
+  color: rgb(64, 44, 27);
+  background: rgb(253, 236, 200);
+  font-size: 0.9rem; 
+}
+
+.status-color-1 {
+  background: rgb(253, 236, 200);
+}
+
+.status-color-2 {
+  background: rgb(211, 229, 239);
+}
+
+.status-color-3 {
+  background: rgb(232, 222, 238);
 }

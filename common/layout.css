@@ -124,8 +124,8 @@ main {
 }
 
 .right-box {
-  width: 100%; /* 변경: 100%로 설정하여 부모 너비에 맞춤 */
-  /* max-width: 160px; 변경: 최대 너비 설정 */
+  /* width: 100%; 변경: 100%로 설정하여 부모 너비에 맞춤 */
+  max-width: 140px; 
   height: 80px;
   background-color: #fff;
   border-radius: 4px;

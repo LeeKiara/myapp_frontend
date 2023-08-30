@@ -33,7 +33,7 @@ async function getUserInfo() {
 	console.log(result);
 	console.log(result.username);
 
-	document.querySelector(".profile-username").innerHTML = result.username;
+	document.querySelector(".profile-username").innerHTML = result.nickname;
 
 	// project main 화면의 타이틀
 	if (document.querySelector(".top-content .project-main h1") != null) {
@@ -50,6 +50,6 @@ async function getUserInfo() {
 
 		document.querySelector(".top-content .project-main h1").innerHTML =
 			/*html*/
-			`${result.username}님 즐거운 ${period}입니다.😊`;
+			`${result.nickname}님 즐거운 ${period}입니다.😊`;
 	}
 }

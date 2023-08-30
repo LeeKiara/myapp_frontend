@@ -4,10 +4,12 @@
 
 	if (!token) {
 		// 인증토큰이 없으면, 메인페이지로 이동
-		alert("인증처리가 되지 않았습니다.");
+		alert("로그인이 필요합니다.");
 		window.location.href = "/index.html";
 		// window.location.href = "/member/login.html";
 	}
+
+	// getUserInfo();
 
 })();
 
@@ -29,3 +31,21 @@ function removeCookie(name) {
 		name +
 		"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
 }
+
+// 사용자 정보 조회
+async function getUserInfo() {
+	
+	let url = `http://localhost:8080/project/userinfo`;
+
+	const response = await fetch(url, {
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
+
+	const result = await response.json();
+
+	// alert(result.username);
+	
+}
+

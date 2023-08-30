@@ -22,151 +22,6 @@
 	});
 })();
 
-// 프로젝트 팀원 조회 버튼 클릭 이벤트
-(() => {
-	const btnTeamMemberList = document.querySelector(
-		".button-layer button:nth-of-type(3)"
-	);
-
-	// 버튼 클릭 이벤트 핸들러
-	btnTeamMemberList.addEventListener("click", async (e) => {
-		e.preventDefault();
-
-		const form = document.forms[0];
-
-		const pid = form.querySelector("input[name='pid']").value;
-
-		// 프로젝트 팀원 조회 페이지로 이동
-		const actionUrl = `http://localhost:5500/team/tmember-list.html?pid=${pid}`;
-		window.location.href = actionUrl;
-	});
-})();
-
-// 작업 조회 버튼 클릭 이벤트
-(() => {
-	const btnTask = document.querySelector(".button-layer button:nth-of-type(4)");
-
-	// 버튼 클릭 이벤트 핸들러
-	btnTask.addEventListener("click", async (e) => {
-		e.preventDefault();
-
-		const form = document.forms[0];
-
-		const pid = form.querySelector("input[name='pid']").value;
-
-		// 작업 조회 페이지로 이동
-		const actionUrl = `http://localhost:5500/task/task-list.html?pid=${pid}`;
-		window.location.href = actionUrl;
-	});
-})();
-
-// 데이터 조회(프로젝트 정보)
-async function getProject(pid) {
-	// alert(pid);
-
-	let url = `http://localhost:8080/project/${pid}`;
-
-	// http 통신을 통해서 데이터 조회 후 응답값 받음
-	//  - await 키워드는 async 함수에서만 사용 가능
-	const response = await fetch(url, {
-		headers: {
-			Authorization: `Bearer ${getCookie("token")}`,
-		},
-	});
-
-	const result = await response.json();
-
-	console.log("--- debuging result");
-	console.log(result);
-
-	// 화면 dispaly
-	const form = document.forms[0];
-
-	form.querySelector("input").value = result.data.title; // 제목
-	form.querySelector("textarea").value = result.data.description; // 설명
-
-	// 시작일
-	const startDateInput = document.getElementById("startDateInput");
-	startDateInput.value = dateFormat(new Date(result.data.startDate)); // YYYY-MM-DD 형식으로 변환
-
-	// 종료일
-	const endDateInput = document.getElementById("endDateInput");
-	endDateInput.value = dateFormat(new Date(result.data.endDate)); // YYYY-MM-DD 형식으로 변환
-
-	// 이미지 표시
-	createImage(result.data.image);
-
-	form.querySelector("input[name='pid']").value = result.data.pid; // pid
-	form.querySelector("input[name='status']").value = result.data.status; // project 상태
-	document.getElementById("pm-id").innerHTML = result.data2.username; // project pm id
-
-	console.log(result.role);
-
-	// 내 프로젝트만 수정/삭제할 수 있도록 버튼처리 함
-	const buttonLayerDiv = document.querySelector(".button-layer");
-	if (result.role === "modify") {
-		buttonLayerDiv.style.display = "";
-	} else {
-		buttonLayerDiv.style.display = "none";
-	}
-}
-
-function createImage(image) {
-	// console.log(image);
-
-	const template = /*html*/ `
-  ${image ? `<img src="${image}">` : ""}`;
-
-	const divProjectImage = document.getElementById("project-image");
-
-	divProjectImage.insertAdjacentHTML("afterbegin", template);
-
-	return divProjectImage;
-}
-
-// // 날짜 포맷 (yyyy-MM-dd)
-// function dateFormat(date) {
-// 	let resultDateFormat =
-// 		date.getFullYear() +
-// 		"-" +
-// 		(date.getMonth() + 1 < 10
-// 			? "0" + (date.getMonth() + 1)
-// 			: date.getMonth() + 1) +
-// 		"-" +
-// 		(date.getDate() < 9 ? "0" + date.getDate() : date.getDate());
-// 	return resultDateFormat;
-// }
-
-// 이미지 파일 선택 후 div에 선택된 이미지 보여주기
-function loadImage() {
-	const inputFile = document.querySelector("input[type='file']");
-	const projectImageDiv = document.getElementById("project-image");
-
-	// 파일이 변경되는 이벤트가 발생이 되면...
-	inputFile.addEventListener("change", (e) => {
-		const selectedFile = e.target.files[0];
-
-		// 선택된 파일이 있으면
-		if (selectedFile) {
-			// 기존에 표시된 이미지 clear
-			projectImageDiv.innerHTML = "";
-
-			const reader = new FileReader();
-
-			reader.addEventListener("load", (e) => {
-				// console.log(e);
-				// file -> base64 data-url
-				const image = e.target.result;
-
-				// div 요소에 이미지 내용 삽입
-				createImage(image);
-			});
-			// 파일을 dataURL(base64)로 읽음
-			reader.readAsDataURL(selectedFile);
-		}
-	});
-}
-
 // 프로젝트 정보 수정(서버로 요청)
 (() => {
 	const btnSave = document.querySelector("article button:nth-of-type(1)");
@@ -183,7 +38,7 @@ function loadImage() {
 		).value;
 		const startDate = form.querySelector("input[name='start-date']").value;
 		const endDate = form.querySelector("input[name='end-date']").value;
-		const status = form.querySelector("input[name='status']").value;
+		const status = document.querySelector("input[name='status']:checked").value;
 
 		const file = form.querySelector("input[name='image-file']");
 
@@ -339,3 +194,167 @@ function loadImage() {
 		}
 	});
 })();
+
+
+// 프로젝트 팀원 조회 버튼 클릭 이벤트
+(() => {
+	const btnTeamMemberList = document.querySelector(
+		".button-layer button:nth-of-type(3)"
+	);
+
+	// 버튼 클릭 이벤트 핸들러
+	btnTeamMemberList.addEventListener("click", async (e) => {
+		e.preventDefault();
+
+		const form = document.forms[0];
+
+		const pid = form.querySelector("input[name='pid']").value;
+
+		// 프로젝트 팀원 조회 페이지로 이동
+		const actionUrl = `http://localhost:5500/team/tmember-list.html?pid=${pid}`;
+		window.location.href = actionUrl;
+	});
+})();
+
+// 작업 조회 버튼 클릭 이벤트
+(() => {
+	const btnTask = document.querySelector(".button-layer button:nth-of-type(4)");
+
+	// 버튼 클릭 이벤트 핸들러
+	btnTask.addEventListener("click", async (e) => {
+		e.preventDefault();
+
+		const form = document.forms[0];
+
+		const pid = form.querySelector("input[name='pid']").value;
+
+		// 작업 조회 페이지로 이동
+		const actionUrl = `http://localhost:5500/task/task-list.html?pid=${pid}`;
+		window.location.href = actionUrl;
+	});
+})();
+
+// 데이터 조회(프로젝트 정보)
+async function getProject(pid) {
+	// alert(pid);
+
+	let url = `http://localhost:8080/project/${pid}`;
+
+	// http 통신을 통해서 데이터 조회 후 응답값 받음
+	//  - await 키워드는 async 함수에서만 사용 가능
+	const response = await fetch(url, {
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
+
+	const result = await response.json();
+
+	console.log("--- debuging result");
+	console.log(result);
+
+	// 화면 dispaly
+	const form = document.forms[0];
+
+	form.querySelector("input").value = result.data.title; // 제목
+	form.querySelector("textarea").value = result.data.description; // 설명
+
+	// 시작일
+	const startDateInput = document.getElementById("startDateInput");
+	startDateInput.value = dateFormat(new Date(result.data.startDate)); // YYYY-MM-DD 형식으로 변환
+
+	// 종료일
+	const endDateInput = document.getElementById("endDateInput");
+	endDateInput.value = dateFormat(new Date(result.data.endDate)); // YYYY-MM-DD 형식으로 변환
+
+	// 이미지 표시
+	createImage(result.data.image);
+
+	// 상태값 radio button 처리
+	setRadioButton(result.data.status);
+
+	form.querySelector("input[name='pid']").value = result.data.pid; // pid
+	form.querySelector("input[name='status']").value = result.data.status; // project 상태
+	document.getElementById("pm-id").innerHTML = result.data2.username; // project pm id
+
+	console.log(result.role);
+
+	// 내 프로젝트만 수정/삭제할 수 있도록 버튼처리 함
+	const buttonLayerDiv = document.querySelector(".button-layer");
+	const buttons = buttonLayerDiv.querySelectorAll("button");
+	if (result.role === "modify") {
+		// buttonLayerDiv.style.display = "";
+		buttons[0].style.display = "";
+		buttons[1].style.display = "";
+	} else {
+		// buttonLayerDiv.style.display = "none";
+		buttons[0].style.display = "none";
+		buttons[1].style.display = "none";
+	}
+}
+
+function createImage(image) {
+	// console.log(image);
+
+	const template = /*html*/ `
+  ${image ? `<img src="${image}">` : ""}`;
+
+	const divProjectImage = document.getElementById("project-image");
+
+	divProjectImage.insertAdjacentHTML("afterbegin", template);
+
+	if(image != null) {
+		divProjectImage.style.display = "";
+	} else {
+		divProjectImage.style.display = "none";
+
+	}
+	return divProjectImage;
+}
+
+// 이미지 파일 선택 후 div에 선택된 이미지 보여주기
+function loadImage() {
+	const inputFile = document.querySelector("input[type='file']");
+	const projectImageDiv = document.getElementById("project-image");
+
+	// projectImageDiv.style.display = "none";
+
+	// 파일이 변경되는 이벤트가 발생이 되면...
+	inputFile.addEventListener("change", (e) => {
+		const selectedFile = e.target.files[0];
+
+		// 선택된 파일이 있으면
+		if (selectedFile) {
+			// 기존에 표시된 이미지 clear
+			projectImageDiv.innerHTML = "";
+
+			const reader = new FileReader();
+
+			reader.addEventListener("load", (e) => {
+				// console.log(e);
+				// file -> base64 data-url
+				const image = e.target.result;
+
+				// div 요소에 이미지 내용 삽입
+				createImage(image);
+			});
+			// 파일을 dataURL(base64)로 읽음
+			reader.readAsDataURL(selectedFile);
+
+			// projectImageDiv.style.display = "";
+		}
+	});
+}
+
+function setRadioButton(selectedValue) {
+
+	// CSS 선택자를 사용하여 원하는 value 값과 일치하는 라디오 버튼을 선택합니다.
+	var selectedRadioButton = document.querySelector(
+		'input[name="status"][value="' + selectedValue + '"]'
+	);
+
+	// 선택된 라디오 버튼을 체크합니다.
+	if (selectedRadioButton) {
+		selectedRadioButton.checked = true;
+	}
+}
