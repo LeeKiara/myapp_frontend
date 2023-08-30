@@ -1,0 +1,33 @@
+/* Resetting default table border */
+.custom-table {
+  border-collapse: collapse;
+}
+
+/* Adding border to tr elements */
+.custom-table tr {
+  border-bottom: 1px solid black;
+  height: 80px;
+}
+
+/* Styling th and td elements */
+.custom-table th,
+.custom-table td {
+  padding: 8px;
+  text-align: center;
+}
+
+/* Setting column widths */
+.custom-table th:nth-child(1),
+.custom-table td:nth-child(1) {
+  width: 100px;
+}
+
+.custom-table th:nth-child(2),
+.custom-table td:nth-child(2) {
+  width: 150px;
+}
+
+.custom-table th:nth-child(3),
+.custom-table td:nth-child(3) {
+  width: 200px;
+}

@@ -58,7 +58,7 @@
   font-weight: 700;
 }
 
-table {
+/* table {
   margin: 20px 20px;
 }
 tr:hover {
@@ -66,13 +66,10 @@ tr:hover {
   cursor: pointer;
 }
 td {
-  /* border: 1px solid gray; */
-  /* height: 40px;
-  line-height: 40px; */
   padding-top: 10px;
   padding-left: 10px;
   
-}
+} */
 
 .joinProjects img {
   width: 40px;
@@ -112,4 +109,50 @@ td {
 
 .status-color-3 {
   background: rgb(232, 222, 238);
+}
+
+
+.custom-table img {
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: 0 auto;
+}
+
+
+/* Resetting default table border */
+.custom-table {
+  border-collapse: collapse;
+}
+
+/* Adding border to tr elements */
+.custom-table tr {
+  /* border-bottom: 1px solid black; */
+  height: 60px;
+}
+
+/* Styling th and td elements */
+.custom-table th,
+.custom-table td {
+  padding: 8px;
+
+}
+
+/* Setting column widths */
+.custom-table th:nth-child(1),
+.custom-table td:nth-child(1) {
+  width: 60px;
+  text-align: center;
+}
+
+.custom-table th:nth-child(2),
+.custom-table td:nth-child(2) {
+  width: 60px;
+  text-align: center;
+}
+
+.custom-table th:nth-child(3),
+.custom-table td:nth-child(3) {
+  width: 200px;
+  text-align: left;
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sample Table with CSS</title>
+		<link rel="stylesheet" type="text/css" href="styles.css" />
+	</head>
+	<body>
+		<table class="custom-table">
+			<tr>
+				<th>Column 1</th>
+				<th>Column 2</th>
+				<th>Column 3</th>
+			</tr>
+			<tr>
+				<td>Row 1, Column 1</td>
+				<td>Row 1, Column 2</td>
+				<td>Row 1, Column 3</td>
+			</tr>
+			<tr>
+				<td>Row 2, Column 1</td>
+				<td>Row 2, Column 2</td>
+				<td>Row 2, Column 3</td>
+			</tr>
+			<tr>
+				<td>Row 3, Column 1</td>
+				<td>Row 3, Column 2</td>
+				<td>Row 3, Column 3</td>
+			</tr>
+			<tr>
+				<td colspan="3">Row 3, Column 1</td>
+			</tr>
+		</table>
+
+		<table class="custom-table">
+			<thead>
+				<tr>
+					<th></th>
+					<!--project status-->
+					<th></th>
+					<!--project image-->
+					<th></th>
+					<!--project title-->
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-pid="8">
+					<td>
+						<div class="status-layout status-color-1">
+							<span style="color: rgb(194, 135, 9)">●</span> <span>진행중</span>
+						</div>
+					</td>
+					<td><img src="/image/10.png" style="width: 60px; height: 60px" /></td>
+					<td>KIOSK Image Print</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

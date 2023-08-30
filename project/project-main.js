@@ -11,13 +11,11 @@ let currentQuery = ""; // 현재 검색 키워드
 
 		// url에 myproject 파라메터를 넘겨주면 내 프로젝트 내용 display
 		if (params.get("search")) {
-
 			// 내가 생성한 프로젝트 조회
 			getPagedList(0, "myproject");
 
 			// 내가 참여한 프로젝트 조회
 			getJoinProjects();
-
 		} else {
 			// 전체 프로젝트 조회
 			getPagedList(0);
@@ -153,9 +151,14 @@ async function getJoinProjects() {
 
 		// 내가 참여한 프로젝트 Table tr요소 이벤트 핸들러 추가하기
 		createTableBody();
-
 	} else {
-		targetbody.append("** 아직 참여중인 프로젝트가 없습니다.");
+		const tr = document.createElement("tr");
+
+		tr.innerHTML = /*html*/ `
+		<td colspan="3">** 아직 참여중인 프로젝트가 없습니다.</td>
+  	`;
+
+		targetbody.append(tr);
 	}
 
 	// 내가 참여한 프로젝트 조회 layer 보이기
@@ -167,8 +170,8 @@ async function getJoinProjects() {
 function cardTemplate(item) {
 	let projectDesc = item.description;
 
-	if(projectDesc.length > 20) {
-		projectDesc = projectDesc.slice(0,17)+"...";
+	if (projectDesc.length > 20) {
+		projectDesc = projectDesc.slice(0, 17) + "...";
 	}
 
 	const template = /*html*/ `
@@ -245,8 +248,8 @@ function createRow(item) {
 	let statusName = "";
 	let stausColor = "status-color-1";
 	let stausTitleColor = "rgb(194, 135, 9);";
-	
-	if(item.status === "1") {
+
+	if (item.status === "1") {
 		statusName = "진행중";
 	} else if (item.status === "2") {
 		statusName = "완료";
@@ -264,9 +267,7 @@ function createRow(item) {
 	<td>
 		<div class="status-layout ${stausColor}"><span style="color:rgb(194, 135, 9);">●</span> <span>${statusName}</span></div>
 	</td>
-	<td> ${
-		item.image ? `<img src="${item.image}" class="joinProjects">` : ""
-	}</td>
+	<td> ${item.image ? `<img src="${item.image}">` : ""}</td>
   <td>${item.title}</td>
   `;
 	return tr;
@@ -289,6 +290,6 @@ function createTableBody() {
 			// 프로젝트 수정 페이지로 이동
 			const actionUrl = `http://localhost:5500/task/task-list.html?pid=${pid}`;
 			window.location.href = actionUrl;
-		}			
+		}
 	});
 }

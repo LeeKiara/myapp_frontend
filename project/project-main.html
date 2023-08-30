@@ -1,85 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>iPMS</title>
+		<link rel="stylesheet" href="/common/reset.css" />
+		<link rel="stylesheet" href="/common/layout.css" />
+		<link rel="stylesheet" href="/project/project-main.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>iPMS</title>
-	<link rel="stylesheet" href="/common/reset.css" />
-	<link rel="stylesheet" href="/common/layout.css" />
-	<link rel="stylesheet" href="/project/project-main.css" />
-	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet" />
-</head>
+	<body>
+		<!-- 인증처리 -->
+		<script src="/member/auth.js"></script>
+		<!-- 최상단 탑 메뉴 -->
+		<script src="/common/common-menu.js"></script>
 
-<body>
-	<!-- 인증처리 -->
-	<script src="/member/auth.js"></script>
-	<!-- 최상단 탑 메뉴 -->
-	<script src="/common/common-menu.js"></script>
+		<main>
+			<div class="main-left-layer"></div>
 
-	<main>
-		<div class="main-left-layer"></div>
+			<div class="main-center-layer">
+				<div class="top-content">
+					<div class="project-main">
+						<h1>○○○님 즐거운 하루입니다.</h1>
+					</div>
+				</div>
+				<div class="inner-content">
+					<article class="left-content">
+						<div class="left-box">
+							<form action="">
+								<!-- forms[0] -->
+								<div>
+									<h1>전체 공개 프로젝트</h1>
+								</div>
+								<div id="card-layout" class="card-layout between"></div>
+								<div
+									style="text-align: center; padding: 0px; margin-bottom: 20px"
+								>
+									<button class="" id="btnPrev">이전</button>
+									<button class="" id="btnNext">다음</button>
+									<div>&nbsp;</div>
+								</div>
+							</form>
+						</div>
 
-		<div class="main-center-layer">
-			<div class="top-content">
-				<div class="project-main">
-					<h1>○○○님 즐거운 하루입니다.</h1>
+						<div style="height: 20px"></div>
+
+						<div id="left-box-second" class="left-box" hidden>
+							<div style="height: 20px">
+								<h1>내가 참여한 프로젝트</h1>
+							</div>
+							<div>&nbsp;</div>
+							<div>
+								<table class="custom-table">
+									<thead>
+										<th></th>
+										<!--project status-->
+										<th></th>
+										<!--project image-->
+										<th></th>
+										<!--project title-->
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
+							<div>&nbsp;</div>
+							<div>&nbsp;</div>
+						</div>
+					</article>
+
+					<aside class="right-content">
+						<script src="/common/right-menu.js"></script>
+					</aside>
 				</div>
 			</div>
-			<div class="inner-content">
-				<article class="left-content">
-					<div class="left-box">
-						<form action="">
-							<!-- forms[0] -->
-							<div>
-								<h1>전체 공개 프로젝트</h1>
-							</div>
-							<div id="card-layout" class="card-layout between">
-							</div>
-							<div style="text-align: center; padding: 0px;margin-bottom: 20px;">
-								<button class="" id="btnPrev">이전</button>
-								<button class="" id="btnNext">다음</button>
-								<div>&nbsp;</div>
-							</div>
-						</form>
 
-					</div>
+			<div class="main-right-layer"></div>
+		</main>
 
-					<div style="height: 20px;"></div>
-
-					<div id="left-box-second" class="left-box" hidden>
-
-						<div style="height: 20px;">
-							<h1>내가 참여한 프로젝트</h1>
-						</div>
-						<div>&nbsp;</div>
-						<div>
-							<table class="joinProjects">
-								<thead>
-									<th></th> <!--project status-->
-									<th></th> <!--project image-->
-									<th></th> <!--project title-->
-								</thead>
-								<tbody></tbody>
-							</table>
-						</div>
-						<div>&nbsp;</div>
-						<div>&nbsp;</div>
-					</div>
-
-				</article>
-
-				<aside class="right-content">
-					<script src="/common/right-menu.js"></script>
-				</aside>
-			</div>
-		</div>
-
-		<div class="main-right-layer"></div>
-	</main>
-
-	<script src="/project/project-main.js"></script>
-	<script src="/common/footer.js"></script>
-</body>
-
+		<script src="/project/project-main.js"></script>
+		<script src="/common/footer.js"></script>
+	</body>
 </html>
