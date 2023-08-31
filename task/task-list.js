@@ -13,10 +13,10 @@
 		buttonLayerDiv.style.display = "none";
 
 		// 프로젝트 정보 select box에 넣어주기
-		setProjectList(pid);
+		//setProjectList(pid);
 
 		// select option 요소의 클릭 이벤트 핸들러 추가하기
-		addEventForProjects();
+		//addEventForProjects();
 
 		// 프로젝트에 해당하는 Task 정보 조회(list)
 		if (pid != null && pid > 0) {

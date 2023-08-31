@@ -21,8 +21,11 @@
     }    
 
     // 프로젝트 정보 select box에 넣어주기
-    setProjectList(pid);
+    // setProjectList(pid);
 
+    getTeamMeberList(pid);
+    document.querySelector("form[name='team-members']").querySelector("input[name='pid']").value = pid;   
+    
     // teamMembersClickEvent();
 	});
 })();
