@@ -1,41 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Document</title>
+	<title>Span Style Example</title>
+	<style>
+		.font-color-emphasis {
+			color: #6449fc;
+			font-weight: 700;
+		}
+	</style>
 </head>
 
-<select id="projectSelect">
-	<option value="" disabled selected hidden>프로젝트를 선택하세요.</option>
-	<option value="1">AAA</option>
-	<option value="2">BBB</option>
-	<option value="3">CCC</option>
-	Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum officia veritatis animi hic cumque quidem vero cum
-	repellat, id at ea explicabo corporis nobis nulla voluptatibus commodi ducimus laboriosam et consequatur doloribus qui
-	ipsum? Veritatis exercitationem, nemo qui voluptatum, numquam rerum maiores ratione, voluptas molestiae rem aperiam
-	ipsam. Perspiciatis, error.
-</select>
-
-<script>
-	function selectOptionByValue(value) {
-		const selectElement = document.getElementById('projectSelect');
-
-		for (let option of selectElement.options) {
-			if (option.value === value) {
-				option.selected = true;
-				break;
-			}
-		}
-	}
-
-	// 외부 파라미터로 받은 값
-	const externalValue = "3";
-
-	// 외부 파라미터로 받은 값에 해당하는 옵션 선택
-	selectOptionByValue(externalValue);
-</script>
-
+<body>
+	<span id="pm-id" style="color:#6449fc; font-weight: 700;">Emphasized Text</span>
+</body>
 
 </html>

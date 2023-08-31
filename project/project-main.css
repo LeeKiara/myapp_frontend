@@ -111,14 +111,12 @@ td {
   background: rgb(232, 222, 238);
 }
 
-
 .custom-table img {
   width: 40px;
   height: 40px;
   display: block;
   margin: 0 auto;
 }
-
 
 /* Resetting default table border */
 .custom-table {
@@ -129,6 +127,11 @@ td {
 .custom-table tr {
   /* border-bottom: 1px solid black; */
   height: 60px;
+}
+
+.custom-table tr:hover {
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* Styling th and td elements */

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .highlight {
+      font-weight: bold;
+      color: #ff0000;
+      /* 빨간색 */
+    }
+
+    .blue {
+      color: blue;
+      /* 빨간색 */
+    }
+
+    .normal {
+      /* font-weight: bold; */
+      color: black
+        /* 빨간색 */
+    }
+  </style>
+</head>
+
+<body>
+  <select id="projectSelect">
+    <option value="">프로젝트를 선택하세요.</option>
+    <optgroup label="[진행중]" class="highlight">
+      <option value="9" class="normal">간편 로그인 연동</option>
+      <option value="9" class="normal">테스트</option>
+    </optgroup>
+    <optgroup label="[완료]" class="highlight blue">
+      <option value="9" class="normal">간편 로그인 연동</option>
+      <option value="9" class="normal">테스트</option>
+    </optgroup>
+  </select>
+</body>
+
+</html>

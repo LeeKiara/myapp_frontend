@@ -275,7 +275,7 @@ async function getProject(pid) {
 
 	form.querySelector("input[name='pid']").value = result.data.pid; // pid
 	form.querySelector("input[name='status']").value = result.data.status; // project 상태
-	document.getElementById("pm-id").innerHTML = result.data2.username; // project pm id
+	document.getElementById("pm-id").innerHTML = result.data2.mname; // project pm id
 
 	console.log(result.role);
 

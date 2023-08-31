@@ -224,3 +224,8 @@ main {
   border: #2e6baa;
   border-radius: 4px;  
 }
+
+.font-color-emphasis {
+  color: #6449fc;    
+  font-weight: 700;
+}

@@ -35,7 +35,9 @@
 
 // 프로젝트 정보 리스트 조회하여 select 요소에 값 넣어주기
 async function setProjectList(pid) {
-	let url = `http://localhost:8080/project/list-all`;
+
+	//-- 서버 호출 1 : 상태값이 진행중
+	let url = `http://localhost:8080/project/list-status?status=1`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -44,15 +46,51 @@ async function setProjectList(pid) {
 			Authorization: `Bearer ${getCookie("token")}`,
 		},
 	});
-	const result = await response.json();
+	const resultStatus1 = await response.json();
 
-	console.log("--- debuging setProjectList result");
-	console.log(result);
+	console.log("--- debuging setProjectList resultStatus1");
+	console.log(resultStatus1);
 
+	const arrResultStatus1 = Array.from(resultStatus1);
+
+	//-- 서버 호출 2 : 상태값이 완료
+	let url2 = `http://localhost:8080/project/list-status?status=2`;
+
+	// http 통신을 통해서 데이터 조회 후 응답값 받음
+	//  - await 키워드는 async 함수에서만 사용 가능
+	const response2 = await fetch(url2, {
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
+	const resultStatus2 = await response2.json();
+	const arrResultStatus2 = Array.from(resultStatus2);
+
+	console.log("--- debuging setProjectList resultStatus2");
+	console.log(resultStatus2);
+
+	//-- 서버 호출 3 : 상태값이 지연
+	let url3 = `http://localhost:8080/project/list-status?status=3`;
+
+	// http 통신을 통해서 데이터 조회 후 응답값 받음
+	//  - await 키워드는 async 함수에서만 사용 가능
+	const response3 = await fetch(url3, {
+		headers: {
+			Authorization: `Bearer ${getCookie("token")}`,
+		},
+	});
+	const resultStatus3 = await response3.json();
+	const arrResultStatus3 = Array.from(resultStatus3);
+
+	console.log("--- debuging setProjectList resultStatus3");
+	console.log(resultStatus3);
+
+
+	//--- HTML 요소 생성 ----------------------------------------------
 	// select 요소
 	const selectElement = document.querySelector(".select-box select");
 
-	// 목록 초기화
+	// 초기화
 	selectElement.innerHTML = "";
 
 	// select 첫번째 option 추가
@@ -61,17 +99,54 @@ async function setProjectList(pid) {
 	createElement.innerHTML = `프로젝트를 선택하세요.`;
 	selectElement.append(createElement);
 
-	// 배열 반복을 해서 option 만든다음에 select 가장 마지막 자식에 추가
-	for (let item of result) {
-		// 요소 생성
-		const createElement = document.createElement("option");
+	// 상태값 3개에 대한 결과를 select 리스트에 추가
+	const statusArray = [1, 2, 3];	// 진행중, 완료, 지연
 
-		// 2. 요소의 속성 설정
-		createElement.value = `${item.pid}`;
-		createElement.innerHTML = `${item.title}`;
+	for(let statusItem of statusArray) {
+		console.log("statusItem");
+		console.log(statusItem);
 
-		// tbody에 tr 추가
-		selectElement.append(createElement);
+		let data = Array.from(arrResultStatus1);
+		// optgroup 요소 생성
+		const optgroup = document.createElement("optgroup");
+
+		switch (statusItem) {
+			case 1:
+				// 2. 요소의 속성 설정
+				optgroup.label = `[진행중]`;
+				optgroup.className = "highlight";
+				selectElement.append(optgroup);
+				break;
+			case 2:
+				optgroup.label = `[완료]`;
+				selectElement.append(optgroup);
+				optgroup.className = "highlight blue";
+				data = Array.from(arrResultStatus2);
+				break;		
+			case 3:
+				optgroup.label = `[지연]`;
+				selectElement.append(optgroup);			
+				optgroup.className = "highlight red";	
+				data = Array.from(arrResultStatus3);
+				break;		
+			default:
+				// data = Array.from(arrResultStatus1);
+		}
+
+		// 배열 반복을 해서 option 만든 다음에 optgroup 아래 추가
+		// 상태값이 진행중
+		for (let item of data) {
+			// 요소 생성
+			const createElement = document.createElement("option");
+
+			// 2. 요소의 속성 설정
+			createElement.value = `${item.pid}`;
+			createElement.innerHTML = `${item.title}`;
+			createElement.className = "normal";
+
+			// optgroup 아래 추가
+			optgroup.append(createElement);
+		}
 	}
 
 	// 외부 파라메터로 pid가 넘어올 경우, 해당 pid로 select box 선택하기
@@ -299,7 +374,10 @@ async function getTeamList(pid) {
 	for (let item of result) {
 		const subdiv = document.createElement("div");
 
-		subdiv.innerHTML = /*html*/ ` 🔹 ${item.mname}`;
+		subdiv.innerHTML = /*html*/ `
+		<div><img src="/image/profile.png" width="40px" /></div>
+		<div>${item.mname}</div>
+    `;
 
 		divTeamInfo.prepend(subdiv);
 	}
@@ -342,7 +420,7 @@ function createTableBody() {
 
 	tableBody.addEventListener("click", (event) => {
 		const clickedElement = event.target;
-		const trElement = clickedElement.closest("tr");
+		const trElement = clickedElement.closest("td");
 		const tid = trElement.getAttribute("data-tid");
 		const pid = document.querySelector("input[name='pid']").value;
 

@@ -133,21 +133,24 @@ async function getJoinProjects() {
 	console.log("*** getJoinProjects data");
 	console.log(result);
 
-	const targetbody = document.querySelector("tbody");
+	// 응답값 객체를 배열로 전환 (Sort 기능을 사용하기 위함)
+	const data = Array.from(result);
 
-	// console.log(targetbody);
+	const targetbody = document.querySelector("tbody");
 
 	// 목록 초기화
 	targetbody.innerHTML = "";
 
 	if (result.length > 0) {
 		// 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
-		for (let item of result) {
+		data
+		.sort((a, b) => b.pid - a.pid)
+		.forEach((item) => {
 			let createdEle = createRow(item);
 
 			// targetbody에 tr 요소 추가
 			targetbody.append(createdEle);
-		}
+		});
 
 		// 내가 참여한 프로젝트 Table tr요소 이벤트 핸들러 추가하기
 		createTableBody();
@@ -265,7 +268,7 @@ function createRow(item) {
 	tr.dataset.pid = item.pid;
 	tr.innerHTML = /*html*/ `
 	<td>
-		<div class="status-layout ${stausColor}"><span style="color:rgb(194, 135, 9);">●</span> <span>${statusName}</span></div>
+		<div class="status-layout ${stausColor}"><span style="color:${stausTitleColor}">●</span> <span>${statusName}</span></div>
 	</td>
 	<td> ${item.image ? `<img src="${item.image}">` : ""}</td>
   <td>${item.title}</td>
