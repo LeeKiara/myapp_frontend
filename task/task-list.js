@@ -420,8 +420,14 @@ function createTableBody() {
 
 	tableBody.addEventListener("click", (event) => {
 		const clickedElement = event.target;
-		const trElement = clickedElement.closest("td");
+
+		const trElement = clickedElement.closest("tr");
 		const tid = trElement.getAttribute("data-tid");
+
+		console.log("createTableBody tid");
+		console.log(tid);
+
+		const tdElement = clickedElement.closest("td");
 		const pid = document.querySelector("input[name='pid']").value;
 
 		if (
@@ -436,7 +442,6 @@ function createTableBody() {
 			// 멤버 수정 페이지로 이동
 			const actionUrl = `http://localhost:5500/task/task-modify.html?pid=${pid}&tid=${tid}`;
 			// alert(actionUrl);
-
 			window.location.href = actionUrl;
 		}
 	});

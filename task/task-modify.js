@@ -222,4 +222,3 @@ function setRadioButton(selectedValue) {
 		selectedRadioButton.checked = true;
 	}
 }
-

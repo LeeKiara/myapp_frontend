@@ -13,6 +13,20 @@
 
 <body>
 	<span id="pm-id" style="color:#6449fc; font-weight: 700;">Emphasized Text</span>
+	<button>back</button>
+
+	<script>
+		(() => {
+			const button = document.querySelector("button");
+
+			button.addEventListener("click", (email) => {
+
+				alert("click");
+				history.back();
+
+			});
+		})();
+	</script>
 </body>
 
 </html>
