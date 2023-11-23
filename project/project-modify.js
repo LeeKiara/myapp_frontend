@@ -146,14 +146,11 @@
 		}
 
 		// 삭제 처리 전에 프로젝트에 등록된 Task가 있는지 확인한다.
-		const resTask = await fetch(
-			`${apiUrl()}/project/${pid}/task/count`,
-			{
-				headers: {
-					Authorization: `Bearer ${getCookie("token")}`,
-				},
-			}
-		);
+		const resTask = await fetch(`${apiUrl()}/project/${pid}/task/count`, {
+			headers: {
+				Authorization: `Bearer ${getCookie("token")}`,
+			},
+		});
 
 		const resultTask = await resTask.json();
 		const arrayTask = Array.from(resultTask);
@@ -195,7 +192,6 @@
 	});
 })();
 
-
 // 프로젝트 팀원 조회 버튼 클릭 이벤트
 (() => {
 	const btnTeamMemberList = document.querySelector(
@@ -211,7 +207,7 @@
 		const pid = form.querySelector("input[name='pid']").value;
 
 		// 프로젝트 팀원 조회 페이지로 이동
-		const actionUrl = `http://localhost:5500/team/tmember-list.html?pid=${pid}`;
+		const actionUrl = `/team/tmember-list.html?pid=${pid}`;
 		window.location.href = actionUrl;
 	});
 })();
@@ -229,7 +225,7 @@
 		const pid = form.querySelector("input[name='pid']").value;
 
 		// 작업 조회 페이지로 이동
-		const actionUrl = `http://localhost:5500/task/task-list.html?pid=${pid}`;
+		const actionUrl = `/task/task-list.html?pid=${pid}`;
 		window.location.href = actionUrl;
 	});
 })();
@@ -303,11 +299,10 @@ function createImage(image) {
 
 	divProjectImage.insertAdjacentHTML("afterbegin", template);
 
-	if(image != null) {
+	if (image != null) {
 		divProjectImage.style.display = "";
 	} else {
 		divProjectImage.style.display = "none";
-
 	}
 	return divProjectImage;
 }
@@ -347,7 +342,6 @@ function loadImage() {
 }
 
 function setRadioButton(selectedValue) {
-
 	// CSS 선택자를 사용하여 원하는 value 값과 일치하는 라디오 버튼을 선택합니다.
 	var selectedRadioButton = document.querySelector(
 		'input[name="status"][value="' + selectedValue + '"]'

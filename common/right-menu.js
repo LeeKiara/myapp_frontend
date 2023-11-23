@@ -18,7 +18,7 @@
 
 // 로그인 사용자 정보
 async function getUserInfo() {
-	let url = `http://localhost:8080/member/getUserInfo`;
+	let url = `${apiUrl()}/member/getUserInfo`;
 
 	// 서버에 데이터를 전송 : fetch(url, options)
 	const response = await fetch(url, {

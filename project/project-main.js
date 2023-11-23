@@ -144,13 +144,13 @@ async function getJoinProjects() {
 	if (result.length > 0) {
 		// 배열 반복을 해서 tr만든다음에 tbody 가장 마지막 자식에 추가
 		data
-		.sort((a, b) => b.pid - a.pid)
-		.forEach((item) => {
-			let createdEle = createRow(item);
+			.sort((a, b) => b.pid - a.pid)
+			.forEach((item) => {
+				let createdEle = createRow(item);
 
-			// targetbody에 tr 요소 추가
-			targetbody.append(createdEle);
-		});
+				// targetbody에 tr 요소 추가
+				targetbody.append(createdEle);
+			});
 
 		// 내가 참여한 프로젝트 Table tr요소 이벤트 핸들러 추가하기
 		createTableBody();
@@ -213,7 +213,7 @@ function createDivEvent(divContent) {
 		const queryStr = new URLSearchParams(formData).toString();
 
 		// 프로젝트 수정 페이지로 이동
-		const actionUrl = `http://localhost:5500/project/project-modify.html?${queryStr}`;
+		const actionUrl = `/project/project-modify.html?${queryStr}`;
 		window.location.href = actionUrl;
 		// const newWindow = window.open(actionUrl, "_blank");
 	});
@@ -291,7 +291,7 @@ function createTableBody() {
 
 		if (pid != null && pid > 0) {
 			// 프로젝트 수정 페이지로 이동
-			const actionUrl = `http://localhost:5500/task/task-list.html?pid=${pid}`;
+			const actionUrl = `/task/task-list.html?pid=${pid}`;
 			window.location.href = actionUrl;
 		}
 	});

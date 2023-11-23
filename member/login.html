@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>i-PMS</title>
+		<link rel="stylesheet" href="/common/reset.css" />
+		<link rel="stylesheet" href="/common/layout.css" />
+		<link rel="stylesheet" href="/member/login.css" />
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>i-PMS</title>
-	<link rel="stylesheet" href="/common/reset.css" />
-	<link rel="stylesheet" href="/common/layout.css" />
-	<link rel="stylesheet" href="/member/login.css" />
-</head>
+	<body>
+		<script src="/member/login.js"></script>
 
-<body>
-	<script src="/member/login.js"></script>
-
-	<div class="container">
-		<div class="logo-section">
-			<img src="/image/login2.png" alt="" />
-		</div>
-		<div class="input-section">
-			<div>
-				<form id="loginForm" action="http://localhost:8080/api/auth/signin" method="post">
-					<div class="font-medium text900 title-medium">로그인</div>
-					<input type="text" name="username" class="input-short" placeholder="아이디" value="pm-user1" />
-					<input type="password" name="password" class="input-short" placeholder="비밀번호" value="password1234" />
-					<button class="common-button common-button-size" type="submit">
-						로그인
-					</button>
-				</form>
-
+		<div class="container">
+			<div class="logo-section">
+				<img src="/image/login2.png" alt="" />
+			</div>
+			<div class="input-section">
+				<!-- <div> -->
+				<div>
+					<!-- <form id="loginForm" action="http://localhost:8080/api/auth/signin" method="post"> -->
+					<form id="loginForm" method="post">
+						<div class="font-medium text900 title-medium">로그인</div>
+						<input
+							type="text"
+							name="username"
+							class="input-short"
+							placeholder="아이디"
+							value="pm-user1"
+						/>
+						<input
+							type="password"
+							name="password"
+							class="input-short"
+							placeholder="비밀번호"
+							value="password1234"
+						/>
+						<button class="common-button common-button-size">로그인</button>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-</body>
-
+		<script src="./login.js" />
+	</body>
 </html>

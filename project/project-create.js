@@ -1,13 +1,11 @@
 // 웹 페이지 로딩이 완료되면, 데이터 조회 및 화면 display
 (() => {
 	window.addEventListener("DOMContentLoaded", () => {
-
 		const projectImageDiv = document.getElementById("project-image");
 		projectImageDiv.style.display = "none";
-		
+
 		// 이미지 파일 선택 후 div에 선택된 이미지 보여주기
 		loadImage();
-
 	});
 })();
 
@@ -73,8 +71,6 @@
 		async function createProject(image) {
 			console.log("getCookie");
 			console.log(getCookie("token"));
-			console.log("${apiUrl()}");
-			console.log(`${apiUrl()}`);
 
 			// 서버에 Http 요청 (프로젝트 생성)
 			// fetch : url, option

@@ -20,8 +20,7 @@
 
 		// 프로젝트에 해당하는 Task 정보 조회(list)
 		if (pid != null && pid > 0) {
-
-		  // 프로젝트 권한 조회
+			// 프로젝트 권한 조회
 			getProjectRole(pid);
 
 			// 작업 리스트 조회
@@ -35,7 +34,6 @@
 
 // 프로젝트 정보 리스트 조회하여 select 요소에 값 넣어주기
 async function setProjectList(pid) {
-
 	//-- 서버 호출 1 : 상태값이 진행중
 	let url = `${apiUrl()}/project/list-status?status=1`;
 
@@ -85,7 +83,6 @@ async function setProjectList(pid) {
 	console.log("--- debuging setProjectList resultStatus3");
 	console.log(resultStatus3);
 
-
 	//--- HTML 요소 생성 ----------------------------------------------
 	// select 요소
 	const selectElement = document.querySelector(".select-box select");
@@ -100,9 +97,9 @@ async function setProjectList(pid) {
 	selectElement.append(createElement);
 
 	// 상태값 3개에 대한 결과를 select 리스트에 추가
-	const statusArray = [1, 2, 3];	// 진행중, 완료, 지연
+	const statusArray = [1, 2, 3]; // 진행중, 완료, 지연
 
-	for(let statusItem of statusArray) {
+	for (let statusItem of statusArray) {
 		console.log("statusItem");
 		console.log(statusItem);
 
@@ -122,15 +119,15 @@ async function setProjectList(pid) {
 				selectElement.append(optgroup);
 				optgroup.className = "highlight blue";
 				data = Array.from(arrResultStatus2);
-				break;		
+				break;
 			case 3:
 				optgroup.label = `[지연]`;
-				selectElement.append(optgroup);			
-				optgroup.className = "highlight red";	
+				selectElement.append(optgroup);
+				optgroup.className = "highlight red";
 				data = Array.from(arrResultStatus3);
-				break;		
+				break;
 			default:
-				// data = Array.from(arrResultStatus1);
+			// data = Array.from(arrResultStatus1);
 		}
 
 		// 배열 반복을 해서 option 만든 다음에 optgroup 아래 추가
@@ -177,7 +174,7 @@ async function setProjectList(pid) {
 
 		if (pid != null && pid > 0) {
 			// 프로젝트 팀원 등록 페이지로 이동
-			const actionUrl = `http://localhost:5500/task/task-create.html?pid=${pid}`;
+			const actionUrl = `/task/task-create.html?pid=${pid}`;
 			window.location.href = actionUrl;
 		} else {
 			alert("프로젝트를 선택하세요.");
@@ -393,7 +390,7 @@ function createRow(item) {
 	const endDateFormat = dateFormat(new Date(item.endDate));
 
 	let statusName = "";
-	if(item.status === "1") {
+	if (item.status === "1") {
 		statusName = "진행중";
 	} else if (item.status === "2") {
 		statusName = "완료";
@@ -440,7 +437,7 @@ function createTableBody() {
 			// alert(`Non Checkbox with value ${tid} clicked.`);
 
 			// 멤버 수정 페이지로 이동
-			const actionUrl = `http://localhost:5500/task/task-modify.html?pid=${pid}&tid=${tid}`;
+			const actionUrl = `/task/task-modify.html?pid=${pid}&tid=${tid}`;
 			// alert(actionUrl);
 			window.location.href = actionUrl;
 		}
