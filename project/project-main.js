@@ -54,11 +54,11 @@ let currentQuery = ""; // 현재 검색 키워드
 
 // 전체 프로젝트 조회
 async function getPagedList(page, query) {
-	let url = `http://localhost:8080/project/paging?page=${page}&size=${PAGE_SIZE}`;
+	let url = `${apiUrl()}/project/paging?page=${page}&size=${PAGE_SIZE}`;
 
 	// 검색 조건이 있으면...
 	if (query) {
-		url = `http://localhost:8080/project/paging/myproject?page=${page}&size=${PAGE_SIZE}`;
+		url = `${apiUrl()}/project/paging/myproject?page=${page}&size=${PAGE_SIZE}`;
 	}
 
 	// 서버에 데이터를 전송 : fetch(url, options)
@@ -120,7 +120,7 @@ async function getPagedList(page, query) {
 
 // 데이터 조회(내가 참여한 프로젝트)
 async function getJoinProjects() {
-	let url = `http://localhost:8080/project/join`;
+	let url = `${apiUrl()}/project/join`;
 
 	// 서버에 데이터를 전송 : fetch(url, options)
 	const response = await fetch(url, {

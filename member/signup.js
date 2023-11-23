@@ -40,7 +40,7 @@
 		}
 
 		// 서버에 Http 요청 (회원가입)
-		const response = await fetch("http://localhost:8080/auth/signup", {
+		const response = await fetch(`{apiUrl()}/auth/signup`, {
 			// HTTP Method
 			method: "POST",
 			// 보낼 데이터 형식은 json

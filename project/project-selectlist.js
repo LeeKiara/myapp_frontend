@@ -32,7 +32,7 @@
 async function putProjectsInSelect(pid) {
 
 	//-- 서버 호출 1 : 상태값이 진행중
-	let url = `http://localhost:8080/project/list-status?status=1`;
+	let url = `${apiUrl()}/project/list-status?status=1`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -49,7 +49,7 @@ async function putProjectsInSelect(pid) {
 	const arrResultStatus1 = Array.from(resultStatus1);
 
 	//-- 서버 호출 2 : 상태값이 완료
-	let url2 = `http://localhost:8080/project/list-status?status=2`;
+	let url2 = `${apiUrl()}/project/list-status?status=2`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -65,7 +65,7 @@ async function putProjectsInSelect(pid) {
 	console.log(resultStatus2);
 
 	//-- 서버 호출 3 : 상태값이 지연
-	let url3 = `http://localhost:8080/project/list-status?status=3`;
+	let url3 = `${apiUrl()}/project/list-status?status=3`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능

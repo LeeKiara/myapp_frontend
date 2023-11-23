@@ -93,7 +93,7 @@
 
 			// 서버에 Http 요청 (프로젝트 수정)
 			// fetch : url, option
-			const response = await fetch(`http://localhost:8080/project/${pid}`, {
+			const response = await fetch(`${apiUrl()}/project/${pid}`, {
 				// HTTP Method
 				method: "PUT",
 				// 보낼 데이터 형식은 json
@@ -147,7 +147,7 @@
 
 		// 삭제 처리 전에 프로젝트에 등록된 Task가 있는지 확인한다.
 		const resTask = await fetch(
-			`http://localhost:8080/project/${pid}/task/count`,
+			`${apiUrl()}/project/${pid}/task/count`,
 			{
 				headers: {
 					Authorization: `Bearer ${getCookie("token")}`,
@@ -172,7 +172,7 @@
 
 		// 서버에 Http 요청 (프로젝트 삭제)
 		// fetch : url, option
-		const response = await fetch(`http://localhost:8080/project/${pid}`, {
+		const response = await fetch(`${apiUrl()}/project/${pid}`, {
 			// HTTP Method
 			method: "DELETE",
 			headers: {
@@ -238,7 +238,7 @@
 async function getProject(pid) {
 	// alert(pid);
 
-	let url = `http://localhost:8080/project/${pid}`;
+	let url = `${apiUrl()}/project/${pid}`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능

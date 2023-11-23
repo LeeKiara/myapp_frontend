@@ -34,7 +34,7 @@
 async function getProjectRole(pid) {
 	// alert(pid);
 
-	let url = `http://localhost:8080/project/${pid}/role`;
+	let url = `${apiUrl()}/project/${pid}/role`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -100,7 +100,7 @@ async function getProjectRole(pid) {
 
 			// 서버에 Http 요청 (프로젝트 생성)
 			// fetch : url, option
-			const response = await fetch("http://localhost:8080/project/member", {
+			const response = await fetch("${apiUrl()}/project/member", {
 				// HTTP Method
 				method: "DELETE",
 				// 보낼 데이터 형식은 json
@@ -127,7 +127,7 @@ async function getProjectRole(pid) {
 // 프로젝트 정보 리스트 조회하여 select 요소에 값 넣어주기
 async function setProjectList(pid) {
 
-  let url = `http://localhost:8080/project/list-all`;
+  let url = `${apiUrl()}/project/list-all`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -214,7 +214,7 @@ async function getTeamMeberList(pid) {
 
   console.log("pid : "+pid);
 
-  let url = `http://localhost:8080/project/member/list?pid=${pid}`;
+  let url = `${apiUrl()}/project/member/list?pid=${pid}`;
 
   const response = await fetch(url);
 

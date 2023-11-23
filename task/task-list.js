@@ -37,7 +37,7 @@
 async function setProjectList(pid) {
 
 	//-- 서버 호출 1 : 상태값이 진행중
-	let url = `http://localhost:8080/project/list-status?status=1`;
+	let url = `${apiUrl()}/project/list-status?status=1`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -54,7 +54,7 @@ async function setProjectList(pid) {
 	const arrResultStatus1 = Array.from(resultStatus1);
 
 	//-- 서버 호출 2 : 상태값이 완료
-	let url2 = `http://localhost:8080/project/list-status?status=2`;
+	let url2 = `${apiUrl()}/project/list-status?status=2`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -70,7 +70,7 @@ async function setProjectList(pid) {
 	console.log(resultStatus2);
 
 	//-- 서버 호출 3 : 상태값이 지연
-	let url3 = `http://localhost:8080/project/list-status?status=3`;
+	let url3 = `${apiUrl()}/project/list-status?status=3`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -215,7 +215,7 @@ async function setProjectList(pid) {
 			// alert(checkbox.value);
 		});
 
-		let url = `http://localhost:8080/project/task/remove`;
+		let url = `${apiUrl()}/project/task/remove`;
 
 		// http 통신을 통해서 데이터 조회 후 응답값 받음
 		//  - await 키워드는 async 함수에서만 사용 가능
@@ -267,7 +267,7 @@ function addEventForProjects() {
 async function getProjectRole(pid) {
 	// alert(pid);
 
-	let url = `http://localhost:8080/project/${pid}/role`;
+	let url = `${apiUrl()}/project/${pid}/role`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -303,7 +303,7 @@ async function getTaskList(pid) {
 		return;
 	}
 
-	let url = `http://localhost:8080/project/tasks-member?pid=${pid}`;
+	let url = `${apiUrl()}/project/tasks-member?pid=${pid}`;
 
 	const response = await fetch(url, {
 		headers: {
@@ -346,7 +346,7 @@ async function getTaskList(pid) {
 async function getTeamList(pid) {
 	console.log("getTeamList pid : " + pid);
 
-	let url = `http://localhost:8080/project/member/list?pid=${pid}`;
+	let url = `${apiUrl()}/project/member/list?pid=${pid}`;
 	const response = await fetch(url, {
 		headers: {
 			Authorization: `Bearer ${getCookie("token")}`,

@@ -59,7 +59,7 @@
 		}
 
 		// Task 생성을 위해 서버로 Http 요청 - fetch : url, option
-		const response = await fetch(`http://localhost:8080/project/${pid}/task`, {
+		const response = await fetch(`${apiUrl()}/project/${pid}/task`, {
 			// HTTP Method
 			method: "POST",
 			// 보낼 데이터 형식은 json
@@ -94,7 +94,7 @@
 async function getProject(pid) {
 	// alert(pid);
 
-	let url = `http://localhost:8080/project/${pid}`;
+	let url = `${apiUrl()}/project/${pid}`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능

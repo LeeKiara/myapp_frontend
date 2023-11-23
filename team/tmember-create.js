@@ -60,7 +60,7 @@
   
       // 서버에 Http 요청 (팀원 추가)
       // fetch : url, option
-      const response = await fetch("http://localhost:8080/project/member", {
+      const response = await fetch("${apiUrl()}/project/member", {
         // HTTP Method
         method: "POST",
         // 보낼 데이터 형식은 json
@@ -132,7 +132,7 @@ async function getMember(email) {
   // 서버에 Http 요청 (프로젝트 수정)
   // fetch : url, option
   const response = await fetch(
-    `http://localhost:8080/member/${email}`,
+    `${apiUrl()}/member/${email}`,
     {
       // HTTP Method
       method: "PUT"      

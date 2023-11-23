@@ -35,7 +35,7 @@ function removeCookie(name) {
 // 사용자 정보 조회
 async function getUserInfo() {
 	
-	let url = `http://localhost:8080/project/userinfo`;
+	let url = `{apiUrl()}/project/userinfo`;
 
 	const response = await fetch(url, {
 		headers: {
@@ -49,3 +49,12 @@ async function getUserInfo() {
 	
 }
 
+function isLocalhost() {
+  return ["localhost", "127.0.0.1"].includes(location.hostname);
+}
+
+function apiUrl() {
+  return `${isLocalhost() ? "http" : "https"}://${
+    isLocalhost() ? `${location.hostname}:8080/api` : `${location.hostname}/api`
+  }`;
+}

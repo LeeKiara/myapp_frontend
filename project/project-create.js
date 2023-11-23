@@ -7,6 +7,7 @@
 		
 		// 이미지 파일 선택 후 div에 선택된 이미지 보여주기
 		loadImage();
+
 	});
 })();
 
@@ -72,10 +73,12 @@
 		async function createProject(image) {
 			console.log("getCookie");
 			console.log(getCookie("token"));
+			console.log("${apiUrl()}");
+			console.log(`${apiUrl()}`);
 
 			// 서버에 Http 요청 (프로젝트 생성)
 			// fetch : url, option
-			const response = await fetch("http://localhost:8080/project", {
+			const response = await fetch(`${apiUrl()}/project`, {
 				// HTTP Method
 				method: "POST",
 				// 보낼 데이터 형식은 json

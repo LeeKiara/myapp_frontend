@@ -68,7 +68,7 @@
 
 		// Task 정보 수정(DB : update)
 		// PUT /project/task/{tid}
-		const response = await fetch(`http://localhost:8080/project/task/${tid}`, {
+		const response = await fetch(`${apiUrl()}/project/task/${tid}`, {
 			// HTTP Method
 			method: "PUT",
 			// 보낼 데이터 형식은 json
@@ -115,7 +115,7 @@
 
 		// Task 정보 삭제(DB : delete)
 		// DELETE /project/task/{tid}
-		const response = await fetch(`http://localhost:8080/project/task/${tid}`, {
+		const response = await fetch(`${apiUrl()}/project/task/${tid}`, {
 			// HTTP Method
 			method: "DELETE",
 			// 보낼 데이터 형식은 json
@@ -140,7 +140,7 @@
 async function getProject(pid) {
 	// alert(pid);
 
-	let url = `http://localhost:8080/project/${pid}`;
+	let url = `${apiUrl()}/project/${pid}`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
@@ -165,7 +165,7 @@ async function getProject(pid) {
 
 // 데이터 조회(Task 정보)
 async function getTask(tid) {
-	let url = `http://localhost:8080/project/task?tid=${tid}`;
+	let url = `${apiUrl()}/project/task?tid=${tid}`;
 
 	// http 통신을 통해서 데이터 조회 후 응답값 받음
 	//  - await 키워드는 async 함수에서만 사용 가능
