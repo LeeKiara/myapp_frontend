@@ -123,10 +123,21 @@ function getCookie(name) {
 }
 
 // 쿠키값 삭제
+// function removeCookie(name) {
+// 	document.cookie =
+// 		name +
+// 		"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
+// }
+
+// 쿠키값 삭제
 function removeCookie(name) {
+	const domainName = ["localhost", "127.0.0.1"].includes(location.hostname)
+			? "localhost"
+			: "dmel5zuvyohd2.cloudfront.net";		
+
 	document.cookie =
 		name +
-		"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
+		"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain="+domainName+";";			
 }
 
 // 날짜 포맷 (yyyy-MM-dd)
