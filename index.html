@@ -1,57 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>i-PMS</title>
+		<link rel="stylesheet" href="./index.css" />
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>i-PMS</title>
-	<link rel="stylesheet" href="./index.css" />
-</head>
+	<body>
+		<!-- <script src="/member/auth.js"></script> -->
 
-<body>
-	<!-- <script src="/member/auth.js"></script> -->
+		<main>
+			<nav>
+				<div class="main-title">
+					<img src="/image/homepage/ipms-title.png" alt="" />
+				</div>
+				<div class="login-logout">
+					<!-- forms[0] -->
+					<form action="/member/login.html">
+						<button>로그인</button>
+					</form>
+					<!-- forms[1] -->
+					<form action="/member/signup.html">
+						<button>회원가입</button>
+					</form>
+				</div>
+			</nav>
 
-	<nav>
-		<div class="main-title"><img src="/image/home-title.png" alt=""></div>
-		<div class="login-logout">
-			<!-- forms[0] -->
-			<form action="/member/login.html">
-				<button>로그인</button>
-			</form>
-			<!-- forms[1] -->
-			<form action="/member/signup.html">
-				<button>회원가입</button>
-			</form>
-		</div>
-	</nav>
+			<section>
+				<div class="bdt-prime-slider">
+					<div class="bdt-position-cover bdt-animation-kenburns">
+						<img
+							decoding="async"
+							src="./image/homepage/main-logo.jpg"
+							class="bdt-cover image"
+						/>
+					</div>
+					<div class="text-overlay">
+						<h2>프로젝트 업무의 모든 사항을 체계적으로 관리해주고</h2>
+						<h2>팀 구성원들이 효율적으로 협업할 수 있는 시스템입니다</h2>
+						<h2>guest계정으로 체험해보세요.</h2>
+					</div>
+				</div>
+			</section>
+		</main>
 
-	<main>
-		<div>
-			<img src="/image/main.png" alt="" />
-		</div>
-	</main>
+		<script>
+			// token 정보 읽어오기
+			let myToken = getCookie("token");
 
-	<script>
-		// token 정보 읽어오기
-		let myToken = getCookie("token");
+			// 토큰이 있으면 메인페이지로 이동
+			if (typeof myToken !== "undefined") {
+				window.location.href = "/project/project-main.html";
+			}
 
-		// 토큰이 있으면 메인페이지로 이동
-		if (typeof myToken !== "undefined") {
-			window.location.href = "/project/project-main.html";
-		}
-
-		// 쿠키값 조회
-		function getCookie(name) {
-			let matches = document.cookie.match(
-				new RegExp(
-					"(?:^|; )" +
-					name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
-					"=([^;]*)"
-				)
-			);
-			return matches ? decodeURIComponent(matches[1]) : undefined;
-		}
-	</script>
-</body>
-
+			// 쿠키값 조회
+			function getCookie(name) {
+				let matches = document.cookie.match(
+					new RegExp(
+						"(?:^|; )" +
+							name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+							"=([^;]*)"
+					)
+				);
+				return matches ? decodeURIComponent(matches[1]) : undefined;
+			}
+		</script>
+	</body>
 </html>
